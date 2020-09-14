@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DomiFoods</string>
+    <string name="deliveryman">Deliveryman</string>
+    <string name="orders">Orders</string>
+    <string name="shopping_car">Shopping Car</string>
+    <string name="menu">Menu</string>
+</resources>
