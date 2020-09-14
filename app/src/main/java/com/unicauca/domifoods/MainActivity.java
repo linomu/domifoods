@@ -1,64 +1,49 @@
 package com.unicauca.domifoods;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
 import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.fragments.DelivermanFragment;
+import com.unicauca.domifoods.fragments.OrdersFragment;
+import com.unicauca.domifoods.fragments.RestaurantFragment;
+import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    ImageView imageView_background;
-    Picasso mPicasso;
-    RecyclerView recyclerView;
-    ArrayList<Restaurant> restaurants;
+    BottomNavigationView menu_options;
+    FrameLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /*The first fragmente*/
+        RestaurantFragment restaurantFragment = new RestaurantFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, restaurantFragment).commit();
 
-        setUpTheRecyclerView();
-        mPicasso = new Picasso.Builder(getApplicationContext())
-                .indicatorsEnabled(false)
-                .build();
-
-        imageView_background = findViewById(R.id.iv_background);
-        mPicasso.load("https://ak.picdn.net/shutterstock/videos/20526580/thumb/1.jpg")
-                .fit()
-                .centerCrop()
-                .into(imageView_background);
+        /*Variables*/
+        menu_options = findViewById(R.id.menu_options_nav);
+        menu_options.setOnNavigationItemSelectedListener(this);
+        container = findViewById(R.id.frame_container);
     }
-
-    private void setUpTheRecyclerView() {
-        restaurants = new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerview_restaurants);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        fillOutTheRestaurants();
-        AdapterRestaurants adapterRestaurants= new AdapterRestaurants(restaurants);
-        recyclerView.setAdapter(adapterRestaurants);
-    }
-
-    public void  fillOutTheRestaurants(){
-        restaurants.add(new Restaurant("Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
-        restaurants.add(new Restaurant("La cosecha Parrillada","http://www.lacosechaparrillada.com/wp-content/uploads/2018/08/cropped-logo-La-Cosecha-Parrillada-250.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/fotomia_0.jpg"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/fjpino.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://0.academia-photos.com/42065034/11710805/13055952/s200_erwin_meza.vega.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/Foto.jpg"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.fietnew.site/wp-content/uploads/2018/12/CarlosArdila.jpg"));
-    }
-
 
     @Override
     protected void onStart() {
@@ -69,5 +54,29 @@ public class MainActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment selectedFragment = null;
+        switch (item.getItemId()){
+            case R.id.nav_menu:
+                selectedFragment = new RestaurantFragment();
+                break;
+            case R.id.nav_shopping_car:
+                selectedFragment = new ShoppingcarFragment();
+                Toast.makeText(this, "No implemented yet", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_order:
+                selectedFragment = new OrdersFragment();
+                Toast.makeText(this, "No implemented yet", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_deliveryman:
+                selectedFragment = new DelivermanFragment();
+                Toast.makeText(this, "It will be implemented soon", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+        return true;
     }
 }

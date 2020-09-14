@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondorojo"
+    android:gravity="center"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        app:srcCompat="@drawable/logo"
+
+        android:layout_marginBottom="15dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextUser"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="9"
+        android:drawableLeft="@drawable/arroba"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/user"
+        android:textColorHint="@color/blanco"
+        android:inputType="textPersonName"
+        android:background="@drawable/txt_btn_style1"
+        android:layout_marginBottom="15dp"
+
+        />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="9"
+        android:drawableLeft="@drawable/candado"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:textColorHint="@color/blanco"
+        android:inputType="textPassword"
+        android:background="@drawable/txt_btn_style1"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Button
+        android:id="@+id/buttonIngresar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_style2"
+        android:textColor="@drawable/txt_btn_style2"
+        android:text="@string/ingresar"
+        android:layout_weight="10"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        />
+
+    <Button
+        android:id="@+id/buttonRegistrarse"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/btn_style2"
+        android:textColor="@drawable/txt_btn_style2"
+        android:text="@string/registrarse"
+        android:layout_weight="10"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        />
+
+
+</LinearLayout>
