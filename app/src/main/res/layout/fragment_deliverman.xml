@@ -67,10 +67,10 @@
         android:background="@drawable/stylo_bode_editex"
         android:drawableLeft="@drawable/icononpmbre"
         android:lineSpacingExtra="24sp"
-        android:text="Apellido"
+        android:text="javier cuasapud"
         android:textColor="#AC9F9F"
         android:textSize="24sp"
-        tools:text="  Apellido" />
+        tools:text="  javier cuasapud" />
 
     <TextView
         android:id="@+id/textView5"
