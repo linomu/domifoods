@@ -70,7 +70,7 @@
         android:text="javier cuasapud"
         android:textColor="#AC9F9F"
         android:textSize="24sp"
-        tools:text="  javier cuasapud" />
+        tools:text="  javier cuasa" />
 
     <TextView
         android:id="@+id/textView5"
