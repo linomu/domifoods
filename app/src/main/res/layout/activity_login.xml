@@ -31,7 +31,7 @@
         android:drawableLeft="@drawable/arroba"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="@string/user"
+        android:hint="Lino Alejandro"
         android:textColorHint="@color/blanco"
         android:inputType="textPersonName"
         android:background="@drawable/txt_btn_style1"
@@ -59,7 +59,7 @@
     <Button
         android:id="@+id/buttonIngresar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/btn_style2"
         android:textColor="@drawable/txt_btn_style2"
