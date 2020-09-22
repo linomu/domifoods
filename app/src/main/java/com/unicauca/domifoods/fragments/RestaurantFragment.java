@@ -103,11 +103,24 @@ public class RestaurantFragment extends Fragment {
     public void  fillOutTheRestaurants(){
         restaurants.add(new Restaurant("Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
         restaurants.add(new Restaurant("La cosecha Parrillada","http://www.lacosechaparrillada.com/wp-content/uploads/2018/08/cropped-logo-La-Cosecha-Parrillada-250.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/fotomia_0.jpg"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/fjpino.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://0.academia-photos.com/42065034/11710805/13055952/s200_erwin_meza.vega.png"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.unicauca.edu.co/sistemas/sites/default/files/fotografia/perfiles/Foto.jpg"));
-        restaurants.add(new Restaurant("Pio Pio","https://www.fietnew.site/wp-content/uploads/2018/12/CarlosArdila.jpg"));
+        restaurants.add(new Restaurant("Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://img.pystatic.com/restaurants/domi_47712.jpg"));
+        restaurants.add(new Restaurant("Pio Pio","https://i.pinimg.com/originals/ec/c3/2b/ecc32bd5a4a7cc2465dace39a54b0561.jpg"));
+        restaurants.add(new Restaurant("Pio Pio","https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://unicentrodearmenia.com/wp-content/uploads/2018/06/juan-valdez.jpg"));
+        restaurants.add(new Restaurant("Pio Pio","https://i.ytimg.com/vi/IG8hHUvYF1w/hqdefault.jpg"));
+        restaurants.add(new Restaurant("Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
+        restaurants.add(new Restaurant("La cosecha Parrillada","http://www.lacosechaparrillada.com/wp-content/uploads/2018/08/cropped-logo-La-Cosecha-Parrillada-250.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));
+        restaurants.add(new Restaurant("Pio Pio","https://img.pystatic.com/restaurants/domi_47712.jpg"));
+
+
+
+
+
+
     }
 
 }
