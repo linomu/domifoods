@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -94,7 +95,9 @@ public class RestaurantFragment extends Fragment {
     private void setUpTheRecyclerView(View view) {
         restaurants = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerview_restaurants);
+        //LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //recyclerView.setLayoutManager(layoutManager);
         fillOutTheRestaurants();
         AdapterRestaurants adapterRestaurants= new AdapterRestaurants(restaurants);
         recyclerView.setAdapter(adapterRestaurants);

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +16,23 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.adapters.AdapterCategories;
+import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.domain.Category;
+import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.settings.CircleTransform;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class ProductsFragment extends Fragment {
+
 
     ImageView img_restaurant_icon, img_restaurant_product_bg;
     Picasso mPicasso;
+    RecyclerView recyclerView;
+    ArrayList<Category> categories;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -82,11 +91,32 @@ public class ProductsFragment extends Fragment {
         mPicasso = new Picasso.Builder(getContext()).indicatorsEnabled(false).build();
 
 
-        mPicasso.load("https://ak.picdn.net/shutterstock/videos/20526580/thumb/1.jpg")
+        /*mPicasso.load("https://ak.picdn.net/shutterstock/videos/20526580/thumb/1.jpg")
                 .fit()
                 .centerCrop()
-                .into(img_restaurant_product_bg);
+                .into(img_restaurant_product_bg);*/
         Picasso.with(getContext()).load("https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg").transform(new CircleTransform()).into(img_restaurant_icon);
+
+        setUpTheRecyclerView(view);
+
+    }
+
+    private void setUpTheRecyclerView(View view) {
+        categories = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.recycler_categories);
+        LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        fillOutTheCategories();
+        AdapterCategories adapterCategories= new AdapterCategories(categories);
+        recyclerView.setAdapter(adapterCategories);
+    }
+
+    public void  fillOutTheCategories(){
+        categories.add(new Category("Almuerzos","https://i.pinimg.com/originals/d1/e9/8c/d1e98c995db0af92a858e7ccf023b37d.jpg"));
+        categories.add(new Category("Jugos","https://cdn.kiwilimon.com/recetaimagen/30632/34260.jpg"));
+        categories.add(new Category("Postres","https://okdiario.com/img/2018/06/09/tarta-de-limon-655x368.jpg"));
+        categories.add(new Category("Café","https://www.juanvaldezcafe.com/sites/default/files/tinto_grande.jpg"));
+        categories.add(new Category("Helados","https://imagenes.20minutos.es/files/image_656_370/uploads/imagenes/2020/06/10/helado-de-stracciatella.jpeg"));
     }
 }
 

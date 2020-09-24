@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment selectedFragment = null;
         switch (item.getItemId()){
             case R.id.nav_menu:
-                //selectedFragment = new RestaurantFragment();
-                selectedFragment = new ProductsFragment();
+                selectedFragment = new RestaurantFragment();
+
                 break;
             case R.id.nav_shopping_car:
-                selectedFragment = new ShoppingcarFragment();
+                //selectedFragment = new ShoppingcarFragment();
+                selectedFragment = new ProductsFragment();
                 Toast.makeText(this, "No implemented yet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_order:
