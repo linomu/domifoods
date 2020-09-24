@@ -21,6 +21,7 @@ import com.unicauca.domifoods.adapters.AdapterRestaurants;
 import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.fragments.DelivermanFragment;
 import com.unicauca.domifoods.fragments.OrdersFragment;
+import com.unicauca.domifoods.fragments.ProductsFragment;
 import com.unicauca.domifoods.fragments.RestaurantFragment;
 import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment selectedFragment = null;
         switch (item.getItemId()){
             case R.id.nav_menu:
-                selectedFragment = new RestaurantFragment();
+                //selectedFragment = new RestaurantFragment();
+                selectedFragment = new ProductsFragment();
                 break;
             case R.id.nav_shopping_car:
                 selectedFragment = new ShoppingcarFragment();
