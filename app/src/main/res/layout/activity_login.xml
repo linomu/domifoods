@@ -60,13 +60,14 @@
         android:id="@+id/buttonIngresar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/btn_style3"
         android:textColor="@drawable/txt_btn_style3"
         android:text="@string/ingresar"
         android:layout_weight="3"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
+
 
         />
 
@@ -74,15 +75,15 @@
         android:id="@+id/buttonRegistrarse"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="100dp"
+        android:layout_weight="3"
         android:background="@drawable/btn_style3"
         android:textColor="@drawable/txt_btn_style3"
         android:text="@string/registrarse"
-        android:layout_weight="3"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
 
-        />
+         />
 
 
 </LinearLayout>

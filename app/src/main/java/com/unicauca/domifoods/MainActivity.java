@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         container = findViewById(R.id.frame_container);
     }
 
+    //Metodo para el botón registrar
+    public void Registrar(View view){
+
+        Intent registrarse = new Intent(this, registerActivity.class);
+        startActivity(registrarse);
+        finish();
+    }
     @Override
     protected void onStart() {
         super.onStart();
