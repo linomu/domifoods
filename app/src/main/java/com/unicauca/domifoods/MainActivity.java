@@ -3,29 +3,19 @@ package com.unicauca.domifoods;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.squareup.picasso.Picasso;
-import com.unicauca.domifoods.adapters.AdapterRestaurants;
-import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.fragments.DelivermanFragment;
 import com.unicauca.domifoods.fragments.OrdersFragment;
 import com.unicauca.domifoods.fragments.RestaurantFragment;
 import com.unicauca.domifoods.fragments.ShoppingcarFragment;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -49,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     //Metodo para el botón registrar
     public void Registrar(View view){
 
-        Intent registrarse = new Intent(this, registerActivity.class);
+        Intent registrarse = new Intent(this, Register1Activity.class);
         startActivity(registrarse);
         finish();
     }

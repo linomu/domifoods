@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="10dp"
-    tools:context=".registerActivity">
+    tools:context=".Register1Activity">
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -33,8 +33,8 @@
         android:id="@+id/editTextFN"
         android:layout_width="match_parent"
         android:layout_height="19dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="4"
         android:background="@drawable/sty_border_editext"
@@ -59,8 +59,8 @@
         android:id="@+id/editTextCorreo"
         android:layout_width="match_parent"
         android:layout_height="17dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="4"
         android:background="@drawable/sty_border_editext"
@@ -85,8 +85,8 @@
         android:id="@+id/editTextDir"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="4"
         android:background="@drawable/sty_border_editext"
@@ -112,8 +112,8 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="23dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
         android:layout_weight="4"
         android:background="@drawable/sty_border_editext"
@@ -139,8 +139,8 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="45dp"
         android:layout_weight="4"
         android:background="@drawable/sty_border_editext"
         android:drawableLeft="@drawable/ic_cel"
@@ -151,16 +151,15 @@
         android:textColorHint="@color/rojoClaro" />
 
     <Button
-        android:id="@+id/buttonRegistrarse"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginLeft="85dp"
-        android:layout_marginRight="85dp"
+        android:id="@+id/buttonSiguiente"
+        android:layout_width="175dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="70dp"
         android:layout_weight="3"
         android:background="@drawable/btn_style1"
-        android:text="Siguiente"
-        android:textColor="@drawable/txt_btn_style2"
+        android:text="@string/siguiente"
 
-        />
+        android:textColor="@drawable/txt_btn_style2" />
 </LinearLayout>
