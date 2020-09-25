@@ -12,6 +12,13 @@
     >
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/ic_logoregisterblue" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="290dp"
@@ -181,7 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="3"
         android:background="@drawable/btn_style1"
         android:text="Finalizar"
