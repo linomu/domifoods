@@ -170,6 +170,6 @@
         android:layout_weight="3"
         android:background="@drawable/btn_style1"
         android:text="@string/siguiente"
-
+        android:fontFamily="@font/comickings"
         android:textColor="@drawable/txt_btn_style2" />
 </LinearLayout>
