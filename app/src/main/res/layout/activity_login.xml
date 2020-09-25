@@ -12,14 +12,28 @@
 
 
     <ImageView
-        android:id="@+id/imageViewLogo"
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="20"
-        app:srcCompat="@drawable/logo"
+        android:layout_height="223dp"
+        app:srcCompat="@drawable/splash_icon" />
 
-        android:layout_marginBottom="15dp"
-        />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="411dp"
+        android:layout_height="15dp"
+        android:layout_weight="2"
+        android:background="#F61004"
+        android:fontFamily="@font/comickings"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:padding="10dp"
+        android:text="DOMIFOODS"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_background" />
 
     <EditText
         android:id="@+id/editTextUser"
@@ -27,15 +41,15 @@
         android:layout_height="0dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_weight="3"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="2"
+        android:background="@drawable/txt_btn_style1"
         android:drawableLeft="@drawable/ic_user"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Usuario"
-        android:textColorHint="@color/blanco"
         android:inputType="textPersonName"
-        android:background="@drawable/txt_btn_style1"
-        android:layout_marginBottom="15dp"
+        android:textColorHint="@color/blanco"
 
         />
 
@@ -45,16 +59,15 @@
         android:layout_height="0dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_weight="3"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="2"
+        android:background="@drawable/txt_btn_style1"
         android:drawableLeft="@drawable/ic_padlock"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Contraseña"
-        android:textColorHint="@color/blanco"
         android:inputType="textPassword"
-        android:background="@drawable/txt_btn_style1"
-        android:layout_marginBottom="20dp"
-        />
+        android:textColorHint="@color/blanco" />
 
     <Button
         android:id="@+id/buttonIngresar"
@@ -63,10 +76,10 @@
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="5dp"
+        android:layout_weight="2"
         android:background="@drawable/btn_style3"
-        android:textColor="@drawable/txt_btn_style3"
         android:text="@string/ingresar"
-        android:layout_weight="3"
+        android:textColor="@drawable/txt_btn_style3"
 
 
         />
@@ -78,12 +91,12 @@
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="100dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:background="@drawable/btn_style3"
-        android:textColor="@drawable/txt_btn_style3"
         android:text="@string/registrarse"
+        android:textColor="@drawable/txt_btn_style3"
 
-         />
+        />
 
 
 </LinearLayout>
