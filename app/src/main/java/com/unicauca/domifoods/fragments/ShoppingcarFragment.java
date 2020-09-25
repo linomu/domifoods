@@ -2,12 +2,15 @@ package com.unicauca.domifoods.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 
 /**
@@ -62,5 +65,11 @@ public class ShoppingcarFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MainActivity.whereAmI="shoppingcar";
     }
 }

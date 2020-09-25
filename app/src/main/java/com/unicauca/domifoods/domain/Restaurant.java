@@ -1,6 +1,7 @@
 package com.unicauca.domifoods.domain;
 
 public class Restaurant {
+    private int id;
     private String name, photo;
 
     public Restaurant() {
@@ -9,6 +10,21 @@ public class Restaurant {
     public Restaurant(String name, String photo) {
         this.name = name;
         this.photo = photo;
+    }
+
+    public Restaurant(int id, String name, String photo) {
+        this.id = id;
+        this.name = name;
+        this.photo = photo;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

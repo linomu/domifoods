@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterCategories;
 import com.unicauca.domifoods.adapters.AdapterProducts;
@@ -25,6 +28,7 @@ import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.settings.CircleTransform;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class ProductsFragment extends Fragment {
@@ -36,33 +40,22 @@ public class ProductsFragment extends Fragment {
     ArrayList<Category> categories;
     ArrayList<Product> products;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
+
+
+    private String  id_restaurant;
+
 
     public ProductsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProductsFragment newInstance(String param1, String param2) {
+
+    public static ProductsFragment newInstance(String id_restaurant) {
         ProductsFragment fragment = new ProductsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ID_RESTAURANT_PRODUCTS, id_restaurant);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,8 +64,7 @@ public class ProductsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            id_restaurant = getArguments().getString(ID_RESTAURANT_PRODUCTS);
         }
     }
 
@@ -83,10 +75,11 @@ public class ProductsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_products, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        MainActivity.whereAmI="Products";
         /*Variable Initialization */
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
@@ -100,11 +93,22 @@ public class ProductsFragment extends Fragment {
                 .into(img_restaurant_product_bg);*/
         Picasso.with(getContext()).load("https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg").transform(new CircleTransform()).into(img_restaurant_icon);
 
+        Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
+
         setUpTheRecyclerView(view);
         setUpTheRecyclerViewProducts(view);
 
     }
 
+
+/*
+    @Override
+    public void onPause() {
+        super.onPause();
+        MainActivity.id_restaurant_selected = id_restaurant;
+        Log.i("Lino","OnPause method executed itself and MainActivity has "+ MainActivity.id_restaurant_selected);
+    }
+*/
     private void setUpTheRecyclerView(View view) {
         categories = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_categories);
@@ -139,5 +143,7 @@ public class ProductsFragment extends Fragment {
         products.add(new Product("Ajiaco","https://images-gmi-pmc.edge-generalmills.com/4a994b44-4d9c-4552-82e4-6e9964322a78.jpg",(float)8500));
         products.add(new Product("Frijoles","https://t2.uc.ltmcdn.com/images/8/1/4/img_como_hacer_frijoles_colombianos_31418_orig.jpg", (float)7500));
     }
+
+
 }
 

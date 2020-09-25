@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -19,11 +20,24 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     /*Variables that we're gonna use*/
     ArrayList<Restaurant> restaurants;
     Picasso mPicasso;
+    RestaurantListener listener;
 
     //Constructor
     public AdapterRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
+
+    //Interface -- Declare
+    public interface RestaurantListener{
+        void restaurantSelected(int id);
+    }
+
+
+    //Bind
+    public void setListener(RestaurantListener listener) {
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -36,11 +50,21 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterRestaurants.holderRestaurants holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterRestaurants.holderRestaurants holder, final int position) {
 
         mPicasso.load(restaurants.get(position).getPhoto())
                 .fit()
                 .into(holder.imageView);
+        //Trigger
+        holder.cardView_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener!=null){
+                    listener.restaurantSelected(restaurants.get(position).getId());
+                }
+            }
+        });
+
     }
 
     @Override
@@ -50,9 +74,11 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
 
     public class holderRestaurants extends RecyclerView.ViewHolder {
         ImageView imageView;
+        CardView cardView_restaurant;
         public holderRestaurants(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imv_restaurant);
+            cardView_restaurant = itemView.findViewById(R.id.cardview_restaurant);
         }
     }
 }

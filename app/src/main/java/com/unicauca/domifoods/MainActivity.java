@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     BottomNavigationView menu_options;
     FrameLayout container;
+    static public String whereAmI = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +43,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         /*The first fragmente*/
         RestaurantFragment restaurantFragment = new RestaurantFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, restaurantFragment).commit();
-
         /*Variables*/
         menu_options = findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
         container = findViewById(R.id.frame_container);
     }
 
+    /*
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("id_restaurant_selected",id_restaurant_selected);
+        Log.i("Lino","OnSaveInstanceStated saves "+id_restaurant_selected);
+    }
+    */
     @Override
     protected void onStart() {
         super.onStart();
@@ -67,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.nav_shopping_car:
                 //selectedFragment = new ShoppingcarFragment();
-                selectedFragment = new ProductsFragment();
+                selectedFragment = new ShoppingcarFragment();
                 Toast.makeText(this, "No implemented yet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_order:
@@ -79,7 +90,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Toast.makeText(this, "It will be implemented soon", Toast.LENGTH_SHORT).show();
                 break;
         }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if(whereAmI.equals("Products")){
+            Log.i("Lino","BackPress and I'm in products");
+            /*Fragment selectedFragment = new RestaurantFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+            */
+
+
+        }else{
+            Log.i("Lino","BackPress but  I'm not in products");
+
+        }
+
     }
 }
