@@ -27,7 +27,9 @@
         android:scrollbarThumbHorizontal="@color/negro"
         android:scrollbarThumbVertical="@color/negro"
         android:text="Nombre"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextFN"
@@ -53,7 +55,9 @@
         android:layout_height="29dp"
         android:layout_weight="1"
         android:text="Apellido"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextCorreo"
@@ -79,7 +83,9 @@
         android:layout_height="31dp"
         android:layout_weight="1"
         android:text="Tipo de Documento"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextDir"
@@ -105,7 +111,9 @@
         android:layout_height="32dp"
         android:layout_weight="1"
         android:text="Documento"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
 
     <EditText
@@ -132,7 +140,9 @@
         android:layout_height="33dp"
         android:layout_weight="1"
         android:text="Celular"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextConfPassword"

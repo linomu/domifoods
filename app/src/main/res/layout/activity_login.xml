@@ -47,9 +47,11 @@
         android:drawableLeft="@drawable/ic_user"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Usuario"
+        android:hint="User"
         android:inputType="textPersonName"
-        android:textColorHint="@color/blanco"
+        android:textColorHint="#F4CDCD"
+
+        android:fontFamily="@font/comickings"
 
         />
 
@@ -65,9 +67,12 @@
         android:drawableLeft="@drawable/ic_padlock"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Contraseña"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="@color/blanco" />
+        android:textColorHint="#F4CDCD"
+
+        android:fontFamily="@font/comickings"
+        />
 
     <Button
         android:id="@+id/buttonIngresar"
@@ -80,6 +85,8 @@
         android:background="@drawable/btn_style3"
         android:text="@string/ingresar"
         android:textColor="@drawable/txt_btn_style3"
+
+        android:fontFamily="@font/comickings"
 
 
         />
@@ -96,6 +103,7 @@
         android:text="@string/registrarse"
         android:textColor="@drawable/txt_btn_style3"
 
+        android:fontFamily="@font/comickings"
         />
 
 

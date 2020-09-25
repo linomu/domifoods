@@ -27,7 +27,9 @@
         android:scrollbarThumbHorizontal="@color/negro"
         android:scrollbarThumbVertical="@color/negro"
         android:text="Fecha de Nacimiento"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextFN"
@@ -53,7 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Correo"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextCorreo"
@@ -79,7 +83,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Dirección"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextDir"
@@ -104,7 +110,9 @@
         android:layout_width="293dp"
         android:layout_height="30dp"
         android:text="Genero"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <RadioGroup
         android:layout_width="302dp"
@@ -118,6 +126,7 @@
             android:layout_marginRight="16dp"
             android:checked="true"
             android:text="Masculino"
+            android:fontFamily="@font/comickings"
             android:buttonTint="@color/rojo"
             />
 
@@ -127,6 +136,7 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="Femenino"
+            android:fontFamily="@font/comickings"
             android:buttonTint="@color/rojo"
             />
     </RadioGroup>
@@ -137,7 +147,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Contraseña"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
 
     <EditText
@@ -164,7 +176,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Confirmar Contraseña"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:fontFamily="@font/comickings"
+        />
 
     <EditText
         android:id="@+id/editTextConfPassword"
