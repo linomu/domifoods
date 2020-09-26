@@ -25,36 +25,33 @@
         android:id="@+id/editTextUser"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_weight="9"
-        android:drawableLeft=""
+        android:background="@drawable/txt_btn_style1"
+        android:drawableLeft="@drawable/arroba"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Lino Alejandro"
-        android:textColorHint="@color/blanco"
+        android:hint="Usuario"
         android:inputType="textPersonName"
-        android:background="@drawable/txt_btn_style1"
-        android:layout_marginBottom="15dp"
-
-        />
+        android:textColorHint="@color/blanco" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_weight="9"
-        android:drawableLeft=""
+        android:background="@drawable/txt_btn_style1"
+        android:drawableLeft="@drawable/candado"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="@string/password"
-        android:textColorHint="@color/blanco"
         android:inputType="textPassword"
-        android:background="@drawable/txt_btn_style1"
-        android:layout_marginBottom="20dp"
-        />
+        android:textColorHint="@color/blanco" />
 
     <Button
         android:id="@+id/buttonIngresar"
