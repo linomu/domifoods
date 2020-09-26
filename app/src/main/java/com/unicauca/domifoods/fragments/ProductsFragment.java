@@ -5,17 +5,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
@@ -31,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class ProductsFragment extends Fragment {
+public class ProductsFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 
     ImageView img_restaurant_icon, img_restaurant_product_bg;
@@ -39,7 +44,8 @@ public class ProductsFragment extends Fragment {
     RecyclerView recyclerView, recyclerView_products;
     ArrayList<Category> categories;
     ArrayList<Product> products;
-
+    NavController navController;
+    BottomNavigationView menu_options;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
@@ -72,6 +78,7 @@ public class ProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_products, container, false);
     }
 
@@ -79,6 +86,13 @@ public class ProductsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+        navController = Navigation.findNavController(view);
+        menu_options = view.findViewById(R.id.menu_options_nav);
+        menu_options.setOnNavigationItemSelectedListener(this);
+
         MainActivity.whereAmI="Products";
         /*Variable Initialization */
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
@@ -144,6 +158,36 @@ public class ProductsFragment extends Fragment {
         products.add(new Product("Frijoles","https://t2.uc.ltmcdn.com/images/8/1/4/img_como_hacer_frijoles_colombianos_31418_orig.jpg", (float)7500));
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case R.id.nav_menu:
+                navController.navigate(R.id.action_productsFragment_to_restaurantFragment);
+                break;
+            case R.id.nav_shopping_car:
+                navController.navigate(R.id.action_productsFragment_to_shoppingcarFragment);
+                break;
+            case R.id.nav_order:
+                navController.navigate(R.id.action_productsFragment_to_ordersFragment);
+                break;
+            case R.id.nav_deliveryman:
+                navController.navigate(R.id.action_productsFragment_to_delivermanFragment);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Menu menu = menu_options.getMenu();
+        MenuItem item = menu.getItem(0);
+        item.setChecked(true);
+        Log.e("Lino", "OnStart ProdutcsFragment");
+    }
 
 }
 

@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         /*The first fragmente*/
         RestaurantFragment restaurantFragment = new RestaurantFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, restaurantFragment).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, restaurantFragment).commit();
         /*Variables*/
-        menu_options = findViewById(R.id.menu_options_nav);
-        menu_options.setOnNavigationItemSelectedListener(this);
-        container = findViewById(R.id.frame_container);
+        //menu_options = findViewById(R.id.menu_options_nav);
+       // menu_options.setOnNavigationItemSelectedListener(this);
+        //container = findViewById(R.id.frame_container);
     }
 
     /*
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+       // getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
         return true;
     }
 
