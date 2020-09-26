@@ -1,30 +1,28 @@
 package com.unicauca.domifoods;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.squareup.picasso.Picasso;
-import com.unicauca.domifoods.adapters.AdapterRestaurants;
-import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.fragments.AlertFragment;
 import com.unicauca.domifoods.fragments.DelivermanFragment;
 import com.unicauca.domifoods.fragments.OrdersFragment;
 import com.unicauca.domifoods.fragments.RestaurantFragment;
 import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -35,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         /*The first fragmente*/
         RestaurantFragment restaurantFragment = new RestaurantFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, restaurantFragment).commit();
@@ -43,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         menu_options = findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
         container = findViewById(R.id.frame_container);
+
+
     }
 
     @Override
@@ -72,11 +73,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Toast.makeText(this, "No implemented yet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_deliveryman:
+
                 selectedFragment = new DelivermanFragment();
+
                 Toast.makeText(this, "It will be implemented soon", Toast.LENGTH_SHORT).show();
+
+
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
         return true;
+    }
+
+    public void onBackPressed() {
+        super.onStart();
+        this.getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==event.KEYCODE_BACK){
+          //  AlertDialog.Builder builder = new AlertDialog.Builder(Context:this);
+            //builder.setMessage("desea salir de domifoots")
+              //      .setPositiveButton(Text:"si")
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
