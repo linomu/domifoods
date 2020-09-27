@@ -101,7 +101,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
 
 
-        MainActivity.whereAmI = "restaurants";
+
         setUpTheRecyclerView(view);
         mPicasso = new Picasso.Builder(getContext())
                 .indicatorsEnabled(false)
