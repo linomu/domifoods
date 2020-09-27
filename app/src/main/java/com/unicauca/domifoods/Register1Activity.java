@@ -7,21 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonIngresar;
-    Button buttonRegistrarse;
+public class Register1Activity extends AppCompatActivity implements View.OnClickListener {
+
+    Button buttonSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register1);
+        buttonSiguiente = findViewById(R.id.buttonSiguiente);
+        buttonSiguiente.setOnClickListener(this);
 
-        buttonIngresar = findViewById(R.id.buttonIngresar);
-        buttonIngresar.setOnClickListener(this);
-
-        buttonRegistrarse = findViewById(R.id.buttonRegistrarse);
-        buttonRegistrarse.setOnClickListener(this);
     }
 
     @Override
@@ -38,20 +35,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.buttonIngresar:
-                Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+            case R.id.buttonSiguiente:
+                Intent intent1 = new Intent(Register1Activity.this, Register2Activity.class);
                 startActivity(intent1);
                 break;
-            case R.id.buttonRegistrarse:
-                Intent intent2 = new Intent(LoginActivity.this, Register1Activity.class);
-                startActivity(intent2);
-                break;
-
 
         }
     }
-
-
-
-
 }
