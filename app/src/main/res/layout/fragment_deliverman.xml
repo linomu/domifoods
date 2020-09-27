@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id"
@@ -33,7 +34,7 @@
         android:drawableBottom="@drawable/bg_color_splash"
         android:editable="true"
         android:fontFamily="sans-serif"
-        android:hint="   Numero de cedula"
+        android:hint="   Numero de  vehiculo"
         android:hyphenationFrequency="none"
         android:textColor="@color/negro"
         android:textColorHighlight="@color/negro"
@@ -87,7 +88,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="250dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="Tipo de vehiculo"
+        android:text="Identificacion"
         android:textColor="@color/negro"
         android:textSize="16sp"
         android:typeface="serif"

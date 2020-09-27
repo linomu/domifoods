@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/restaurantFragment">
+
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.unicauca.domifoods.fragments.RestaurantFragment"
+        android:label="RestaurantFragment"
+        tools:layout="@layout/fragment_restaurant">
+        <action
+            android:id="@+id/action_restaurantFragment_to_delivermanFragment"
+            app:destination="@id/delivermanFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_shoppingcarFragment"
+            app:destination="@id/shoppingcarFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/delivermanFragment"
+        android:name="com.unicauca.domifoods.fragments.DelivermanFragment"
+        android:label="DelivermanFragment"
+        tools:layout="@layout/fragment_deliverman"/>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.unicauca.domifoods.fragments.ProductsFragment"
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_products">
+        <action
+            android:id="@+id/action_productsFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_shoppingcarFragment"
+            app:destination="@id/shoppingcarFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_delivermanFragment"
+            app:destination="@id/delivermanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingcarFragment"
+        android:name="com.unicauca.domifoods.fragments.ShoppingcarFragment"
+        android:label="fragment_shoppingcar"
+        tools:layout="@layout/fragment_shoppingcar" >
+        <action
+            android:id="@+id/action_shoppingcarFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+        <action
+            android:id="@+id/action_shoppingcarFragment_to_delivermanFragment"
+            app:destination="@id/delivermanFragment" />
+        <action
+            android:id="@+id/action_shoppingcarFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.unicauca.domifoods.fragments.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_shoppingcarFragment"
+            app:destination="@id/shoppingcarFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_delivermanFragment"
+            app:destination="@id/delivermanFragment" />
+    </fragment>
+</navigation>

@@ -2,20 +2,29 @@ package com.unicauca.domifoods.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ShoppingcarFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ShoppingcarFragment extends Fragment {
+
+public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    BottomNavigationView menu_options;
+    NavController navController;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +71,47 @@ public class ShoppingcarFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
+
+        menu_options = view.findViewById(R.id.menu_options_nav);
+        menu_options.setOnNavigationItemSelectedListener(this);
+        Menu menu = menu_options.getMenu();
+        MenuItem item = menu.getItem(1);
+        item.setChecked(true);
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_menu:
+                navController.navigate(R.id.action_shoppingcarFragment_to_restaurantFragment);
+                break;
+            case R.id.nav_shopping_car:
+                Toast.makeText(getContext(), "Here we are :)", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_order:
+                navController.navigate(R.id.action_shoppingcarFragment_to_ordersFragment);
+                break;
+            case R.id.nav_deliveryman:
+                navController.navigate(R.id.action_shoppingcarFragment_to_delivermanFragment);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Menu menu = menu_options.getMenu();
+        MenuItem item = menu.getItem(1);
+        item.setChecked(true);
+        Log.e("Lino", "OnStart ShoppingFragment");
     }
 }

@@ -10,5 +10,10 @@
     <string name="user">Celular</string>
     <string name="password">Contraseña</string>
     <string name="ingresar">Ingresar</string>
+
     <string name="registrarse">Registrarse</string>
+    <string name="siguiente">Siguiente</string>
+    <!-- <string name="tv1">prueba</string> -->
+
+
 </resources>

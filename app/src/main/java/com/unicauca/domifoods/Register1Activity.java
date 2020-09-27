@@ -1,34 +1,25 @@
 package com.unicauca.domifoods;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.unicauca.domifoods.fragments.DelivermanFragment;
-import com.unicauca.domifoods.fragments.OrdersFragment;
-import com.unicauca.domifoods.fragments.RestaurantFragment;
-import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class Register1Activity extends AppCompatActivity implements View.OnClickListener {
 
-    BottomNavigationView menu_options;
-    FrameLayout container;
+    Button buttonSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register1);
+        buttonSiguiente = findViewById(R.id.buttonSiguiente);
+        buttonSiguiente.setOnClickListener(this);
 
     }
-
 
     @Override
     protected void onStart() {
@@ -41,5 +32,14 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.buttonSiguiente:
+                Intent intent1 = new Intent(Register1Activity.this, Register2Activity.class);
+                startActivity(intent1);
+                break;
 
+        }
+    }
 }
