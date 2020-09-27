@@ -94,14 +94,9 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
-
-
-
-
         setUpTheRecyclerView(view);
         mPicasso = new Picasso.Builder(getContext())
                 .indicatorsEnabled(false)
