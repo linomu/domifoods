@@ -93,7 +93,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
 
-        MainActivity.whereAmI="Products";
+
         /*Variable Initialization */
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
