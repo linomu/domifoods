@@ -17,24 +17,25 @@
         android:layout_width="match_parent"
         android:layout_height="113dp"
         android:layout_weight="1"
+        android:layout_marginBottom="0dp"
         app:srcCompat="@drawable/ic_logoregisterblue" />
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_width="264dp"
+        android:layout_height="30dp"
         android:layout_weight="1"
         android:scrollbarThumbHorizontal="@color/negro"
         android:scrollbarThumbVertical="@color/negro"
         android:text="Fecha de Nacimiento"
         android:textColor="#000000"
-        android:fontFamily="@font/comickings"
+
         />
 
     <EditText
         android:id="@+id/editTextFN"
-        android:layout_width="297dp"
-        android:layout_height="38dp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
@@ -51,18 +52,18 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="275dp"
-        android:layout_height="wrap_content"
+        android:layout_width="257dp"
+        android:layout_height="34dp"
         android:layout_weight="1"
         android:text="Correo"
         android:textColor="#000000"
-        android:fontFamily="@font/comickings"
+
         />
 
     <EditText
         android:id="@+id/editTextCorreo"
-        android:layout_width="297dp"
-        android:layout_height="38dp"
+        android:layout_width="261dp"
+        android:layout_height="76dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
@@ -79,21 +80,21 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="278dp"
-        android:layout_height="wrap_content"
+        android:layout_width="258dp"
+        android:layout_height="33dp"
         android:layout_weight="1"
         android:text="Dirección"
         android:textColor="#000000"
-        android:fontFamily="@font/comickings"
+
         />
 
     <EditText
         android:id="@+id/editTextDir"
-        android:layout_width="292dp"
-        android:layout_height="42dp"
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="3"
         android:background="@drawable/sty_border_editext"
         android:drawableLeft="@drawable/ic_home"
@@ -111,12 +112,13 @@
         android:layout_height="30dp"
         android:text="Genero"
         android:textColor="#000000"
-        android:fontFamily="@font/comickings"
+
         />
 
     <RadioGroup
         android:layout_width="302dp"
         android:layout_height="52dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <RadioButton
@@ -126,7 +128,7 @@
             android:layout_marginRight="16dp"
             android:checked="true"
             android:text="Masculino"
-            android:fontFamily="@font/comickings"
+
             android:buttonTint="@color/rojo"
             />
 
@@ -136,26 +138,26 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="Femenino"
-            android:fontFamily="@font/comickings"
+
             android:buttonTint="@color/rojo"
             />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_weight="1"
         android:text="Contraseña"
         android:textColor="#000000"
-        android:fontFamily="@font/comickings"
+
         />
 
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="293dp"
-        android:layout_height="41dp"
+        android:layout_width="254dp"
+        android:layout_height="68dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
@@ -172,21 +174,20 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="286dp"
-        android:layout_height="wrap_content"
+        android:layout_width="247dp"
+        android:layout_height="30dp"
         android:layout_weight="1"
+
         android:text="Confirmar Contraseña"
-        android:textColor="#000000"
-        android:fontFamily="@font/comickings"
-        />
+        android:textColor="#000000" />
 
     <EditText
         android:id="@+id/editTextConfPassword"
-        android:layout_width="295dp"
-        android:layout_height="36dp"
+        android:layout_width="255dp"
+        android:layout_height="66dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="3"
         android:background="@drawable/sty_border_editext"
         android:drawableLeft="@drawable/ic_padlock"
@@ -199,14 +200,14 @@
     <Button
         android:id="@+id/buttonRegistrarse"
         android:layout_width="149dp"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="20dp"
         android:layout_weight="3"
         android:background="@drawable/btn_style1"
+
         android:text="Finalizar"
-        android:fontFamily="@font/comickings"
         android:textColor="@drawable/txt_btn_style2"
 
         />
