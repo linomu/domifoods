@@ -33,7 +33,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextFN"
+        android:id="@+id/etPlannedDate"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="45dp"
@@ -44,10 +44,14 @@
         android:drawableLeft="@drawable/ic_calendar"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="DD / MM / AA"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/rojoClaro"
+        android:hint="@string/report_planned_date"
+        android:inputType="date"
 
+        android:focusable="false"
+        android:clickable="true"
+        android:maxLines="1"
+
+        android:textColorHint="@color/rojoClaro"
         />
 
     <TextView
