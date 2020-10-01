@@ -11,6 +11,7 @@
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,6 @@
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="140dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/ic_deliveryman" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_restaurant_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="DOMIFOODS"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_restaurants"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#FF0F03"
@@ -58,12 +58,12 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_background" />
 
     <ImageView
-        android:clickable="true"
         android:id="@+id/imageView4"
         android:layout_width="66dp"
         android:layout_height="55dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_back" />
@@ -71,25 +71,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_restaurants"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="203dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
 
         app:layout_constraintBottom_toTopOf="@+id/menu_options_nav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_restaurants" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_options_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation"
-        tools:layout_editor_absoluteX="-20dp">
+        tools:layout_editor_absoluteX="-30dp">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

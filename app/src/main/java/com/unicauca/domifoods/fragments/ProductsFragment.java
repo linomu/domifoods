@@ -144,6 +144,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
 
     public void  fillOutTheCategories(){
+        //Servicio web
         categories.add(new Category("Almuerzos","https://i.pinimg.com/originals/d1/e9/8c/d1e98c995db0af92a858e7ccf023b37d.jpg"));
         categories.add(new Category("Jugos","https://cdn.kiwilimon.com/recetaimagen/30632/34260.jpg"));
         categories.add(new Category("Postres","https://okdiario.com/img/2018/06/09/tarta-de-limon-655x368.jpg"));
@@ -151,6 +152,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         categories.add(new Category("Helados","https://imagenes.20minutos.es/files/image_656_370/uploads/imagenes/2020/06/10/helado-de-stracciatella.jpeg"));
     }
     public void  fillOutTheProducts(){
+
         products.add(new Product("Arroz con Pollo","https://s1.eestatic.com/2020/01/28/cocinillas/recetas/pasta-y-arroz/Arroz-Pollo-Pasta_y_arroz_463216136_143694761_1024x576.jpg", (float) 15000));
         products.add(new Product("Caldo de Res","https://www.deliciosi.com/images/100/150/caldo-de-res.jpg", (float)12000));
         products.add(new Product("Sancocho","https://t1.rg.ltmcdn.com/es/images/1/8/1/img_sancocho_de_gallina_o_pollo_12181_orig.jpg", (float)10000));
