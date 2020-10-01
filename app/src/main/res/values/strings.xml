@@ -14,7 +14,18 @@
     <string name="registrarse">Registrarse</string>
     <string name="siguiente">Siguiente</string>
     <string name="report_planned_date">DD/MM/AA</string>
+    <string name="email_user">Correo</string>
+    <string name="user_name">Nombre</string>
+    <string name="date_birth">Fecha de Nacimiento</string>
+    <string name="lastname_user">Apellido</string>
+    <string name="id_user">Número de Documento</string>
+    <string name="phone_user">Número de Celular</string>
+    <string name="address_user">Dirección</string>
+    <string name="password_again">Confirmar Contraseña</string>
     <!-- <string name="tv1">prueba</string> -->
-
+    <string-array name="kind_of_id">
+        <item>Cédula de Ciudadanía</item>
+        <item>Tarjeta de Identidad</item>
+    </string-array>
 
 </resources>

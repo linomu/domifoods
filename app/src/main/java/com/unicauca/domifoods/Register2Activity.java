@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.DatePicker;
@@ -14,7 +15,7 @@ import java.util.Locale;
 
 public class Register2Activity extends AppCompatActivity {
 
-    EditText etPlannedDate;
+    Button etPlannedDate;
     Calendar C = Calendar.getInstance();
     //private int nYarIni, nMonthIni, nDayIni, sYearIni, sMonthIni, sDayUni;
 
