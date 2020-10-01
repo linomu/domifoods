@@ -127,8 +127,11 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
             @Override
             public void restaurantSelected(int id) {
+
+                //ese id es el codigo del restaurante
                 Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
                // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                //como pasar datos de un destiono a otro.. usando el navcontroler
                 navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
             }
         });
@@ -148,6 +151,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     }
 
     public void  fillOutTheRestaurants(){
+        //Servicio web
+
         restaurants.add(new Restaurant(1,"Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
         restaurants.add(new Restaurant(3,"Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
         restaurants.add(new Restaurant(4,"Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));

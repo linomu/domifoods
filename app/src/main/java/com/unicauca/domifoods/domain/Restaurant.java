@@ -3,6 +3,7 @@ package com.unicauca.domifoods.domain;
 public class Restaurant {
     private int id;
     private String name, photo;
+    //Agregar los demás campos que vengan desde la tabla
 
     public Restaurant() {
     }
