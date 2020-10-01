@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    android:background="@color/colorPrimary"
+    android:background="@drawable/fondorojo"
     android:gravity="center"
     android:padding="10dp"
     tools:context=".MainActivity">
@@ -14,16 +13,14 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="223dp"
-        app:srcCompat="@drawable/ic_deliveryman"
-
-        />
+        android:layout_width="441dp"
+        android:layout_height="111dp"
+        app:srcCompat="@drawable/ic_deliveryman" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="411dp"
-        android:layout_height="15dp"
+        android:layout_width="439dp"
+        android:layout_height="128dp"
         android:layout_weight="2"
         android:background="#F61004"
         android:fontFamily="@font/comickings"
@@ -40,8 +37,8 @@
 
     <EditText
         android:id="@+id/editTextUser"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="247dp"
+        android:layout_height="95dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="15dp"
@@ -55,16 +52,15 @@
         android:textColorHint="#F4CDCD"
 
 
-
         />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="240dp"
+        android:layout_height="97dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_weight="2"
         android:background="@drawable/txt_btn_style1"
         android:drawableLeft="@drawable/ic_padlock"
@@ -79,41 +75,33 @@
 
     <Button
         android:id="@+id/buttonIngresar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="192dp"
+        android:layout_height="73dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="2"
         android:background="@drawable/btn_style3"
         android:text="@string/ingresar"
         android:textColor="@drawable/txt_btn_style3"
 
 
-
-
         />
 
     <Button
         android:id="@+id/buttonRegistrarse"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="192dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="50dp"
         android:layout_weight="2"
         android:background="@drawable/btn_style3"
         android:text="@string/registrarse"
         android:textColor="@drawable/txt_btn_style3"
 
+
         />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="752dp"
-        android:layout_height="123dp"
-
-        android:layout_gravity="bottom|center|start|center_horizontal"
-        android:background="@drawable/ic_wave" />
 
 </LinearLayout>
