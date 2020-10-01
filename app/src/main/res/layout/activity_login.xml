@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondorojo"
+
+    android:background="@color/colorPrimary"
     android:gravity="center"
     android:padding="10dp"
     tools:context=".MainActivity">
@@ -15,7 +16,9 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="223dp"
-        app:srcCompat="@drawable/ic_deliveryman" />
+        app:srcCompat="@drawable/ic_deliveryman"
+
+        />
 
     <TextView
         android:id="@+id/textView6"
@@ -97,14 +100,20 @@
         android:layout_height="0dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="0dp"
         android:layout_weight="2"
         android:background="@drawable/btn_style3"
         android:text="@string/registrarse"
         android:textColor="@drawable/txt_btn_style3"
 
-
         />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="752dp"
+        android:layout_height="123dp"
+
+        android:layout_gravity="bottom|center|start|center_horizontal"
+        android:background="@drawable/ic_wave" />
 
 </LinearLayout>
