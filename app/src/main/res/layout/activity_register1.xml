@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ic_logoregister" />
 
     <Button
-        android:id="@+id/buttonSiguiente"
+        android:id="@+id/btn_next_register"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSiguiente"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
@@ -59,7 +59,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/editTextFN"
+                android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -88,7 +88,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/editTextCorreo"
+                android:id="@+id/et_user_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -118,7 +118,7 @@
                 />
 
             <Spinner
-                android:id="@+id/editTextDir"
+                android:id="@+id/sp_kind_of_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -150,7 +150,7 @@
 
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/et_user_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -181,7 +181,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/editTextConfPassword"
+                android:id="@+id/et_user_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"

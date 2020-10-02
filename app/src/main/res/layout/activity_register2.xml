@@ -21,7 +21,7 @@
 
 
     <Button
-        android:id="@+id/buttonRegistrarse"
+        android:id="@+id/btn_register"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -61,7 +61,7 @@
                 android:textColor="#000000" />
 
             <Button
-                android:id="@+id/etPlannedDate"
+                android:id="@+id/btn_user_birth_day"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -92,7 +92,7 @@
                 />
 
             <EditText
-                android:id="@+id/editTextCorreo"
+                android:id="@+id/et_user_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -123,7 +123,7 @@
                 />
 
             <EditText
-                android:id="@+id/editTextDir"
+                android:id="@+id/et_user_address"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -156,6 +156,7 @@
                 />
 
             <RadioGroup
+                android:id="@+id/radio_gender"
                 android:layout_width="302dp"
                 android:layout_height="52dp"
                 android:layout_marginBottom="5dp"
@@ -163,21 +164,21 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radio_masculino"
+                    android:id="@+id/radio_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
                     android:buttonTint="@color/rojo"
                     android:checked="true"
-                    android:text="Masculino" />
+                    android:text="@string/radio_male" />
 
                 <RadioButton
-                    android:id="@+id/radio_femenino"
+                    android:id="@+id/radio_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/rojo"
                     android:checked="false"
-                    android:text="Femenino" />
+                    android:text="@string/radio_female" />
             </RadioGroup>
 
             <TextView
@@ -196,7 +197,7 @@
 
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/et_user_password1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -227,7 +228,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/editTextConfPassword"
+                android:id="@+id/et_user_password2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
