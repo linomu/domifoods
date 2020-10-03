@@ -179,6 +179,45 @@
                     android:checked="false"
                     android:text="@string/radio_female" />
             </RadioGroup>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@android:color/black"></View>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/nimbusbol"
+                android:gravity="center|center_vertical"
+                android:scrollbarThumbHorizontal="@color/negro"
+                android:scrollbarThumbVertical="@color/negro"
+                android:text="@string/userapp"
+                android:textColor="#000000"
+
+                />
+
+
+            <EditText
+                android:id="@+id/et_userapp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/sty_border_editext"
+                android:drawableLeft="@drawable/ic_user3"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:fontFamily="@font/nimbusreg"
+                android:hint="@string/userapp"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/rojoClaro"
+
+
+                />
 
             <TextView
                 android:id="@+id/textView4"
@@ -213,6 +252,8 @@
 
 
                 />
+
+
 
             <TextView
                 android:id="@+id/textView5"

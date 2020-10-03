@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.unicauca.domifoods.interfaces.Listener;
+
 
 public class Register1Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,13 +25,26 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
     private Spinner sp_kind_of_id_user;
     private String user_name, user_last_name, user_id, phone, kind_of_id;
 
+    public Register2Activity oyente = new Register2Activity();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
         /*In the next method, I make the initialization of variables*/
         initializationVariables();
+
+        oyente.setOjbListener(new Listener() {
+            @Override
+            public void cleanForms() {
+                et_user_name.setText("");
+            }
+        });
     }
+
+
+
 
     private void initializationVariables() {
         et_user_name = findViewById(R.id.et_user_name);
@@ -82,27 +97,27 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
         phone = et_phone_user.getText().toString().trim();
         kind_of_id = sp_kind_of_id_user.getSelectedItem().toString().trim();
 
-        if(user_name.isEmpty()){
+        if (user_name.isEmpty()) {
             et_user_name.setError(getResources().getString(R.string.msg_required_failed));
             et_user_name.requestFocus();
             isTheFormComplete = false;
         }
-        if(user_last_name.isEmpty()){
+        if (user_last_name.isEmpty()) {
             et_user_lastname.setError(getResources().getString(R.string.msg_required_failed));
             et_user_lastname.requestFocus();
             isTheFormComplete = false;
         }
-        if(user_id.isEmpty()){
+        if (user_id.isEmpty()) {
             et_id_user.setError(getResources().getString(R.string.msg_required_failed));
             et_id_user.requestFocus();
             isTheFormComplete = false;
         }
-        if(phone.isEmpty()){
+        if (phone.isEmpty()) {
             et_phone_user.setError(getResources().getString(R.string.msg_required_failed));
             et_phone_user.requestFocus();
             isTheFormComplete = false;
         }
 
-     return isTheFormComplete;
+        return isTheFormComplete;
     }
 }
