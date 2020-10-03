@@ -57,7 +57,7 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.btn_next_register:
                 //In the next method, I'll validate that the form is filled out
-                if (isTheFormComplete()==false) {
+                if (isTheFormComplete()) {
                     Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
                     //Create the bundle
                     Bundle bundle = new Bundle();
