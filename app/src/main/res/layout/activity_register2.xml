@@ -38,7 +38,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegistrarse"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -70,11 +70,11 @@
                 android:background="@drawable/sty_border_editext"
                 android:drawableLeft="@drawable/ic_calendar"
                 android:drawablePadding="5dp"
-                android:textAlignment="textStart"
                 android:ems="10"
                 android:fontFamily="@font/nimbusreg"
                 android:hint="@string/report_planned_date"
                 android:inputType="date"
+                android:textAlignment="textStart"
                 android:textColorHint="@color/rojoClaro" />
 
             <TextView
@@ -105,8 +105,7 @@
                 android:fontFamily="@font/nimbusreg"
                 android:hint="@string/email_user"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/rojoClaro"
-                />
+                android:textColorHint="@color/rojoClaro" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -159,8 +158,8 @@
                 android:id="@+id/radio_gender"
                 android:layout_width="302dp"
                 android:layout_height="52dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
                 <RadioButton

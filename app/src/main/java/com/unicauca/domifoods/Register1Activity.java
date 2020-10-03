@@ -83,22 +83,22 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
         kind_of_id = sp_kind_of_id_user.getSelectedItem().toString().trim();
 
         if(user_name.isEmpty()){
-            et_user_name.setError(getResources().getString(R.string.msg_required_filed));
+            et_user_name.setError(getResources().getString(R.string.msg_required_failed));
             et_user_name.requestFocus();
             isTheFormComplete = false;
         }
         if(user_last_name.isEmpty()){
-            et_user_lastname.setError(getResources().getString(R.string.msg_required_filed));
+            et_user_lastname.setError(getResources().getString(R.string.msg_required_failed));
             et_user_lastname.requestFocus();
             isTheFormComplete = false;
         }
         if(user_id.isEmpty()){
-            et_id_user.setError(getResources().getString(R.string.msg_required_filed));
+            et_id_user.setError(getResources().getString(R.string.msg_required_failed));
             et_id_user.requestFocus();
             isTheFormComplete = false;
         }
         if(phone.isEmpty()){
-            et_phone_user.setError(getResources().getString(R.string.msg_required_filed));
+            et_phone_user.setError(getResources().getString(R.string.msg_required_failed));
             et_phone_user.requestFocus();
             isTheFormComplete = false;
         }
