@@ -32,4 +32,10 @@ public interface ApiUser {
     @POST("accounts/api/user_client_register/")
     Call<User_client_register>user_client_register(@Body User_client_register user_restaurant_register);
 
+
+    @FormUrlEncoded
+    @POST("accounts/api/login/")
+    Call<ResponseBody>login( @Field("username") String username, @Field("password") String password);
+
+
 }

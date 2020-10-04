@@ -37,4 +37,13 @@ public class Create_user_response {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "Create_user_response{" +
+                "answer='" + answer + '\'' +
+                ", id='" + id + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

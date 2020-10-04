@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +38,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
 
     Listener ojbListener;
+
+    public String id, information;
 
     public void setOjbListener(Listener ojbListener) {
         this.ojbListener = ojbListener;
@@ -51,7 +55,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private ProgressDialog progDailog;
 
 
-    public Create_user_response create_user_response = new Create_user_response();
+    public Create_user_response create_user_response;
     public String message_from_server;
 
     Calendar C = Calendar.getInstance();
@@ -166,8 +170,86 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
             case R.id.btn_register:
                 if (isTheFormComplete()) {
                     startProgressDialog();
-                    callWebServiceUserRegister();
                     //goodMethod();
+                    //callWebServiceUserRegister();
+                    String id_aux="";
+                    WebServiceUserRegister obj = new WebServiceUserRegister();
+                    try {
+                        create_user_response = new Create_user_response();
+                        create_user_response = obj.execute().get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {e.printStackTrace();}
+
+                    if(create_user_response !=null){
+                        //Toast.makeText(this, "Stop here: "+create_user_response.toString(), Toast.LENGTH_SHORT).show();
+                        id_aux = create_user_response.getId();
+                        id = id_aux;
+                        Toast.makeText(this, "Soy nuevo, no tengo errores  y ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post", Toast.LENGTH_SHORT).show();
+                        Log.i("Retrofit", "Soy nuevo, no tengo errores  y ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post");
+                        //Ultimo post
+                        user_restaurant_register(create_user_response.getId());
+
+                    }else{
+                        //Hubo un fallo de que ya existe
+                        Log.i("Retrofit","El username está repetido");
+                        //Llamo a login para que solucione, retorne un nuevo id
+                        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().login(et_user_app.getText().toString(),et_user_password1.getText().toString());
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                try {
+                                    String s = "";
+                                    if(response.body()!=null){
+                                        s = response.body().string();
+                                        //Lammar nuevamente a user_register
+                                        WebServiceUserRegister obj = new WebServiceUserRegister();
+                                        try {
+                                            create_user_response = new Create_user_response();
+                                            create_user_response = obj.execute().get();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {e.printStackTrace();}
+                                        if(create_user_response !=null){
+                                            //Toast.makeText(this, "Stop here: "+create_user_response.toString(), Toast.LENGTH_SHORT).show();
+                                            String id_aux = create_user_response.getId();
+                                            Log.i("Retrofit", "No soy nuevo, pero ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post");
+                                            //Ultimo post
+                                            user_restaurant_register(create_user_response.getId());
+
+                                        }
+
+                                        else{
+                                            Log.i("Retrofit", "Sigues cometiendo errroes");
+                                            //Siginficia que el usuario ya le pertenece a alguien
+                                        }
+
+
+
+
+                                    }
+                                    else{
+                                        s =response.errorBody().string();
+                                    }
+                                    Log.i("Retrofit", "Uso del api de Login: "+s);
+                                    stopProgressDialog();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            }
+                        });
+
+
+                    }
+
+
 
 
                 }
@@ -176,6 +258,80 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                 new DatePickerDialog(Register2Activity.this, R.style.DialogTheme, date, C.get(Calendar.YEAR), C.get(Calendar.MONTH), C.get(Calendar.DAY_OF_MONTH)).show();
                 break;
         }
+    }
+
+    private void user_restaurant_register(String id) {
+        Log.i("Retrofit", "Entré al user_restaurant_register wer service con el siguiente id:" + id);
+        User_restaurant_register user_restaurant_register = new User_restaurant_register(id, kind_of_id, user_id, user_name, user_last_name, user_gender, phone, user_birthday, user_email, user_address);
+        Call<User_restaurant_register> call = RetrofitClient.getInstance().getApi().user_restaurant_register(user_restaurant_register);
+        call.enqueue(new Callback<User_restaurant_register>() {
+            @Override
+            public void onResponse(Call<User_restaurant_register> call, Response<User_restaurant_register> response) {
+                try {
+                    if (response.body() != null) {
+                        User_restaurant_register obj = response.body();
+                        //Toast.makeText(Register2Activity.this, create_user_response.getId(), Toast.LENGTH_SHORT).show();
+                        Log.i("Retrofit", obj.getFirst_name());
+                        user_client_register(obj.getDocument());
+                    } else {
+                        String s = response.errorBody().string();
+                        //Toast.makeText(Register2Activity.this, s, Toast.LENGTH_SHORT).show();
+                        et_user_address.setText(s);
+                        Log.i("Retrofit", "Error del Segundo consumo: " + s);
+
+                        stopProgressDialog();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private void user_client_register(String document) {
+                User_client_register user_client_register = new User_client_register(document);
+                Call<User_client_register> call = RetrofitClient.getInstance().getApi().user_client_register(user_client_register);
+                call.enqueue(new Callback<User_client_register>() {
+                    @Override
+                    public void onResponse(Call<User_client_register> call, Response<User_client_register> response) {
+                        try {
+                            if (response.body() != null) {
+                                User_client_register obj = response.body();
+                                //Toast.makeText(Register2Activity.this, create_user_response.getId(), Toast.LENGTH_SHORT).show();
+                                Log.i("Retrofit", obj.getId_user_restaurant());
+
+                                Log.i("Retrofit", "Finalicé el tercer consumo");
+                                stopProgressDialog();
+                                //cleanForms();
+                                if(ojbListener!=null){
+                                    ojbListener.cleanForms();
+                                }
+
+                            } else {
+                                String s = response.errorBody().string();
+                                //Toast.makeText(Register2Activity.this, s, Toast.LENGTH_SHORT).show();
+                                et_user_address.setText(s);
+                                Log.i("Retrofit", "Tercer consumo: " + s);
+
+
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User_client_register> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<User_restaurant_register> call, Throwable t) {
+
+            }
+        });
     }
 
     private void goodMethod() {
@@ -212,6 +368,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
 
     private void callWebServiceUserRegister() {
 
@@ -417,6 +574,37 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         return isTheFormComplete;
     }
 
+
+    private class WebServiceUserRegister extends AsyncTask<Void, Void, Create_user_response>{
+
+        @Override
+        protected Create_user_response doInBackground(Void... voids) {
+            Create_user_request create_user_request = new Create_user_request(user_app, "", user_password, user_password);
+            Call<Create_user_response> call = RetrofitClient.getInstance().getApi().singUpUserRegister(create_user_request);
+            try {
+
+                return call.execute().body();
+            }catch (IOException e){
+                Log.i("Error",e.getMessage());
+                return null;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Create_user_response create_user_response) {
+            if(create_user_response!=null) {
+                    Log.i("Retrofit", create_user_response.toString());
+                    information += create_user_response.toString()+"\n\n";
+
+                //textView.setText(information);
+            }else{
+                //textView.setText("YUCA NO FUNCIONO");
+                //Log.i("Retrofit", "Yuca no funcionó");
+            }
+
+        }
+    }
 
 }
 
