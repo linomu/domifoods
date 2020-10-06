@@ -17,9 +17,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initializationVariables();
+
+    }
+
+    private void initializationVariables() {
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonIngresar.setOnClickListener(this);
-
         buttonRegistrarse = findViewById(R.id.buttonRegistrarse);
         buttonRegistrarse.setOnClickListener(this);
     }

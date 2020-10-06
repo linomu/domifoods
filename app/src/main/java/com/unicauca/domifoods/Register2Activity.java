@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,16 +39,17 @@ import retrofit2.Response;
 public class Register2Activity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Listener ojbListener;
-
+    private static final String USER_BIRTHDAY = "user_birthday" ;
+    private static final String USER_EMAIL = "user_email";
+    private static final String USER_ADDRESS = "user_address";
+    private static final String USER_GENDER = "user_gender";
+    private static final String USER_APP = "user_app";
+    private static final String USER_PASS1 = "password_one";
+    private static final String USER_PASS2 = "password_two";
     public String id, information;
 
-    public void setOjbListener(Listener ojbListener) {
-        this.ojbListener = ojbListener;
-    }
-
     private String user_name, user_last_name, user_id, phone, kind_of_id;
-    private String user_birthday, user_email, user_address, user_gender, user_password, user_app;
+    private String user_birthday, user_email, user_address, user_gender, user_password, user_app,password_one, password_two;
 
     private Button btn_birth_day, btn_register;
     private EditText et_user_email, et_user_address, et_user_password1, et_user_password2, et_user_app;
@@ -54,6 +57,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private RadioButton radio_user_gender_female;
     private ProgressDialog progDailog;
 
+    private SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
 
     public Create_user_response create_user_response;
     public String message_from_server;
@@ -69,23 +74,61 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
 
+        setUpSharedPreferences();
 
         /*In the next method, I make the initialization of variables*/
         initializationVariables();
         //Retrieve the information through out the bundle object
         retrieveInformation();
-/*
-        new DatePickerDialog(Register2Activity.this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                //DO SOMETHING
-            }
-        }, 2015, 02, 26).show();
-
-*/
 
     }
+    private void setUpSharedPreferences() {
+        sharedpreferences = getSharedPreferences(Register1Activity.MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+    }
+    private void updateFormFromSharedPreference(){
+        btn_birth_day.setText(sharedpreferences.getString(USER_BIRTHDAY,""));
+        et_user_email.setText(sharedpreferences.getString(USER_EMAIL,""));
+        et_user_address.setText(sharedpreferences.getString(USER_ADDRESS,""));
+        String gender = sharedpreferences.getString(USER_GENDER,"M");
+        if(gender.equals("M")){
+            radio_user_gender_male.setChecked(true);
+            radio_user_gender_female.setChecked(false);
+        }else{
+            radio_user_gender_male.setChecked(false);
+            radio_user_gender_female.setChecked(true);
+        }
+        et_user_app.setText(sharedpreferences.getString(USER_APP,""));
+        et_user_password1.setText(sharedpreferences.getString(USER_PASS1,""));
+        et_user_password2.setText(sharedpreferences.getString(USER_PASS2,""));
 
+
+    }
+    private void saveFormIntoSharedPreferences(){
+        getValuesFromInputForm();
+        editor.putString(USER_BIRTHDAY,user_birthday);
+        editor.putString(USER_EMAIL,user_email);
+        editor.putString(USER_ADDRESS, user_address);
+        editor.putString(USER_GENDER, user_gender);
+        editor.putString(USER_APP, user_app);
+        editor.putString(USER_PASS1,password_one);
+        editor.putString(USER_PASS2,password_two);
+        editor.commit();
+    }
+    private void getValuesFromInputForm(){
+        user_birthday = btn_birth_day.getText().toString().trim();
+        user_email = et_user_email.getText().toString().trim();
+        user_address = et_user_address.getText().toString().trim();
+        user_app = et_user_app.getText().toString().trim();
+        password_one = et_user_password1.getText().toString().trim();
+        password_two = et_user_password2.getText().toString().trim();
+        if (radio_user_gender_female.isChecked()) {
+            user_gender = "F";
+        } else {
+            user_gender = "M";
+        }
+
+    }
     private void cleanForms(){
 
         btn_birth_day.setText("");
@@ -94,6 +137,12 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         et_user_app.setText("");
         et_user_password1.setText("");
         et_user_password2.setText("");
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.i("msg_lino","Onbackpress");
+        saveFormIntoSharedPreferences();
     }
 
     private void startProgressDialog() {
@@ -107,8 +156,6 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private void stopProgressDialog(){
         progDailog.dismiss();
     }
-
-
     private void initializationVariables() {
         et_user_email = findViewById(R.id.et_user_email);
         et_user_address = findViewById(R.id.et_user_address);
@@ -122,7 +169,6 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         et_user_password2 = findViewById(R.id.et_user_password2);
         et_user_app = findViewById(R.id.et_userapp);
     }
-
     private void retrieveInformation() {
         Bundle bundle = getIntent().getExtras();
         user_name = bundle.getString(Register1Activity.USER_NAME);
@@ -131,7 +177,6 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         phone = bundle.getString(Register1Activity.USER_PHONE);
         kind_of_id = bundle.getString(Register1Activity.USER_KIND_ID);
     }
-
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -145,7 +190,6 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         }
 
     };
-
     private void actualizarInput() {
         //String formatoDeFecha = "MM/dd/yy"; //In which you need put here
         String formatoDeFecha = "yyyy-MM-dd"; //In which you need put here
@@ -156,6 +200,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
+        updateFormFromSharedPreference();
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
@@ -168,11 +213,12 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
-                if (isTheFormComplete()) {
+
+                if (isTheFormComplete()==true) {
+                    saveFormIntoSharedPreferences();
                     startProgressDialog();
                     //goodMethod();
                     //callWebServiceUserRegister();
-                    String id_aux="";
                     WebServiceUserRegister obj = new WebServiceUserRegister();
                     try {
                         create_user_response = new Create_user_response();
@@ -182,75 +228,23 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                     } catch (InterruptedException e) {e.printStackTrace();}
 
                     if(create_user_response !=null){
-                        //Toast.makeText(this, "Stop here: "+create_user_response.toString(), Toast.LENGTH_SHORT).show();
-                        id_aux = create_user_response.getId();
-                        id = id_aux;
-                        Toast.makeText(this, "Soy nuevo, no tengo errores  y ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post", Toast.LENGTH_SHORT).show();
-                        Log.i("Retrofit", "Soy nuevo, no tengo errores  y ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post");
-                        //Ultimo post
-                        user_restaurant_register(create_user_response.getId());
+
+                        id = create_user_response.getId();
+                        //Si id es null, significa que el usuario ya está siendo utilizado por otra persona
+                        if(id==null){
+                            Log.i("Retrofit","El usuario ya exixte");
+                            Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_LONG).show();
+                            stopProgressDialog();
+                        }else{
+                            Log.i("Retrofit", "El usuario no existe: ID: "+id+" Puedo Seguir al segundo Post");
+                            //Ultimo post
+                            user_restaurant_register(id);
+                        }
 
                     }else{
                         //Hubo un fallo de que ya existe
                         Log.i("Retrofit","El username está repetido");
-                        //Llamo a login para que solucione, retorne un nuevo id
-                        Call<ResponseBody> call = RetrofitClient.getInstance().getApi().login(et_user_app.getText().toString(),et_user_password1.getText().toString());
-                        call.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                try {
-                                    String s = "";
-                                    if(response.body()!=null){
-                                        s = response.body().string();
-                                        //Lammar nuevamente a user_register
-                                        WebServiceUserRegister obj = new WebServiceUserRegister();
-                                        try {
-                                            create_user_response = new Create_user_response();
-                                            create_user_response = obj.execute().get();
-                                        } catch (ExecutionException e) {
-                                            e.printStackTrace();
-                                        } catch (InterruptedException e) {e.printStackTrace();}
-                                        if(create_user_response !=null){
-                                            //Toast.makeText(this, "Stop here: "+create_user_response.toString(), Toast.LENGTH_SHORT).show();
-                                            String id_aux = create_user_response.getId();
-                                            Log.i("Retrofit", "No soy nuevo, pero ya tengo mi token: "+id_aux+" Puedo Seguir al segundo Post");
-                                            //Ultimo post
-                                            user_restaurant_register(create_user_response.getId());
-
-                                        }
-
-                                        else{
-                                            Log.i("Retrofit", "Sigues cometiendo errroes");
-                                            //Siginficia que el usuario ya le pertenece a alguien
-                                        }
-
-
-
-
-                                    }
-                                    else{
-                                        s =response.errorBody().string();
-                                    }
-                                    Log.i("Retrofit", "Uso del api de Login: "+s);
-                                    stopProgressDialog();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            }
-                        });
-
-
                     }
-
-
-
 
                 }
                 break;
@@ -269,16 +263,14 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<User_restaurant_register> call, Response<User_restaurant_register> response) {
                 try {
                     if (response.body() != null) {
+                        Log.i("Retrofit", "Los campos del formulario se encuentran bien.");
                         User_restaurant_register obj = response.body();
-                        //Toast.makeText(Register2Activity.this, create_user_response.getId(), Toast.LENGTH_SHORT).show();
-                        Log.i("Retrofit", obj.getFirst_name());
                         user_client_register(obj.getDocument());
                     } else {
                         String s = response.errorBody().string();
                         //Toast.makeText(Register2Activity.this, s, Toast.LENGTH_SHORT).show();
                         et_user_address.setText(s);
-                        Log.i("Retrofit", "Error del Segundo consumo: " + s);
-
+                        Log.i("Retrofit", "Errores del Segundo consumo: " + s);
                         stopProgressDialog();
                     }
 
@@ -296,15 +288,11 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                         try {
                             if (response.body() != null) {
                                 User_client_register obj = response.body();
-                                //Toast.makeText(Register2Activity.this, create_user_response.getId(), Toast.LENGTH_SHORT).show();
-                                Log.i("Retrofit", obj.getId_user_restaurant());
-
                                 Log.i("Retrofit", "Finalicé el tercer consumo");
                                 stopProgressDialog();
-                                //cleanForms();
-                                if(ojbListener!=null){
-                                    ojbListener.cleanForms();
-                                }
+                                cleanSharedPreferencesFile();
+                                updateFormFromSharedPreference();
+                                //Se debe realizar el login
 
                             } else {
                                 String s = response.errorBody().string();
@@ -332,6 +320,12 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
             }
         });
+    }
+
+    private void cleanSharedPreferencesFile() {
+        Log.i("Retrofit", "ya está limpio el archivoShared");
+        editor.clear();
+        editor.commit();
     }
 
     private void goodMethod() {
@@ -462,9 +456,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                                         Log.i("Retrofit", "Tercer consumo");
                                         stopProgressDialog();
                                         cleanForms();
-                                        if(ojbListener!=null){
-                                            ojbListener.cleanForms();
-                                        }
+
 
                                     } else {
                                         String s = response.errorBody().string();
@@ -507,18 +499,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
     private boolean isTheFormComplete() {
         boolean isTheFormComplete = true;
-        user_email = et_user_email.getText().toString().trim();
-        user_birthday = btn_birth_day.getText().toString().trim();
-        user_address = et_user_address.getText().toString().trim();
-        user_app = et_user_app.getText().toString().trim();
-        if (radio_user_gender_female.isChecked()) {
-            user_gender = "F";
-        } else {
-            user_gender = "M";
-        }
-        String password_one, password_two;
-        password_one = et_user_password1.getText().toString().trim();
-        password_two = et_user_password2.getText().toString().trim();
+       getValuesFromInputForm();
 
         if (user_birthday.isEmpty()) {
             btn_birth_day.setError(getResources().getString(R.string.msg_required_failed));
@@ -599,8 +580,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
                 //textView.setText(information);
             }else{
-                //textView.setText("YUCA NO FUNCIONO");
-                //Log.i("Retrofit", "Yuca no funcionó");
+                Log.i("Retrofit", "El api user_register falló");
             }
 
         }
