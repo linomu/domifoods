@@ -1,6 +1,7 @@
 package com.unicauca.domifoods;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.unicauca.domifoods.dialogs.SimpleDialog;
 import com.unicauca.domifoods.interfaces.Listener;
 
 
@@ -31,12 +33,14 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
     private String user_name, user_last_name, user_id, phone, kind_of_id;
     private SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editor;
+    private SharedPreferences sharedpreferencesLogin;
+    private SharedPreferences.Editor editorLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
 
-        setUpSharedPreferences();
+
         /*In the next method, I make the initialization of variables*/
         initializationVariables();
 
@@ -45,6 +49,8 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
     private void setUpSharedPreferences() {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
+        sharedpreferencesLogin = getSharedPreferences(Register2Activity.SESSION_LOGIN, Context.MODE_PRIVATE);
+        editorLogin = sharedpreferencesLogin.edit();
     }
 
 
@@ -73,9 +79,23 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
 
 
     }
+    private boolean sessionState() {
+        boolean sessionState = false;
+        String token = sharedpreferencesLogin.getString(Register2Activity.LOGIN_TOKEN,"");
+        if(!token.equals("")){
+            sessionState=true;
+        }
+        return sessionState;
+    }
     @Override
     protected void onStart() {
         super.onStart();
+        setUpSharedPreferences();
+        if(sessionState()){
+            Log.i("msg_lino","Quieres Salir");
+            startActivity(new Intent(Register1Activity.this, MainActivity.class));
+            finish();
+        }
         updateFormFromSharedPreference();
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |

@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_background" />
 
     <EditText
-        android:id="@+id/editTextUser"
+        android:id="@+id/et_user_login"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="45dp"
@@ -59,7 +59,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/et_user_password_login"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="45dp"

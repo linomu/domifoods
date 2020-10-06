@@ -1,10 +1,12 @@
 package com.unicauca.domifoods;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,9 +19,12 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.unicauca.domifoods.apiUser.RetrofitClient;
+import com.unicauca.domifoods.dialogs.SimpleDialog;
 import com.unicauca.domifoods.interfaces.Listener;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
+import com.unicauca.domifoods.modelsUser.Login_request;
+import com.unicauca.domifoods.modelsUser.Login_response;
 import com.unicauca.domifoods.modelsUser.User_client_register;
 import com.unicauca.domifoods.modelsUser.User_restaurant_register;
 
@@ -46,6 +51,10 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private static final String USER_APP = "user_app";
     private static final String USER_PASS1 = "password_one";
     private static final String USER_PASS2 = "password_two";
+    public static final String SESSION_LOGIN = "PreferecesLogin";
+    public static final String LOGIN_TOKEN = "login_token";
+    public static final String LOGIN_DOCUMENT = "login_document";
+
     public String id, information;
 
     private String user_name, user_last_name, user_id, phone, kind_of_id;
@@ -59,9 +68,11 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
     private SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editor;
+    private SharedPreferences sharedpreferencesLogin;
+    private SharedPreferences.Editor editorLogin;
 
     public Create_user_response create_user_response;
-    public String message_from_server;
+    public static String message_from_server;
 
     Calendar C = Calendar.getInstance();
     //private int nYarIni, nMonthIni, nDayIni, sYearIni, sMonthIni, sDayUni;
@@ -74,7 +85,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
 
-        setUpSharedPreferences();
+
 
         /*In the next method, I make the initialization of variables*/
         initializationVariables();
@@ -82,9 +93,21 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         retrieveInformation();
 
     }
+
+    private boolean sessionState() {
+        boolean sessionState = false;
+        String token = sharedpreferencesLogin.getString(LOGIN_TOKEN,"");
+        if(!token.equals("")){
+            sessionState=true;
+        }
+        return sessionState;
+    }
+
     private void setUpSharedPreferences() {
         sharedpreferences = getSharedPreferences(Register1Activity.MyPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
+        sharedpreferencesLogin = getSharedPreferences(SESSION_LOGIN, Context.MODE_PRIVATE);
+        editorLogin = sharedpreferencesLogin.edit();
     }
     private void updateFormFromSharedPreference(){
         btn_birth_day.setText(sharedpreferences.getString(USER_BIRTHDAY,""));
@@ -200,6 +223,11 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
+        setUpSharedPreferences();
+        if(sessionState()){
+            startActivity(new Intent(Register2Activity.this, MainActivity.class));
+            finish();
+        }
         updateFormFromSharedPreference();
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -269,9 +297,15 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                     } else {
                         String s = response.errorBody().string();
                         //Toast.makeText(Register2Activity.this, s, Toast.LENGTH_SHORT).show();
-                        et_user_address.setText(s);
-                        Log.i("Retrofit", "Errores del Segundo consumo: " + s);
+                        message_from_server = s;
+
                         stopProgressDialog();
+                        Log.i("Retrofit", "Errores del Segundo consumo: " + s);
+                        SimpleDialog simpleDialog = new SimpleDialog();
+                        //Por medio de este set, le estoy pasando informacion al Dialog
+                        simpleDialog.setMensaje_from_server(s);
+                        FragmentManager fm = getSupportFragmentManager();
+                        simpleDialog.show(fm,"LoginDialog");
                     }
 
                 } catch (IOException e) {
@@ -292,12 +326,57 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                                 stopProgressDialog();
                                 cleanSharedPreferencesFile();
                                 updateFormFromSharedPreference();
-                                //Se debe realizar el login
+                                //Se debe realizar el llamado al login
+                                //Llamo a login para que solucione, retorne un nuevo id
+                                Login_request login_request = new Login_request(user_app,password_one);
+                                Call<Login_response> login = RetrofitClient.getInstance().getApi().loginFull(login_request);
+                                login.enqueue(new Callback<Login_response>() {
+
+                                    @Override
+                                    public void onResponse(Call<Login_response> call, Response<Login_response> response) {
+                                        String s = "";
+                                        if(response.body()!=null){
+                                            Login_response login_response = response.body();
+                                            //crear el archivo shared
+                                            editorLogin.putString(LOGIN_TOKEN,login_response.getToken());
+                                            editorLogin.putString(LOGIN_DOCUMENT,login_response.getDocument());
+                                            editorLogin.commit();
+                                            startActivity(new Intent(Register2Activity.this, MainActivity.class));
+                                            finish();
+
+                                        }
+                                        else{
+                                            try {
+                                                s =response.errorBody().string();
+                                                Log.i("Retrofit", "Uso del api de Login: "+s);
+                                                SimpleDialog simpleDialog = new SimpleDialog();
+                                                //Por medio de este set, le estoy pasando informacion al Dialog
+                                                simpleDialog.setMensaje_from_server(s);
+                                                FragmentManager fm = getSupportFragmentManager();
+                                                simpleDialog.show(fm,"LoginDialog");
+
+
+
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            //Mensaje de contraseñas invalidas
+                                        }
+                                     }
+
+                                    @Override
+                                    public void onFailure(Call<Login_response> call, Throwable t) {
+
+                                    }
+                                });
+
 
                             } else {
                                 String s = response.errorBody().string();
                                 //Toast.makeText(Register2Activity.this, s, Toast.LENGTH_SHORT).show();
                                 et_user_address.setText(s);
+
+
                                 Log.i("Retrofit", "Tercer consumo: " + s);
 
 

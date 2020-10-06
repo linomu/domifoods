@@ -15,15 +15,18 @@
         <activity android:name=".Register2Activity"></activity>
         <activity android:name=".Register1Activity" />
         <activity android:name=".LoginActivity">
+
+        </activity>
+        <activity
+            android:name=".Splash"
+            android:theme="@style/mySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Splash"
-            android:theme="@style/mySplash" />
+
         <activity android:name=".MainActivity" />
     </application>
 

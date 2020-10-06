@@ -35,5 +35,7 @@
     <string name="radio_female">Femenino</string>
     <string name="userapp">Usuario</string>
     <string name="loading">Cargando...</string>
+    <string name="si">Si</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>
