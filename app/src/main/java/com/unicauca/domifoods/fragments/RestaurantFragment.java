@@ -30,8 +30,14 @@ import com.unicauca.domifoods.domain.Restaurant;
 
 import java.util.ArrayList;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class RestaurantFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    //david
+    private Retrofit retrofit;
 
     /*Variables*/
     ImageView imageView_background;
@@ -81,8 +87,19 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
+        //David
+        /*retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.55:8000/restaurants/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        //obtenerDatos();
+    */}
+
+    private void obtenerDatos(){
+
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -147,7 +164,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
     public void  fillOutTheRestaurants(){
         //Servicio web
-
+        //http://192.168.1.55:8000/admin/restaurants/restaurant/
         restaurants.add(new Restaurant(1,"Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
         restaurants.add(new Restaurant(3,"Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
         restaurants.add(new Restaurant(4,"Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));

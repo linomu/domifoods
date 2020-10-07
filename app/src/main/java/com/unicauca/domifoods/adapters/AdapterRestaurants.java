@@ -17,8 +17,20 @@ import java.util.ArrayList;
 
 public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.holderRestaurants> {
 
+
+    //david
     /*Variables that we're gonna use*/
     ArrayList<Restaurant> restaurants;
+    public ArrayList<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(ArrayList<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
+   //fin david
+
+
     Picasso mPicasso;
     RestaurantListener listener;
 

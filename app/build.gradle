@@ -37,6 +37,12 @@ dependencies {
     implementation 'com.sdsmdg.harjot:longshadows:1.0.1'
 
 
+    //*************Rutas david******************
+    //implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    //implementation 'com.google.code.gson:gson:2.8.5'
+    //implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //********************************************
+
     def nav_version = "2.3.0"
 
     // The next two implementations are used to the navigation component
