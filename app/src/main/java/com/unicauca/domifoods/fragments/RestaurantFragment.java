@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.dialogs.SimpleDialog;
 import com.unicauca.domifoods.dialogs.SimpleDialogOptions;
 import com.unicauca.domifoods.domain.Restaurant;

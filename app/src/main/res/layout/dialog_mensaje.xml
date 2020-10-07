@@ -10,10 +10,10 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:background="#FED100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/rojo"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView10"

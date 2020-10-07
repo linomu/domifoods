@@ -261,7 +261,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                         //Si id es null, significa que el usuario ya está siendo utilizado por otra persona
                         if(id==null){
                             Log.i("Retrofit","El usuario ya exixte");
-                            Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "El usuario ya existe 🤣 ", Toast.LENGTH_LONG).show();
                             stopProgressDialog();
                         }else{
                             Log.i("Retrofit", "El usuario no existe: ID: "+id+" Puedo Seguir al segundo Post");
@@ -391,11 +391,12 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                     public void onFailure(Call<User_client_register> call, Throwable t) {
 
                     }
-                });
+                 });
             }
 
             @Override
             public void onFailure(Call<User_restaurant_register> call, Throwable t) {
+                Toast.makeText(Register2Activity.this, "Tenemos un fallo: Quizas no hay conexión a internet o el servidor no responde", Toast.LENGTH_LONG).show();
 
             }
         });

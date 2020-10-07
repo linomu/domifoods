@@ -1,8 +1,11 @@
 package com.unicauca.domifoods;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +15,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unicauca.domifoods.apiUser.RetrofitClient;
+import com.unicauca.domifoods.dialogs.DialogIpHost;
+import com.unicauca.domifoods.dialogs.NoticeDialogListener;
 import com.unicauca.domifoods.dialogs.SimpleDialog;
 import com.unicauca.domifoods.modelsUser.Login_request;
 import com.unicauca.domifoods.modelsUser.Login_response;
@@ -24,16 +31,24 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, NoticeDialogListener {
+
 
     Button buttonIngresar;
     Button buttonRegistrarse;
+    private ImageView img_logo;
     private EditText et_user, et_password;
     private ProgressDialog progDailog;
+    private TextView tv_ip_host;
 
     private SharedPreferences sharedpreferencesLogin;
     private SharedPreferences.Editor editorLogin;
+    private static final String IP_HOST = "ip_host";
+    private SharedPreferences sharedpreferencesIpHost;
+    private SharedPreferences.Editor editorIpHost;
+    public static String ip_host;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +60,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initializationVariables() {
+        tv_ip_host = findViewById(R.id.tv_iphost);
+        img_logo = findViewById(R.id.img_logo);
+        img_logo.setOnClickListener(this);
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonIngresar.setOnClickListener(this);
         buttonRegistrarse = findViewById(R.id.buttonRegistrarse);
@@ -66,6 +84,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void setUpSharedPreferences() {
         sharedpreferencesLogin = getSharedPreferences(Register2Activity.SESSION_LOGIN, Context.MODE_PRIVATE);
         editorLogin = sharedpreferencesLogin.edit();
+        sharedpreferencesIpHost = getSharedPreferences(IP_HOST, Context.MODE_PRIVATE);
+        editorIpHost = sharedpreferencesIpHost.edit();
     }
 
     private boolean sessionState() {
@@ -81,6 +101,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         setUpSharedPreferences();
+        updateIpHostStaticVariable();
+        RetrofitClient.getInstance();
+
+
         if(sessionState()){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
@@ -93,9 +117,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         );
     }
 
+    private void updateIpHostStaticVariable() {
+        ip_host = sharedpreferencesIpHost.getString("ip_host","192.168.0.1");
+        tv_ip_host.setText(ip_host);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.img_logo:
+                DialogIpHost objDialogLogin = new DialogIpHost();
+                //Por medio de este set, le estoy pasando informacion al Dialog
+                FragmentManager fm = getSupportFragmentManager();
+                objDialogLogin.show(fm,"Dialog");
+                break;
             case R.id.buttonIngresar:
 
                 //Llamo a login para que solucione, retorne un nuevo id
@@ -154,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onFailure(Call<Login_response> call, Throwable t) {
                         stopProgressDialog();
-                        Toast.makeText(LoginActivity.this, "Tenemos un fallo extraño", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -170,6 +205,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        DialogIpHost objDialog = (DialogIpHost) dialog;
+        tv_ip_host.setText(objDialog.getIp_host());
+        editorIpHost.putString("ip_host", objDialog.getIp_host());
+        editorIpHost.commit();
+        updateIpHostStaticVariable();
+        RetrofitClient.getInstance();
 
+        Intent mStartActivity = new Intent(this, LoginActivity.class);
+        int mPendingIntentId = 123456;
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+        System.exit(0);
 
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Toast.makeText(this, "(⌐■_■) Genio. 👏", Toast.LENGTH_SHORT).show();
+
+    }
 }

@@ -37,5 +37,6 @@
     <string name="loading">Cargando...</string>
     <string name="si">Si</string>
     <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
 
 </resources>

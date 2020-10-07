@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiUser {
@@ -41,6 +42,10 @@ public interface ApiUser {
 
     @POST("accounts/api/login/")
     Call<Login_response>loginFull(@Body Login_request login_request);
+
+    //Metodos
+    //@GET("restaurante")
+    //Call<Login_response>getResturantes(@Body Login_request login_request);
 
 
 }
