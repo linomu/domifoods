@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,6 +27,9 @@ import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
+import com.unicauca.domifoods.dialogs.SimpleDialog;
+import com.unicauca.domifoods.dialogs.SimpleDialogOptions;
 import com.unicauca.domifoods.domain.Restaurant;
 
 import java.util.ArrayList;
@@ -42,6 +46,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
     NavController navController;
     BottomNavigationView menu_options;
+    ImageView img_salir;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,6 +99,16 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        img_salir = view.findViewById(R.id.img_salir);
+        img_salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDialogOptions simpleDialog = new SimpleDialogOptions();
+                //Por medio de este set, le estoy pasando informacion al Dialog
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                simpleDialog.show(fm,"LoginDialog");
+            }
+        });
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
@@ -122,8 +137,11 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
             @Override
             public void restaurantSelected(int id) {
+
+                //ese id es el codigo del restaurante
                 Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
                // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                //como pasar datos de un destiono a otro.. usando el navcontroler
                 navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
             }
         });
@@ -143,6 +161,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     }
 
     public void  fillOutTheRestaurants(){
+        //Servicio web
+
         restaurants.add(new Restaurant(1,"Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
         restaurants.add(new Restaurant(3,"Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
         restaurants.add(new Restaurant(4,"Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));
