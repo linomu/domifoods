@@ -2,6 +2,7 @@ package com.unicauca.domifoods.apiUser;
 
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
+import com.unicauca.domifoods.modelsUser.GetRestaurant;
 import com.unicauca.domifoods.modelsUser.Login_request;
 import com.unicauca.domifoods.modelsUser.Login_response;
 import com.unicauca.domifoods.modelsUser.User_client_register;
@@ -44,8 +45,8 @@ public interface ApiUser {
     Call<Login_response>loginFull(@Body Login_request login_request);
 
     //Metodos
-    //@GET("restaurante")
+    @GET("restaurants")
     //Call<Login_response>getResturantes(@Body Login_request login_request);
-
+    Call<GetRestaurant> obtenerListaRestaurants();
 
 }

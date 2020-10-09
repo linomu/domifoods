@@ -3,6 +3,8 @@ package com.unicauca.domifoods;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -19,22 +21,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.apiUser.ApiUser;
 import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.dialogs.DialogIpHost;
 import com.unicauca.domifoods.dialogs.NoticeDialogListener;
 import com.unicauca.domifoods.dialogs.SimpleDialog;
+import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.modelsUser.GetRestaurant;
 import com.unicauca.domifoods.modelsUser.Login_request;
 import com.unicauca.domifoods.modelsUser.Login_response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, NoticeDialogListener {
 
+    //inicio David
+    private static final String TAG = "RESTAURANTS";
+
+    private Retrofit retrofit;
+    private RecyclerView recyclerView;
+    private AdapterRestaurants listRestaurantAdapter;
+    //fin David
 
     Button buttonIngresar;
     Button buttonRegistrarse;
@@ -54,7 +69,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initializationVariables();
 
     }
@@ -149,7 +163,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 startProgressDialog();
                 Login_request login_request = new Login_request(user,pass);
-                //kkkk
+                GetRestaurant getRestaurant = new GetRestaurant(listRestaurantAdapter,recyclerView,RecyclerView.Adapter(),);
+                //Inicio David
+/*                recyclerView = (RecyclerView) findViewById(R.id.recyclerview_restaurants);
+                listRestaurantAdapter = new AdapterRestaurants();
+                recyclerView.setAdapter(listRestaurantAdapter);
+                recyclerView.setHasFixedSize(true);
+                GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+                recyclerView.setLayoutManager(layoutManager);
+
+                retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.55:8000/restaurants/api/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+*/
+
                 Call<Login_response> login = RetrofitClient.getInstance().getApi().loginFull(login_request);
                 login.enqueue(new Callback<Login_response>() {
 
@@ -229,4 +257,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(this, "(⌐■_■) Genio. 👏", Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

@@ -9,7 +9,9 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+
+    >
 
 
     <ImageView

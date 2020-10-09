@@ -18,25 +18,19 @@ import java.util.ArrayList;
 public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.holderRestaurants> {
 
 
-    //david
+
     /*Variables that we're gonna use*/
     ArrayList<Restaurant> restaurants;
-    public ArrayList<Restaurant> getRestaurants() {
-        return restaurants;
-    }
-
-    public void setRestaurants(ArrayList<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
-   //fin david
-
-
     Picasso mPicasso;
     RestaurantListener listener;
 
     //Constructor
     public AdapterRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;
+    }
+
+    public AdapterRestaurants() {
+
     }
 
     //Interface -- Declare
@@ -64,7 +58,7 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     @Override
     public void onBindViewHolder(@NonNull AdapterRestaurants.holderRestaurants holder, final int position) {
 
-        mPicasso.load(restaurants.get(position).getPhoto())
+        mPicasso.load(restaurants.get(position).getImage())
                 .fit()
                 .into(holder.imageView);
         //Trigger
@@ -92,5 +86,10 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
             imageView = itemView.findViewById(R.id.imv_restaurant);
             cardView_restaurant = itemView.findViewById(R.id.cardview_restaurant);
         }
+    }
+
+    public void addRestaurant(ArrayList<Restaurant> listRest){
+        //dataset.addAll(listRest);
+        notifyDataSetChanged();
     }
 }
