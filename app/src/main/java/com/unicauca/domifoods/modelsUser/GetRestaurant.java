@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.text.DateFormat;
+import java.util.Date;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
@@ -23,7 +25,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class GetRestaurant extends AsyncTask<Void, Void, String>{
 
@@ -33,7 +39,7 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
     private Context httpContext;
     ProgressDialog progressDialog;
 
-    public GetRestaurant(List<Restaurant> httpList, RecyclerView httpRecycler, RecyclerView.Adapter httpAdapter, Context httpContext) {
+    public GetRestaurant(ArrayList<Restaurant> restaurants, RecyclerView recyclerView) {
         this.httpList = httpList;
         this.httpRecycler = httpRecycler;
         this.httpAdapter = httpAdapter;
@@ -73,11 +79,15 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
                 int nit = Integer.parseInt(jsonArray.getJSONObject(i).getString("eNit"));
                 String name = jsonArray.getJSONObject(i).getString("cName");
                 String address_location = jsonArray.getJSONObject(i).getString("cAddress_location");
-                String phone_num = jsonArray.getJSONObject(i).getString("cPhone_num");
+                int phone_num = Integer.parseInt(jsonArray.getJSONObject(i).getString("cPhone_num"));
                 String web_page = jsonArray.getJSONObject(i).getString("cWeb_page");
-                String hours = jsonArray.getJSONObject(i).getString("cHours");
+                int hours = Integer.parseInt(jsonArray.getJSONObject(i).getString("cHours"));
                 String image = jsonArray.getJSONObject(i).getString("cImage");
-                String date_creation = jsonArray.getJSONObject(i).getString("cDate_creation");
+
+                String formato = jsonArray.getJSONObject(i).getString("cDate_creation");
+                DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date_creation = fechaHora.parse(formato);   //Date.parse(jsonArray.getJSONObject(i).getString("cDate_creation"));
+
                 boolean state_delete = Boolean.parseBoolean(jsonArray.getJSONObject(i).getString("bState_delete"));
                 boolean state_disponibility = Boolean.parseBoolean(jsonArray.getJSONObject(i).getString("bState_disponibility"));
                 int id_admin = Integer.parseInt(jsonArray.getJSONObject(i).getString("eId_admin"));
@@ -87,7 +97,7 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
             //crear un nuevo adaptador
             httpAdapter = new AdapterRestaurants((ArrayList<Restaurant>) this.httpList);
             httpRecycler.setAdapter(this.httpAdapter);
-        }catch (JSONException | UnsupportedEncodingException e){
+        }catch (JSONException | UnsupportedEncodingException | ParseException e){
             e.printStackTrace();
         }
     }

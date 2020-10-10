@@ -1,4 +1,7 @@
 package com.unicauca.domifoods.domain;
+
+import java.util.Date;
+
 /*
 *  ******************************************
      "id": 1,
@@ -17,14 +20,14 @@ package com.unicauca.domifoods.domain;
 *
 * */
 public class Restaurant {
-    private int id, nit;
+    private int id, nit,id_admin, phone_num,hours;
     //Agregar los demás campos que vengan desde la tabla
-    private String name, address_location, phone_num, web_page, hours, image;
-    private String date_creation;
+    private String name, address_location, web_page, image;
+    private Date date_creation;
     private boolean state_delete, state_disponibility;
-    private int id_admin;
 
-    public Restaurant(int id, int nit, String name, String address_location, String phone_num, String web_page, String hours, String image, String date_creation, boolean state_delete, boolean state_disponibility, int id_admin) {
+
+    public Restaurant(int id, int nit, String name, String address_location, int phone_num, String web_page, int hours, String image, Date date_creation, boolean state_delete, boolean state_disponibility, int id_admin) {
         this.id = id;
         this.nit = nit;
         this.name = name;
@@ -71,11 +74,11 @@ public class Restaurant {
         this.address_location = address_location;
     }
 
-    public String getPhone_num() {
+    public int getPhone_num() {
         return phone_num;
     }
 
-    public void setPhone_num(String phone_num) {
+    public void setPhone_num(int phone_num) {
         this.phone_num = phone_num;
     }
 
@@ -87,11 +90,11 @@ public class Restaurant {
         this.web_page = web_page;
     }
 
-    public String getHours() {
+    public int getHours() {
         return hours;
     }
 
-    public void setHours(String hours) {
+    public void setHours(int hours) {
         this.hours = hours;
     }
 
@@ -103,11 +106,11 @@ public class Restaurant {
         this.image = image;
     }
 
-    public String getDate_creation() {
+    public Date getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(String date_creation) {
+    public void setDate_creation(Date date_creation) {
         this.date_creation = date_creation;
     }
 

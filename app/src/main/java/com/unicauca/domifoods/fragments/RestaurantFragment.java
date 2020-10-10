@@ -41,8 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestaurantFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    //david
-    //private Retrofit retrofit;
+
 
     /*Variables*/
     ImageView imageView_background;
@@ -93,6 +92,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,7 +139,6 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
         fillOutTheRestaurants();
         AdapterRestaurants adapterRestaurants= new AdapterRestaurants(restaurants);
-
         adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
             @Override
             public void restaurantSelected(int id) {
@@ -169,7 +168,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     public void  fillOutTheRestaurants(){
         //Servicio web
         //http://192.168.1.55:8000/admin/restaurants/restaurant/
-        //GetRestaurant wsRestaurants = new GetRestaurant(restaurants, recyclerView, , RestaurantFragment.this);
+        GetRestaurant wsRestaurants = new GetRestaurant(restaurants, recyclerView);
         //wsRestaurants.execute();
 
 
