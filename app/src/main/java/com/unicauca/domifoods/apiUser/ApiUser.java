@@ -1,11 +1,14 @@
 package com.unicauca.domifoods.apiUser;
 
+import com.unicauca.domifoods.modelsUser.Category_request;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
 import com.unicauca.domifoods.modelsUser.Login_request;
 import com.unicauca.domifoods.modelsUser.Login_response;
 import com.unicauca.domifoods.modelsUser.User_client_register;
 import com.unicauca.domifoods.modelsUser.User_restaurant_register;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -46,6 +49,10 @@ public interface ApiUser {
     //Metodos
     //@GET("restaurante")
     //Call<Login_response>getResturantes(@Body Login_request login_request);
+
+    //metodos para get  de  las categorias del restaurante
+    @GET("restaurants/api/restaurants/1/categories/")
+    Call<List<Category_request>>CATEGORY_REQUEST_CALL();
 
 
 }
