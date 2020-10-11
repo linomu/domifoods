@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -27,10 +28,6 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     //Constructor
     public AdapterRestaurants(ArrayList<Restaurant> restaurants) {
         this.restaurants = restaurants;
-    }
-
-    public AdapterRestaurants() {
-
     }
 
     //Interface -- Declare
@@ -81,15 +78,18 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     public class holderRestaurants extends RecyclerView.ViewHolder {
         ImageView imageView;
         CardView cardView_restaurant;
+
         public holderRestaurants(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imv_restaurant);
             cardView_restaurant = itemView.findViewById(R.id.cardview_restaurant);
+
         }
     }
 
+
     public void addRestaurant(ArrayList<Restaurant> listRest){
-        //dataset.addAll(listRest);
+        //restaurants.addAll(listRest);
         notifyDataSetChanged();
     }
 }

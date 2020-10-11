@@ -43,13 +43,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, NoticeDialogListener {
 
-    //inicio David
-    private static final String TAG = "RESTAURANTS";
-
-    private Retrofit retrofit;
-    private RecyclerView recyclerView;
-    private AdapterRestaurants listRestaurantAdapter;
-    //fin David
 
     Button buttonIngresar;
     Button buttonRegistrarse;
@@ -70,21 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initializationVariables();
-
-        //David
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_restaurants);
-        listRestaurantAdapter = new AdapterRestaurants();
-        //recyclerView.setAdapter(listRestaurantAdapter);
-        //recyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        //recyclerView.setLayoutManager(layoutManager);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.55:8000/restaurants/api/restaurants/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        //***********
-        //obtenerDatos();
 
     }
 
@@ -178,20 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 startProgressDialog();
                 Login_request login_request = new Login_request(user,pass);
-                //GetRestaurant getRestaurant = new GetRestaurant(listRestaurantAdapter,recyclerView,RecyclerView.Adapter(),);
-                //Inicio David
-/*                recyclerView = (RecyclerView) findViewById(R.id.recyclerview_restaurants);
-                listRestaurantAdapter = new AdapterRestaurants();
-                recyclerView.setAdapter(listRestaurantAdapter);
-                recyclerView.setHasFixedSize(true);
-                GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-                recyclerView.setLayoutManager(layoutManager);
-
-                retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.1.55:8000/restaurants/api/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-*/
+                ///GetRestaurant getRestaurant = new GetRestaurant();
 
                 Call<Login_response> login = RetrofitClient.getInstance().getApi().loginFull(login_request);
                 login.enqueue(new Callback<Login_response>() {
@@ -273,57 +238,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    //Metodos David
-    private void obtenerDatos(){
-        ApiUser service = retrofit.create(ApiUser.class);
-        Call<GetRestaurant> getRestaurantCall = service.obtenerListaRestaurants();
-
-        getRestaurantCall.enqueue(new Callback<GetRestaurant>() {
-            @Override
-            public void onResponse(Call<GetRestaurant> call, Response<GetRestaurant> response) {
-                if (response.isSuccessful()){
-                    GetRestaurant getRestaurant = response.body();
-                    //ArrayList<Restaurant> listRestaurants = getRestaurant.getResults();
-                    //listRestaurants.addRestaurant(listRestaurants);
-
-                    /*for(int i = 0; i< listRestaurants.size(); i++) {
-                        Restaurant r = listRestaurants.get(i);
-                        Log.i(TAG, "Restaurante: "+ r.getName());
-                    }*/
-
-                } else{
-                    Log.e(TAG, "onResponse: "+ response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetRestaurant> call, Throwable t) {
-                Log.e(TAG, "onFailure: "+ t.getMessage());
-            }
-        });
-    }
-    /*
-    private void find(String id){
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.55:8000")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        ApiUser apiUser = retrofit.create(ApiUser.class);
-        Call<Restaurant> call = apiUser.find(id);
-        call.enqueue(new Callback<Restaurant>() {
-            @Override
-            public void onResponse(Call<Restaurant> call, Response<Restaurant> response) {
-                if(response.isSuccessful()) {
-                    Restaurant r = response.body();
-                    //String URL = "http://192.168.1.55:8000";
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Restaurant> call, Throwable t) {
-
-            }
-        });
-    }*/
 
 }

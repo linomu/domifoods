@@ -31,6 +31,7 @@ import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+
 public class GetRestaurant extends AsyncTask<Void, Void, String>{
 
     private List<Restaurant> httpList;
@@ -39,7 +40,7 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
     private Context httpContext;
     ProgressDialog progressDialog;
 
-    public GetRestaurant(ArrayList<Restaurant> restaurants, RecyclerView recyclerView) {
+    public GetRestaurant(List<Restaurant> httpList, RecyclerView httpRecycler, RecyclerView.Adapter httpAdapter, Context httpContext) {
         this.httpList = httpList;
         this.httpRecycler = httpRecycler;
         this.httpAdapter = httpAdapter;
@@ -55,7 +56,7 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
     protected String doInBackground(Void... params) {
         String result = null;
         try {
-            String wsURL = "http://192.168.1.55:8000/restaurants/api/";
+            String wsURL = "http://192.168.1.55:8000/restaurants/api/restaurants";
             URL url = new URL(wsURL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getErrorStream());
@@ -116,38 +117,31 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
         }
         return answer.toString();
     }
+
+    public List<Restaurant> getHttpList() {
+        return httpList;
+    }
+
+    public void setHttpList(List<Restaurant> httpList) {
+        this.httpList = httpList;
+    }
 }
 
 
+/*
+*
+public class GetRestaurant {
 
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-
-    private ArrayList<Restaurant> result;
+    private ArrayList<Restaurant> results;
 
     public ArrayList<Restaurant> getResults(){
-        return result;
+        return results;
     }
 
     public void setResults(ArrayList<Restaurant> result){
-        this.result = result;
+        this.results = result;
     }
-    private List<Restaurant> httpList;
-    private RecyclerView httpRecycler;
-    private RecyclerView.Adapter httpAdapter;
-    private Context httpContext;
-    //progressDialog progressDialog;
-
-    */
+}
+*
+* */
 

@@ -68,6 +68,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_button_back" />
 
+
+    <ImageView
+        android:id="@+id/img_postr"
+        android:layout_width="66dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="292dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_posts"
+        android:layout_width="117dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="160dp"
+        android:letterSpacing="0.1"
+        android:padding="10dp"
+        android:text="Post"
+        android:textAlignment="center"
+        android:textColor="#0C0C0C"
+        android:textSize="3sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_background" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_restaurants"
         android:layout_width="0dp"
@@ -78,9 +104,13 @@
 
         app:layout_constraintBottom_toTopOf="@+id/menu_options_nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_restaurants" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_restaurants"
+        app:layout_constraintVertical_bias="0.0">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_options_nav"

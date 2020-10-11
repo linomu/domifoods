@@ -1,13 +1,14 @@
 package com.unicauca.domifoods.apiUser;
 
-import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
-import com.unicauca.domifoods.modelsUser.GetRestaurant;
 import com.unicauca.domifoods.modelsUser.Login_request;
 import com.unicauca.domifoods.modelsUser.Login_response;
+import com.unicauca.domifoods.modelsUser.PostsRestaurants;
 import com.unicauca.domifoods.modelsUser.User_client_register;
 import com.unicauca.domifoods.modelsUser.User_restaurant_register;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -16,7 +17,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public interface ApiUser {
 
@@ -47,11 +47,8 @@ public interface ApiUser {
     Call<Login_response>loginFull(@Body Login_request login_request);
 
     //Metodos David
-    @GET("api/restaurants/{id}")
-    public Call<Restaurant> find(@Part("id") String id);
-
     @GET("restaurants")
-    //Call<Login_response>getResturantes(@Body Login_request login_request);
-    Call<GetRestaurant> obtenerListaRestaurants();
+    Call<List<PostsRestaurants>> getPosts();
+
 
 }
