@@ -189,6 +189,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onFailure(Call<Login_response> call, Throwable t) {
                         stopProgressDialog();
+
+                        Log.i("msg", "Fallo: "+ t.getMessage());
                         Toast.makeText(LoginActivity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
                     }
                 });
