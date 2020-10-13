@@ -179,6 +179,17 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 }
 
                 listRestAdapter = new AdapterRestaurants(restaurants);
+                listRestAdapter.setListener(new AdapterRestaurants.RestaurantListener() {
+                    @Override
+                    public void restaurantSelected(int id) {
+                        ProductsFragment.ID_RESTAURANT=id;
+                        //ese id es el codigo del restaurante
+                        Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
+                        // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                        //como pasar datos de un destiono a otro.. usando el navcontroler
+                        navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
+                    }
+                });
                 recyclerView.setAdapter(listRestAdapter);
                 recyclerView.setHasFixedSize(true);
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
@@ -201,17 +212,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
         //fillOutTheRestaurants();
         AdapterRestaurants adapterRestaurants = new AdapterRestaurants(restaurants);
-        adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
-            @Override
-            public void restaurantSelected(int id) {
 
-                //ese id es el codigo del restaurante
-                Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
-                // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-                //como pasar datos de un destiono a otro.. usando el navcontroler
-                navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
-            }
-        });
         recyclerView.setAdapter(adapterRestaurants);
 
         //Listener
