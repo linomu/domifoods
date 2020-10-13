@@ -183,6 +183,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                     @Override
                     public void restaurantSelected(int id) {
                         ProductsFragment.ID_RESTAURANT=id;
+                        Log.i("Lino", "ID_RESTAURANT tiene asignado el id: "+ProductsFragment.ID_RESTAURANT);
                         //ese id es el codigo del restaurante
                         Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
                         // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
@@ -194,6 +195,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 recyclerView.setHasFixedSize(true);
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
                 recyclerView.setLayoutManager(layoutManager);
+                stopProgressDialog();
             }
 
             @Override

@@ -1,14 +1,15 @@
 package com.unicauca.domifoods.modelsRestaurantLino;
 
 public class RestaurantResponse {
-    private int id,nit,phone_num,id_admin;
+    private int id,nit,id_admin;
+    private long phone_num;
     private String name, address_location,web_page,hours,image,date_creation;
     private boolean state_delete,state_disponibility;
 
     public RestaurantResponse() {
     }
 
-    public RestaurantResponse(int id, int nit, int phone_num, int id_admin, String name, String address_location, String web_page, String hours, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
+    public RestaurantResponse(int id, int nit, long phone_num, int id_admin, String name, String address_location, String web_page, String hours, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
         this.id = id;
         this.nit = nit;
         this.phone_num = phone_num;
@@ -39,11 +40,11 @@ public class RestaurantResponse {
         this.nit = nit;
     }
 
-    public int getPhone_num() {
+    public long getPhone_num() {
         return phone_num;
     }
 
-    public void setPhone_num(int phone_num) {
+    public void setPhone_num(long phone_num) {
         this.phone_num = phone_num;
     }
 

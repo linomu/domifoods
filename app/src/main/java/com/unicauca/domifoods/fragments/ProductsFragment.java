@@ -60,7 +60,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     private ProgressDialog progDailogCategory;
     private ProgressDialog progDailogProducts;
     private TextView tv_restaurant_name, tv_info_restaurant;
-    public static int ID_RESTAURANT = 2;
+    public static int ID_RESTAURANT = 0;
     private static int ID_CATEGORY = 0;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
@@ -102,8 +102,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ID_RESTAURANT = 2;
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
@@ -125,10 +123,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 .into(img_restaurant_product_bg);*/
 
 
-        id_restaurant= "1";
-
-        Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
-
 
         setUpInfoRestaurant();
         setUpTheRecyclerView(view);
@@ -139,6 +133,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
     }
     public void  setUpInfoRestaurant(){
+        Log.i("Lino", "Estoy Dentro de setUpInfoRestaurant");
         Call<RestaurantResponse> call = RetrofitClient.getInstance().getApi().getInfoRestaurantByID(ID_RESTAURANT);
         call.enqueue(new Callback<RestaurantResponse>() {
             @Override
@@ -161,7 +156,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<RestaurantResponse> call, Throwable t) {
-
+                Log.i("Lino", "OnFailure SetUpRestaurant Info: "+ t.getMessage());
             }
         });
     }
