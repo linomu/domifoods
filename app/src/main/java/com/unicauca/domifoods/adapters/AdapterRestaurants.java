@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.modelsUser.PostsRestaurants;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,12 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
 
 
     /*Variables that we're gonna use*/
-    ArrayList<Restaurant> restaurants;
+    ArrayList<PostsRestaurants> restaurants;
     Picasso mPicasso;
     RestaurantListener listener;
 
     //Constructor
-    public AdapterRestaurants(ArrayList<Restaurant> restaurants) {
+    public AdapterRestaurants(ArrayList<PostsRestaurants> restaurants) {
         this.restaurants = restaurants;
     }
 
@@ -77,10 +78,12 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
 
     public class holderRestaurants extends RecyclerView.ViewHolder {
         ImageView imageView;
+       // TextView textView;
         CardView cardView_restaurant;
 
         public holderRestaurants(@NonNull View itemView) {
             super(itemView);
+            //textView = itemView.findViewById(R.id.textAddrees);
             imageView = itemView.findViewById(R.id.imv_restaurant);
             cardView_restaurant = itemView.findViewById(R.id.cardview_restaurant);
 
@@ -88,8 +91,8 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     }
 
 
-    public void addRestaurant(ArrayList<Restaurant> listRest){
-        //restaurants.addAll(listRest);
+    public void addRestaurant(ArrayList<PostsRestaurants> listRest){
+        restaurants.addAll(listRest);
         notifyDataSetChanged();
     }
 }

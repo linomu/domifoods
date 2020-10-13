@@ -32,6 +32,20 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
 
+
+public class GetRestaurant {
+
+    private ArrayList<Restaurant> results;
+
+    public ArrayList<Restaurant> getResults(){
+        return results;
+    }
+
+    public void setResults(ArrayList<Restaurant> result){
+        this.results = result;
+    }
+}
+/*
 public class GetRestaurant extends AsyncTask<Void, Void, String>{
 
     private List<Restaurant> httpList;
@@ -128,20 +142,6 @@ public class GetRestaurant extends AsyncTask<Void, Void, String>{
 }
 
 
-/*
-*
-public class GetRestaurant {
 
-    private ArrayList<Restaurant> results;
-
-    public ArrayList<Restaurant> getResults(){
-        return results;
-    }
-
-    public void setResults(ArrayList<Restaurant> result){
-        this.results = result;
-    }
-}
-*
 * */
 

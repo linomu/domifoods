@@ -28,9 +28,11 @@ import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
 import com.unicauca.domifoods.apiUser.ApiUser;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.dialogs.SimpleDialogOptions;
 import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.modelsUser.GetRestaurant;
+import com.unicauca.domifoods.modelsUser.Login_response;
 import com.unicauca.domifoods.modelsUser.PostsRestaurants;
 
 import java.util.ArrayList;
@@ -47,14 +49,18 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
     /*Variables*/
     //David
-    private TextView mJsonTxtView;
-    private ImageView mJsonImgView;
-    private RecyclerView.Adapter adapter;
+    //private TextView mJsonTxtView;
+    //private ImageView mJsonImgView;
+    //private RecyclerView.Adapter adapter;
+    //TextView tv_post;
+    private Retrofit retrofit;
+    private static  final String TAG = "DOMIFOOD";
+    private AdapterRestaurants listRestAdapter;
     //fin David
     ImageView imageView_background;
     Picasso mPicasso;
     RecyclerView recyclerView;
-    ArrayList<Restaurant> restaurants;
+    ArrayList<PostsRestaurants> restaurants;
     private ProgressDialog progDailog;
 
     NavController navController;
@@ -100,7 +106,6 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
-
     }
 
 
@@ -142,15 +147,60 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 .into(imageView_background);
     }
 
+    private void startProgressDialog() {
+        progDailog = new ProgressDialog(getContext());
+        progDailog.setMessage(getResources().getString(R.string.loading));
+        //progDailog.setIndeterminate(false);
+        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progDailog.setCancelable(true);
+        progDailog.show();
+    }
+    private void stopProgressDialog(){
+        progDailog.dismiss();
+    }
+
     private void setUpTheRecyclerView(View view) {
         restaurants = new ArrayList<>();
+
+        //David
+        startProgressDialog();
+        //tv_post = view.findViewById(R.id.tv_restaurant);
         recyclerView = view.findViewById(R.id.recyclerview_restaurants);
+        Call<List<PostsRestaurants>> restaurant = RetrofitClient.getInstance().getApi().getPosts();
+        restaurant.enqueue(new Callback<List<PostsRestaurants>>() {
+            @Override
+            public void onResponse(Call<List<PostsRestaurants>> call, Response<List<PostsRestaurants>> response) {
+                Log.i("david", "ingresar al metodo response"+ response.code());
+                List<PostsRestaurants> ListRest = response.body();
+                for(PostsRestaurants rest: ListRest){
+                    //Log.i("david", "Name"+ rest.getName());
+                    restaurants.add(rest);
+
+                }
+
+                listRestAdapter = new AdapterRestaurants(restaurants);
+                recyclerView.setAdapter(listRestAdapter);
+                recyclerView.setHasFixedSize(true);
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+                recyclerView.setLayoutManager(layoutManager);
+            }
+
+            @Override
+            public void onFailure(Call<List<PostsRestaurants>> call, Throwable t) {
+                Log.i("david", "ingresar al metodo Failer"+t.getMessage());
+                Log.i("david", "ingresar al metodo Failer"+t.getCause());
+            }
+        });
+
+        //Fin David
+
+        //recyclerView = view.findViewById(R.id.recyclerview_restaurants);
         //LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         //recyclerView.setLayoutManager(layoutManager);
 
-
-        /*AdapterRestaurants adapterRestaurants = new AdapterRestaurants(restaurants);
+        //fillOutTheRestaurants();
+        AdapterRestaurants adapterRestaurants = new AdapterRestaurants(restaurants);
         adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
             @Override
             public void restaurantSelected(int id) {
@@ -162,8 +212,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
             }
         });
-        recyclerView.setAdapter(adapterRestaurants);*/
-        fillOutTheRestaurants();
+        recyclerView.setAdapter(adapterRestaurants);
+
         //Listener
 
     }
@@ -176,14 +226,6 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         item.setChecked(true);
         Log.e("Lino", "OnStart RestaurantFragment");
     }
-
-
-    public void fillOutTheRestaurants() {
-        //Servicio web
-        GetRestaurant wsRestaurantes = new GetRestaurant(restaurants,recyclerView,adapter,getContext());
-        wsRestaurantes.execute();
-    }
-
 
 
     @Override
@@ -218,38 +260,3 @@ progDailog = new ProgressDialog(view.getContext());
 
 
 */
-
-/*
-* public void fillOutTheRestaurants() {
-        //Servicio web
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.55:8000/restaurants/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiUser apiUser = retrofit.create(ApiUser.class);
-        Call<List<PostsRestaurants>> call = apiUser.getPosts();
-        call.enqueue(new Callback<List<PostsRestaurants>>() {
-            @Override
-            public void onResponse(Call<List<PostsRestaurants>> call, Response<List<PostsRestaurants>> response) {
-                if(!response.isSuccessful()){
-                    mJsonTxtView.setText("Codigo: "+response.code());
-                    return;
-                }
-                List<PostsRestaurants> postsList = response.body();
-                for(PostsRestaurants post: postsList){
-                    String content = "";
-                    content += "image"+ post.getImage() + "\n";
-                    content += "id"+ post.getId() + "\n";
-                    content += "name"+ post.getName() + "\n";
-                    mJsonTxtView.append(content);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PostsRestaurants>> call, Throwable t) {
-                mJsonTxtView.setText(t.getMessage());
-            }
-        });
-    }
-* */

@@ -5,12 +5,14 @@ import java.util.Date;
 public class Restaurant {
 
     private int id, nit,id_admin, phone_num,hours;
-    private String name, address_location, web_page, image;
-    private Date date_creation;
+    private String name, address_location, web_page, image,  date_creation;
+    //private Date;
     private boolean state_delete, state_disponibility;
 
+    public Restaurant() {
+    }
 
-    public Restaurant(int id, int nit, String name, String address_location, int phone_num, String web_page, int hours, String image, Date date_creation, boolean state_delete, boolean state_disponibility, int id_admin) {
+    public Restaurant(int id, int nit, String name, String address_location, int phone_num, String web_page, int hours, String image, String date_creation, boolean state_delete, boolean state_disponibility, int id_admin) {
         this.id = id;
         this.nit = nit;
         this.name = name;
@@ -89,11 +91,11 @@ public class Restaurant {
         this.image = image;
     }
 
-    public Date getDate_creation() {
+    public String getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(Date date_creation) {
+    public void setDate_creation(String date_creation) {
         this.date_creation = date_creation;
     }
 
