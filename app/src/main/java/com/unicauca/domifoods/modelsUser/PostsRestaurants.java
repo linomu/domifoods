@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class PostsRestaurants {
 
-    private int id, nit,id_admin,hours;
+    private int id, nit,id_admin;
     private long phone_num;
-    private String name, address_location, web_page, image,date_creation;
+    private String name, address_location, web_page, image,date_creation,hours;
     //private Date date_creation;
     private boolean state_delete, state_disponibility;
 
@@ -14,7 +14,7 @@ public class PostsRestaurants {
     public PostsRestaurants() {
     }
 
-    public PostsRestaurants(int id, int nit, int id_admin, long phone_num, int hours, String name, String address_location, String web_page, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
+    public PostsRestaurants(int id, int nit, int id_admin, long phone_num, String hours, String name, String address_location, String web_page, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
         this.id = id;
         this.nit = nit;
         this.id_admin = id_admin;
@@ -61,11 +61,11 @@ public class PostsRestaurants {
         this.phone_num = phone_num;
     }
 
-    public int getHours() {
+    public String getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(String hours) {
         this.hours = hours;
     }
 

@@ -56,6 +56,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     private Retrofit retrofit;
     private static  final String TAG = "DOMIFOOD";
     private AdapterRestaurants listRestAdapter;
+    private String idRest;
     //fin David
     ImageView imageView_background;
     Picasso mPicasso;
@@ -120,8 +121,6 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         img_salir = view.findViewById(R.id.img_salir);
         img_salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +178,17 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 }
 
                 listRestAdapter = new AdapterRestaurants(restaurants);
+                listRestAdapter.setListener(new AdapterRestaurants.RestaurantListener() {
+                    @Override
+                    public void restaurantSelected(int id) {
+                        Log.i("David","El id del restaurante es: "+id);
+                        //ese id es el codigo del restaurante
+                        Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
+                        // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                        //como pasar datos de un destiono a otro.. usando el navcontroler
+                        navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
+                    }
+                });
                 recyclerView.setAdapter(listRestAdapter);
                 recyclerView.setHasFixedSize(true);
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
@@ -201,17 +211,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
 
         //fillOutTheRestaurants();
         AdapterRestaurants adapterRestaurants = new AdapterRestaurants(restaurants);
-        adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
-            @Override
-            public void restaurantSelected(int id) {
 
-                //ese id es el codigo del restaurante
-                Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
-                // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-                //como pasar datos de un destiono a otro.. usando el navcontroler
-                navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
-            }
-        });
         recyclerView.setAdapter(adapterRestaurants);
 
         //Listener
