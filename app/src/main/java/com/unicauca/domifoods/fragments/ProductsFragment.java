@@ -55,7 +55,10 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     ArrayList<Product> products;
     NavController navController;
     BottomNavigationView menu_options;
-    private ProgressDialog progDailog;
+    private ProgressDialog progDailogCategory;
+    private ProgressDialog progDailogProducts;
+    private static int ID_RESTAURANT = 2;
+    private static int ID_CATEGORY = 2;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
@@ -98,7 +101,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         super.onViewCreated(view, savedInstanceState);
 
 
-
+        ID_RESTAURANT = 2;
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
@@ -121,9 +124,10 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
         Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
 
-
         setUpTheRecyclerView(view);
         setUpTheRecyclerViewProducts(view);
+        fillOutTheCategories();
+        fillOutTheProducts();
 
 
     }
@@ -141,29 +145,24 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 */
     private void setUpTheRecyclerView(View view) {
 
-        categories = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_categories);
         LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        fillOutTheCategories();
-        AdapterCategories adapterCategories= new AdapterCategories(categories);
-        recyclerView.setAdapter(adapterCategories);
     }
 
 
     private void setUpTheRecyclerViewProducts(View view) {
-        products = new ArrayList<>();
+
+
         recyclerView_products = view.findViewById(R.id.recycler_products);
         recyclerView_products.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        fillOutTheProducts();
-        AdapterProducts adapterProducts = new AdapterProducts(products);
-        recyclerView_products.setAdapter(adapterProducts);
     }
 
     public void  fillOutTheCategories() {
         //Servicio web
-
-        Call<List<CategoriesResponse>> call = RetrofitClient.getInstance().getApi().getCategoriesByRestaurant(1);
+        categories = new ArrayList<>();
+        startProgressDialogCategory();
+        Call<List<CategoriesResponse>> call = RetrofitClient.getInstance().getApi().getCategoriesByRestaurant(ID_RESTAURANT);
         call.enqueue(new Callback<List<CategoriesResponse>>() {
             @Override
             public void onResponse(Call<List<CategoriesResponse>> call, Response<List<CategoriesResponse>> response) {
@@ -173,31 +172,43 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     List<CategoriesResponse> categoriesByResponse = response.body();
                     for(CategoriesResponse category : categoriesByResponse){
                         Log.i("Lino", category.toString());
-                        categories.add(new Category(category.getName(),category.getImage()));
+                        categories.add(new Category(category.getId(),category.getName(), category.getDescription(),category.getImage(),category.getDate_creation()));
 
                     }
+                    AdapterCategories adapterCategories= new AdapterCategories(categories);
+                    adapterCategories.setListener(new AdapterCategories.CategoryListener() {
+                        @Override
+                        public void categorySelected(int idCategory) {
+                            Toast.makeText(getContext(), "ID Category: "+idCategory, Toast.LENGTH_SHORT).show();
+                            ID_CATEGORY = idCategory;
+                            fillOutTheProducts();
+                        }
+                    });
+                    recyclerView.setAdapter(adapterCategories);
+
                 }else{
                     Log.i("Lino", "The response wasn't successful. Code: "+response.code());
 
+
                 }
+                stopProgressDialogCategory();
 
             }
 
             @Override
             public void onFailure(Call<List<CategoriesResponse>> call, Throwable t) {
-                Log.i("Lino", "OnFailure! ");
-                //stopProgressDialog();
+                Log.i("Lino", "OnFailure! "+t.getMessage());
+                stopProgressDialogCategory();
             }
         });
 
 
     }
     public void  fillOutTheProducts(){
+        products = new ArrayList<>();
+        startProgressDialogProduct();
 
-
-        int idRestaurant = 2;
-        int idCategory = 3;
-        Call<List<ProductResponse>> call = RetrofitClient.getInstance().getApi().getProductsByCategoryAndRestaurant(idRestaurant, idCategory);
+        Call<List<ProductResponse>> call = RetrofitClient.getInstance().getApi().getProductsByCategoryAndRestaurant(ID_RESTAURANT, ID_CATEGORY);
         call.enqueue(new Callback<List<ProductResponse>>() {
             @Override
             public void onResponse(Call<List<ProductResponse>> call, Response<List<ProductResponse>> response) {
@@ -209,16 +220,20 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                         Log.i("Lino", product.toString());
                         products.add(new Product(product.getName(),product.getImage(), (float) product.getPrice()));
                     }
+                    AdapterProducts adapterProducts = new AdapterProducts(products);
+                    recyclerView_products.setAdapter(adapterProducts);
                 }else{
                     Log.i("Lino", "The response wasn't successful. Code: "+response.code());
                 }
+
+                stopProgressDialogProduct();
 
             }
 
             @Override
             public void onFailure(Call<List<ProductResponse>> call, Throwable t) {
                 Log.i("Lino", "The response wasn't successful. Problem: "+t.getMessage());
-                //stopProgressDialog();
+                stopProgressDialogProduct();
 
             }
         });
@@ -257,16 +272,28 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         Log.e("Lino", "OnStart ProdutcsFragment");
     }
 
-    private void startProgressDialog() {
-        progDailog = new ProgressDialog(getContext());
-        progDailog.setMessage(getResources().getString(R.string.loading));
+    private void startProgressDialogCategory() {
+        progDailogCategory = new ProgressDialog(getContext());
+        progDailogCategory.setMessage(getResources().getString(R.string.loading));
         //progDailog.setIndeterminate(false);
-        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progDailogCategory.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         //progDailog.setCancelable(true);
-        progDailog.show();
+        progDailogCategory.show();
     }
-    private void stopProgressDialog(){
-        progDailog.dismiss();
+    private void stopProgressDialogCategory(){
+        progDailogCategory.dismiss();
+    }
+
+    private void startProgressDialogProduct() {
+        progDailogProducts = new ProgressDialog(getContext());
+        progDailogProducts.setMessage(getResources().getString(R.string.loading));
+        //progDailog.setIndeterminate(false);
+        progDailogProducts.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progDailog.setCancelable(true);
+        progDailogProducts.show();
+    }
+    private void stopProgressDialogProduct(){
+        progDailogProducts.dismiss();
     }
 
 }
