@@ -253,7 +253,11 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                         create_user_response = obj.execute().get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
-                    } catch (InterruptedException e) {e.printStackTrace();}
+                        stopProgressDialog();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        stopProgressDialog();
+                    }
 
                     if(create_user_response !=null){
 
@@ -325,7 +329,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                             if (response.body() != null) {
                                 User_client_register obj = response.body();
                                 Log.i("Retrofit", "Finalicé el tercer consumo");
-                                stopProgressDialog();
+
                                 cleanSharedPreferencesFile();
                                 updateFormFromSharedPreference();
                                 //Se debe realizar el llamado al login
@@ -343,6 +347,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                                             editorLogin.putString(LOGIN_TOKEN,login_response.getToken());
                                             editorLogin.putString(LOGIN_DOCUMENT,login_response.getDocument());
                                             editorLogin.commit();
+                                            stopProgressDialog();
                                             startActivity(new Intent(Register2Activity.this, MainActivity.class));
                                             finish();
 
