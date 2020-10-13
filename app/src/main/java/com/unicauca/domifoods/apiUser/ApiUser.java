@@ -18,6 +18,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiUser {
 
@@ -50,6 +51,16 @@ public interface ApiUser {
     //Metodos David
     @GET("restaurants/api/restaurants/")
     Call<List<PostsRestaurants>> getPosts();
+
+    @GET("restaurants/api/restaurants/{id}/categories/")
+    Call<List<CategoriesResponse>>getCategoriesByRestaurant(@Path("id") int idRestaurant);
+
+    @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
+    Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
+
+    @GET("restaurants/api/restaurants/{id}/")
+    Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
+
 
     @GET("restaurants")
     Call<GetRestaurant> list();

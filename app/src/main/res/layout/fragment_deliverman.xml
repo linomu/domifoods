@@ -56,7 +56,7 @@
         android:textDirection="firstStrongLtr" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_info_restaurant"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_margin="75dp"

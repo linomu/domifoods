@@ -7,13 +7,12 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String name, String description, String image, String date_creation, String state_delete) {
+    public Category(int id, String name, String description, String image, String date_creation) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.date_creation = date_creation;
-        this.state_delete = state_delete;
     }
 
     public Category(String name, String image) {

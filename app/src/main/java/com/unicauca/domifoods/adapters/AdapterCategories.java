@@ -1,5 +1,6 @@
 package com.unicauca.domifoods.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,17 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     ArrayList<Category> categories;
     Picasso mPicasso;
 
+    CategoryListener listener;
+
+    //Interface
+    public interface CategoryListener{
+        void categorySelected(int idCategory);
+    }
+    //Bind
+    public void setListener(CategoryListener listener) {
+        this.listener = listener;
+    }
+
     public AdapterCategories(ArrayList<Category> categories) {
         this.categories = categories;
     }
@@ -43,6 +55,16 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
         mPicasso.load(categories.get(position).getImage())
                 .transform(new CircleTransform())
                 .into(holder.img_category);
+        holder.img_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener!=null) {
+                    Log.i("Lino", "Método on click. Listener != null. ID:"+categories.get(position).getId());
+                    listener.categorySelected(categories.get(position).getId());
+                }
+            }
+        });
+
     }
 
     @Override

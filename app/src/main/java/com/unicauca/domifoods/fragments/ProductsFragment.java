@@ -1,5 +1,6 @@
 package com.unicauca.domifoods.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,16 +29,25 @@ import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterCategories;
 import com.unicauca.domifoods.adapters.AdapterProducts;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.domain.Category;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
+import com.unicauca.domifoods.modelsProduct.ProductResponse;
+import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
 import com.unicauca.domifoods.settings.CircleTransform;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class ProductsFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+public class ProductsFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
 
     ImageView img_restaurant_icon, img_restaurant_product_bg;
@@ -46,6 +57,11 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     ArrayList<Product> products;
     NavController navController;
     BottomNavigationView menu_options;
+    private ProgressDialog progDailogCategory;
+    private ProgressDialog progDailogProducts;
+    private TextView tv_restaurant_name, tv_info_restaurant;
+    public static int ID_RESTAURANT = 2;
+    private static int ID_CATEGORY = 0;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
@@ -87,8 +103,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
+        ID_RESTAURANT = 2;
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
@@ -97,6 +112,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         /*Variable Initialization */
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
+        tv_restaurant_name = view.findViewById(R.id.tv_restaurant_name);
+        tv_info_restaurant = view.findViewById(R.id.tv_info_restaurant);
+
         /*Picasso Initialization*/
         mPicasso = new Picasso.Builder(getContext()).indicatorsEnabled(false).build();
 
@@ -105,14 +123,49 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 .fit()
                 .centerCrop()
                 .into(img_restaurant_product_bg);*/
-        Picasso.with(getContext()).load("https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg").transform(new CircleTransform()).into(img_restaurant_icon);
+
+
+        id_restaurant= "1";
 
         Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
 
+
+        setUpInfoRestaurant();
         setUpTheRecyclerView(view);
         setUpTheRecyclerViewProducts(view);
+        fillOutTheCategories();
+        //fillOutTheProducts();
+
 
     }
+    public void  setUpInfoRestaurant(){
+        Call<RestaurantResponse> call = RetrofitClient.getInstance().getApi().getInfoRestaurantByID(ID_RESTAURANT);
+        call.enqueue(new Callback<RestaurantResponse>() {
+            @Override
+            public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
+                Log.i("Lino", "I'm inside OnResponse RestaurantInfo");
+                if(response.isSuccessful()){
+                    Log.i("Lino", "The response RestaurantInfo was successful. Code: "+response.code());
+                    RestaurantResponse restaurantResponse = response.body();
+                    Log.i("Lino", "Restaurant info:"+restaurantResponse.toString());
+                    Picasso.with(getContext()).load(restaurantResponse.getImage()).transform(new CircleTransform()).into(img_restaurant_icon);
+                    tv_restaurant_name.setText(restaurantResponse.getName());
+                    tv_info_restaurant.setText(restaurantResponse.getAddress_location()+"\n"+restaurantResponse.getPhone_num());
+
+                }else{
+                    Log.i("Lino", "The response RestaurantInfo wasn't successful. Code: "+response.code());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
 
 /*
@@ -124,40 +177,107 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
 */
     private void setUpTheRecyclerView(View view) {
-        categories = new ArrayList<>();
+
         recyclerView = view.findViewById(R.id.recycler_categories);
         LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        fillOutTheCategories();
-        AdapterCategories adapterCategories= new AdapterCategories(categories);
-        recyclerView.setAdapter(adapterCategories);
     }
 
 
     private void setUpTheRecyclerViewProducts(View view) {
-        products = new ArrayList<>();
+
+
         recyclerView_products = view.findViewById(R.id.recycler_products);
         recyclerView_products.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        fillOutTheProducts();
-        AdapterProducts adapterProducts = new AdapterProducts(products);
-        recyclerView_products.setAdapter(adapterProducts);
     }
 
-    public void  fillOutTheCategories(){
+    public void  fillOutTheCategories() {
         //Servicio web
-        categories.add(new Category("Almuerzos","https://i.pinimg.com/originals/d1/e9/8c/d1e98c995db0af92a858e7ccf023b37d.jpg"));
-        categories.add(new Category("Jugos","https://cdn.kiwilimon.com/recetaimagen/30632/34260.jpg"));
-        categories.add(new Category("Postres","https://okdiario.com/img/2018/06/09/tarta-de-limon-655x368.jpg"));
-        categories.add(new Category("Café","https://www.juanvaldezcafe.com/sites/default/files/tinto_grande.jpg"));
-        categories.add(new Category("Helados","https://imagenes.20minutos.es/files/image_656_370/uploads/imagenes/2020/06/10/helado-de-stracciatella.jpeg"));
+        categories = new ArrayList<>();
+        startProgressDialogCategory();
+        Call<List<CategoriesResponse>> call = RetrofitClient.getInstance().getApi().getCategoriesByRestaurant(ID_RESTAURANT);
+        call.enqueue(new Callback<List<CategoriesResponse>>() {
+            @Override
+            public void onResponse(Call<List<CategoriesResponse>> call, Response<List<CategoriesResponse>> response) {
+                Log.i("Lino", "I'm inside OnResponse");
+                if(response.isSuccessful()){
+                    Log.i("Lino", "The response was successful. Code: "+response.code());
+                    List<CategoriesResponse> categoriesByResponse = response.body();
+                    int position = 0;
+                    for(CategoriesResponse category : categoriesByResponse){
+                        Log.i("Lino", category.toString());
+                        categories.add(new Category(category.getId(),category.getName(), category.getDescription(),category.getImage(),category.getDate_creation()));
+                        if(position==0){
+                            ID_CATEGORY = category.getId();
+                        }
+                        position++;
+                    }
+                    AdapterCategories adapterCategories= new AdapterCategories(categories);
+                    adapterCategories.setListener(new AdapterCategories.CategoryListener() {
+                        @Override
+                        public void categorySelected(int idCategory) {
+                            Toast.makeText(getContext(), "ID Category: "+idCategory, Toast.LENGTH_SHORT).show();
+                            ID_CATEGORY = idCategory;
+                            fillOutTheProducts();
+                        }
+                    });
+                    recyclerView.setAdapter(adapterCategories);
+                    fillOutTheProducts();
+
+
+                }else{
+                    Log.i("Lino", "The response wasn't successful. Code: "+response.code());
+
+
+                }
+                stopProgressDialogCategory();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoriesResponse>> call, Throwable t) {
+                Log.i("Lino", "OnFailure! "+t.getMessage());
+                stopProgressDialogCategory();
+            }
+        });
+
+
     }
     public void  fillOutTheProducts(){
+        products = new ArrayList<>();
+        startProgressDialogProduct();
 
-        products.add(new Product("Arroz con Pollo","https://s1.eestatic.com/2020/01/28/cocinillas/recetas/pasta-y-arroz/Arroz-Pollo-Pasta_y_arroz_463216136_143694761_1024x576.jpg", (float) 15000));
-        products.add(new Product("Caldo de Res","https://www.deliciosi.com/images/100/150/caldo-de-res.jpg", (float)12000));
-        products.add(new Product("Sancocho","https://t1.rg.ltmcdn.com/es/images/1/8/1/img_sancocho_de_gallina_o_pollo_12181_orig.jpg", (float)10000));
-        products.add(new Product("Ajiaco","https://images-gmi-pmc.edge-generalmills.com/4a994b44-4d9c-4552-82e4-6e9964322a78.jpg",(float)8500));
-        products.add(new Product("Frijoles","https://t2.uc.ltmcdn.com/images/8/1/4/img_como_hacer_frijoles_colombianos_31418_orig.jpg", (float)7500));
+        Call<List<ProductResponse>> call = RetrofitClient.getInstance().getApi().getProductsByCategoryAndRestaurant(ID_RESTAURANT, ID_CATEGORY);
+        call.enqueue(new Callback<List<ProductResponse>>() {
+            @Override
+            public void onResponse(Call<List<ProductResponse>> call, Response<List<ProductResponse>> response) {
+                Log.i("Lino", "I'm inside OnResponse FillOutTheProduct");
+                if(response.isSuccessful()){
+                    Log.i("Lino", "The response was successful. Code: "+response.code());
+                    List<ProductResponse> productsByCategoryResponse = response.body();
+                    for(ProductResponse product : productsByCategoryResponse){
+                        Log.i("Lino", product.toString());
+                        products.add(new Product(product.getName(),product.getImage(), (float) product.getPrice()));
+                    }
+                    AdapterProducts adapterProducts = new AdapterProducts(products);
+                    recyclerView_products.setAdapter(adapterProducts);
+                }else{
+                    Log.i("Lino", "The response wasn't successful. Code: "+response.code());
+                }
+
+                stopProgressDialogProduct();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductResponse>> call, Throwable t) {
+                Log.i("Lino", "The response wasn't successful. Problem: "+t.getMessage());
+                stopProgressDialogProduct();
+
+            }
+        });
+
+
     }
 
 
@@ -189,6 +309,30 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
         Log.e("Lino", "OnStart ProdutcsFragment");
+    }
+
+    private void startProgressDialogCategory() {
+        progDailogCategory = new ProgressDialog(getContext());
+        progDailogCategory.setMessage(getResources().getString(R.string.loading));
+        //progDailog.setIndeterminate(false);
+        progDailogCategory.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progDailog.setCancelable(true);
+        progDailogCategory.show();
+    }
+    private void stopProgressDialogCategory(){
+        progDailogCategory.dismiss();
+    }
+
+    private void startProgressDialogProduct() {
+        progDailogProducts = new ProgressDialog(getContext());
+        progDailogProducts.setMessage(getResources().getString(R.string.loading));
+        //progDailog.setIndeterminate(false);
+        progDailogProducts.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progDailog.setCancelable(true);
+        progDailogProducts.show();
+    }
+    private void stopProgressDialogProduct(){
+        progDailogProducts.dismiss();
     }
 
 }

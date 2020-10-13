@@ -272,6 +272,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                     }else{
                         //Hubo un fallo de que ya existe
                         Log.i("Retrofit","El username está repetido");
+                        stopProgressDialog();
+                        Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
                     }
 
                 }
