@@ -170,9 +170,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editorLogin.putString(Register2Activity.LOGIN_TOKEN,login_response.getToken());
                             editorLogin.putString(Register2Activity.LOGIN_DOCUMENT,login_response.getDocument());
                             editorLogin.commit();
+                            stopProgressDialog();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
-                            stopProgressDialog();
+
 
                         }
                         else{
@@ -190,6 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             } catch (IOException e) {
                                 e.printStackTrace();
+                                stopProgressDialog();
                             }
                             //Mensaje de contraseñas invalidas
                         }
