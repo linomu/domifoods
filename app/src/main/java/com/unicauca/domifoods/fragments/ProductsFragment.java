@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +35,7 @@ import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
 import com.unicauca.domifoods.modelsProduct.ProductResponse;
+import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
 import com.unicauca.domifoods.settings.CircleTransform;
 
 import java.util.ArrayList;
@@ -57,8 +59,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     BottomNavigationView menu_options;
     private ProgressDialog progDailogCategory;
     private ProgressDialog progDailogProducts;
-    private static int ID_RESTAURANT = 2;
-    private static int ID_CATEGORY = 2;
+    private TextView tv_restaurant_name, tv_info_restaurant;
+    public static int ID_RESTAURANT = 2;
+    private static int ID_CATEGORY = 0;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
@@ -100,7 +103,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         ID_RESTAURANT = 2;
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
@@ -110,6 +112,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         /*Variable Initialization */
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
+        tv_restaurant_name = view.findViewById(R.id.tv_restaurant_name);
+        tv_info_restaurant = view.findViewById(R.id.tv_info_restaurant);
+
         /*Picasso Initialization*/
         mPicasso = new Picasso.Builder(getContext()).indicatorsEnabled(false).build();
 
@@ -118,20 +123,48 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 .fit()
                 .centerCrop()
                 .into(img_restaurant_product_bg);*/
-        Picasso.with(getContext()).load("https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg").transform(new CircleTransform()).into(img_restaurant_icon);
+
 
         id_restaurant= "1";
 
         Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
 
+
+        setUpInfoRestaurant();
         setUpTheRecyclerView(view);
         setUpTheRecyclerViewProducts(view);
         fillOutTheCategories();
-        fillOutTheProducts();
+        //fillOutTheProducts();
 
 
     }
+    public void  setUpInfoRestaurant(){
+        Call<RestaurantResponse> call = RetrofitClient.getInstance().getApi().getInfoRestaurantByID(ID_RESTAURANT);
+        call.enqueue(new Callback<RestaurantResponse>() {
+            @Override
+            public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
+                Log.i("Lino", "I'm inside OnResponse RestaurantInfo");
+                if(response.isSuccessful()){
+                    Log.i("Lino", "The response RestaurantInfo was successful. Code: "+response.code());
+                    RestaurantResponse restaurantResponse = response.body();
+                    Log.i("Lino", "Restaurant info:"+restaurantResponse.toString());
+                    Picasso.with(getContext()).load(restaurantResponse.getImage()).transform(new CircleTransform()).into(img_restaurant_icon);
+                    tv_restaurant_name.setText(restaurantResponse.getName());
+                    tv_info_restaurant.setText(restaurantResponse.getAddress_location()+"\n"+restaurantResponse.getPhone_num());
 
+                }else{
+                    Log.i("Lino", "The response RestaurantInfo wasn't successful. Code: "+response.code());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 
@@ -170,10 +203,14 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 if(response.isSuccessful()){
                     Log.i("Lino", "The response was successful. Code: "+response.code());
                     List<CategoriesResponse> categoriesByResponse = response.body();
+                    int position = 0;
                     for(CategoriesResponse category : categoriesByResponse){
                         Log.i("Lino", category.toString());
                         categories.add(new Category(category.getId(),category.getName(), category.getDescription(),category.getImage(),category.getDate_creation()));
-
+                        if(position==0){
+                            ID_CATEGORY = category.getId();
+                        }
+                        position++;
                     }
                     AdapterCategories adapterCategories= new AdapterCategories(categories);
                     adapterCategories.setListener(new AdapterCategories.CategoryListener() {
@@ -185,6 +222,8 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                         }
                     });
                     recyclerView.setAdapter(adapterCategories);
+                    fillOutTheProducts();
+
 
                 }else{
                     Log.i("Lino", "The response wasn't successful. Code: "+response.code());

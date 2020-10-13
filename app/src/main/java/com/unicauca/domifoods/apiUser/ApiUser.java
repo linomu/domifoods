@@ -2,6 +2,7 @@ package com.unicauca.domifoods.apiUser;
 
 import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
 import com.unicauca.domifoods.modelsProduct.ProductResponse;
+import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
 import com.unicauca.domifoods.modelsUser.Login_request;
@@ -57,6 +58,9 @@ public interface ApiUser {
 
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
+
+    @GET("restaurants/api/restaurants/{id}/")
+    Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
 
 
 }
