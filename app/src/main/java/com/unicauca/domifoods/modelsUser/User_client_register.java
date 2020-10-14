@@ -3,6 +3,7 @@ package com.unicauca.domifoods.modelsUser;
 public class User_client_register {
     private String id_user_restaurant;
 
+    //clase para registarar un cliente
     public User_client_register() {
     }
 
