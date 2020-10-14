@@ -1,13 +1,15 @@
 package com.unicauca.domifoods.modelsUser;
 
 public class Product_request {
+
+    //este es el objeto gsobn para traer la informacion de  el  producto
     private int id, id_category, id_restaurant;
     private String name, description, image;
     private Float price;
 
     public Product_request() {
     }
-
+    //constructores
     public Product_request(int id, int id_category, int id_restaurant, String name, String description, String image, Float price) {
         this.id = id;
         this.id_category = id_category;
@@ -23,7 +25,7 @@ public class Product_request {
         this.image = image;
         this.price = price;
     }
-
+    //metodos get
     public int getId() {
         return id;
     }
