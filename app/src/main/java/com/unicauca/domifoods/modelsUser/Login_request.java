@@ -3,7 +3,8 @@ package com.unicauca.domifoods.modelsUser;
 public class Login_request {
     private String  username, password;
 
-    //otilizado para el login de   de un usuario en la aplicacion
+
+    // methods used for the login of a user in the application
     public Login_request() {
     }
 
@@ -12,7 +13,7 @@ public class Login_request {
         this.password = password;
     }
 
-    //metodos get
+    //methods get
     public String getUsername() {
         return username;
     }
