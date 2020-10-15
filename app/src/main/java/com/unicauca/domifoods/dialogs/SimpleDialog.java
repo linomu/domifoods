@@ -14,11 +14,12 @@ import androidx.fragment.app.DialogFragment;
 import com.unicauca.domifoods.R;
 
 public class SimpleDialog extends DialogFragment {
-
+    //attributes
     private String mensaje_from_server;
 
     @NonNull
     @Override
+    //builder  iniciliate 
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
