@@ -272,6 +272,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                     }else{
                         //Hubo un fallo de que ya existe
                         Log.i("Retrofit","El username está repetido");
+                        stopProgressDialog();
+                        Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -366,6 +368,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
                                     @Override
                                     public void onFailure(Call<Login_response> call, Throwable t) {
+                                        stopProgressDialog();
+                                        Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
 
                                     }
                                 });
@@ -389,6 +393,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
                     @Override
                     public void onFailure(Call<User_client_register> call, Throwable t) {
+                        stopProgressDialog();
+                        Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
 
                     }
                  });
@@ -396,7 +402,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<User_restaurant_register> call, Throwable t) {
-                Toast.makeText(Register2Activity.this, "Tenemos un fallo: Quizas no hay conexión a internet o el servidor no responde", Toast.LENGTH_LONG).show();
+                stopProgressDialog();
+                Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -437,8 +444,9 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(Register2Activity.this, "Something is wrong: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("Retrofit", t.getMessage());
+                stopProgressDialog();
+                t.getMessage();
+                Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -554,13 +562,16 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
                             @Override
                             public void onFailure(Call<User_client_register> call, Throwable t) {
-
+                                stopProgressDialog();
+                                Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
 
                     @Override
                     public void onFailure(Call<User_restaurant_register> call, Throwable t) {
+                        stopProgressDialog();
+                        Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -568,7 +579,8 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<Create_user_response> call, Throwable t) {
-
+                stopProgressDialog();
+                Toast.makeText(Register2Activity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
             }
 
 

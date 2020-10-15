@@ -1,6 +1,8 @@
 package com.unicauca.domifoods.apiUser;
 
-import com.unicauca.domifoods.modelsUser.Category_request;
+import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
+import com.unicauca.domifoods.modelsProduct.ProductResponse;
+import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
 import com.unicauca.domifoods.modelsUser.Login_request;
@@ -17,6 +19,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiUser {
 
@@ -50,9 +53,14 @@ public interface ApiUser {
     //@GET("restaurante")
     //Call<Login_response>getResturantes(@Body Login_request login_request);
 
-    //metodos para get  de  las categorias del restaurante
-    @GET("restaurants/api/restaurants/1/categories/")
-    Call<List<Category_request>>CATEGORY_REQUEST_CALL();
+    @GET("restaurants/api/restaurants/{id}/categories/")
+    Call<List<CategoriesResponse>>getCategoriesByRestaurant(@Path("id") int idRestaurant);
+
+    @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
+    Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
+
+    @GET("restaurants/api/restaurants/{id}/")
+    Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
 
 
 }
