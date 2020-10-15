@@ -11,7 +11,7 @@ import com.unicauca.domifoods.R;
 
 public class AlertFragment  {
 
-    //alert dialog
+    //alert dialog alert fragment
     public AlertFragment(Context contexto){
         final Dialog dialogo = new Dialog(contexto);
         dialogo.requestWindowFeature(Window.FEATURE_NO_TITLE);
