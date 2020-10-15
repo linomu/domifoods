@@ -53,9 +53,12 @@ public interface ApiUser {
     //@GET("restaurante")
     //Call<Login_response>getResturantes(@Body Login_request login_request);
 
+    //methods for the second sprint javier cuasapud
+
+    // method for the list of categories for restaurnts this send  id
     @GET("restaurants/api/restaurants/{id}/categories/")
     Call<List<CategoriesResponse>>getCategoriesByRestaurant(@Path("id") int idRestaurant);
-
+    // method for the list of categories for restaurnts this send  id and id resaurants
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
 
