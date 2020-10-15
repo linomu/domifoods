@@ -60,7 +60,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     private ProgressDialog progDailogCategory;
     private ProgressDialog progDailogProducts;
     private TextView tv_restaurant_name, tv_info_restaurant;
-    public static int ID_RESTAURANT = 2;
+    public static int ID_RESTAURANT = 0;
     private static int ID_CATEGORY = 0;
 
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
@@ -102,8 +102,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ID_RESTAURANT = 2;
         navController = Navigation.findNavController(view);
         menu_options = view.findViewById(R.id.menu_options_nav);
         menu_options.setOnNavigationItemSelectedListener(this);
@@ -125,10 +123,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 .into(img_restaurant_product_bg);*/
 
 
-        id_restaurant= "1";
-
-        Toast.makeText(getContext(), "Aqui tengo su id" + id_restaurant, Toast.LENGTH_SHORT).show();
-
 
         setUpInfoRestaurant();
         setUpTheRecyclerView(view);
@@ -139,6 +133,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
     }
     public void  setUpInfoRestaurant(){
+        Log.i("Lino", "Estoy Dentro de setUpInfoRestaurant");
         Call<RestaurantResponse> call = RetrofitClient.getInstance().getApi().getInfoRestaurantByID(ID_RESTAURANT);
         call.enqueue(new Callback<RestaurantResponse>() {
             @Override
@@ -148,7 +143,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     Log.i("Lino", "The response RestaurantInfo was successful. Code: "+response.code());
                     RestaurantResponse restaurantResponse = response.body();
                     Log.i("Lino", "Restaurant info:"+restaurantResponse.toString());
-                    Picasso.with(getContext()).load(restaurantResponse.getImage()).transform(new CircleTransform()).into(img_restaurant_icon);
+                    Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
                     tv_restaurant_name.setText(restaurantResponse.getName());
                     tv_info_restaurant.setText(restaurantResponse.getAddress_location()+"\n"+restaurantResponse.getPhone_num());
 
@@ -161,7 +156,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<RestaurantResponse> call, Throwable t) {
-
+                Log.i("Lino", "OnFailure SetUpRestaurant Info: "+ t.getMessage());
             }
         });
     }
@@ -201,7 +196,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
             public void onResponse(Call<List<CategoriesResponse>> call, Response<List<CategoriesResponse>> response) {
                 Log.i("Lino", "I'm inside OnResponse");
                 if(response.isSuccessful()){
-                    Log.i("Lino", "The response was successful. Code: "+response.code());
+                    Log.i("test", "The response was successful. Code: "+response.code());
                     List<CategoriesResponse> categoriesByResponse = response.body();
                     int position = 0;
                     for(CategoriesResponse category : categoriesByResponse){
@@ -232,11 +227,12 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 }
                 stopProgressDialogCategory();
 
+
             }
 
             @Override
             public void onFailure(Call<List<CategoriesResponse>> call, Throwable t) {
-                Log.i("Lino", "OnFailure! "+t.getMessage());
+                Log.i("Lino", "OnFailure! > "+t.getMessage());
                 stopProgressDialogCategory();
             }
         });
@@ -309,6 +305,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
         Log.e("Lino", "OnStart ProdutcsFragment");
+        SetUpTheScreen();
     }
 
     private void startProgressDialogCategory() {
@@ -321,6 +318,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
     private void stopProgressDialogCategory(){
         progDailogCategory.dismiss();
+        SetUpTheScreen();
     }
 
     private void startProgressDialogProduct() {
@@ -333,7 +331,16 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
     private void stopProgressDialogProduct(){
         progDailogProducts.dismiss();
+        SetUpTheScreen();
     }
 
+    public void SetUpTheScreen(){
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+    }
 }
 

@@ -6,12 +6,12 @@ public class CategoriesResponse {
     private int id;
     private String name,description,image,date_creation;
     private boolean state_delete;
-    private List<Integer> restaurant;
+    private int restaurant;
 
     public CategoriesResponse() {
     }
 
-    public CategoriesResponse(int id, String name, String description, String image, String date_creation, boolean state_delete, List<Integer> restaurant) {
+    public CategoriesResponse(int id, String name, String description, String image, String date_creation, boolean state_delete, int restaurant) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -69,11 +69,11 @@ public class CategoriesResponse {
         this.state_delete = state_delete;
     }
 
-    public List<Integer> getRestaurant() {
+    public int getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(List<Integer> restaurant) {
+    public void setRestaurant(int restaurant) {
         this.restaurant = restaurant;
     }
 

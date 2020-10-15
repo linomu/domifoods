@@ -66,7 +66,10 @@
         android:clickable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_button_back" />
+        app:srcCompat="@drawable/ic_button_back"
+
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_restaurants"
@@ -78,9 +81,13 @@
 
         app:layout_constraintBottom_toTopOf="@+id/menu_options_nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_restaurants" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_restaurants"
+        app:layout_constraintVertical_bias="1.0">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_options_nav"

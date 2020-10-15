@@ -20,28 +20,47 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
-import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
+import com.unicauca.domifoods.apiUser.ApiUser;
 import com.unicauca.domifoods.apiUser.RetrofitClient;
-import com.unicauca.domifoods.dialogs.SimpleDialog;
 import com.unicauca.domifoods.dialogs.SimpleDialogOptions;
 import com.unicauca.domifoods.domain.Restaurant;
+import com.unicauca.domifoods.modelsUser.GetRestaurant;
+import com.unicauca.domifoods.modelsUser.Login_response;
+import com.unicauca.domifoods.modelsUser.PostsRestaurants;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RestaurantFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     /*Variables*/
+    //David
+    //private TextView mJsonTxtView;
+    //private ImageView mJsonImgView;
+    //private RecyclerView.Adapter adapter;
+    //TextView tv_post;
+    private Retrofit retrofit;
+    private static  final String TAG = "DOMIFOOD";
+    private AdapterRestaurants listRestAdapter;
+    //fin David
     ImageView imageView_background;
     Picasso mPicasso;
     RecyclerView recyclerView;
-    ArrayList<Restaurant> restaurants;
+    ArrayList<PostsRestaurants> restaurants;
     private ProgressDialog progDailog;
 
     NavController navController;
@@ -85,8 +104,10 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +120,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         img_salir = view.findViewById(R.id.img_salir);
         img_salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +129,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 SimpleDialogOptions simpleDialog = new SimpleDialogOptions();
                 //Por medio de este set, le estoy pasando informacion al Dialog
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                simpleDialog.show(fm,"LoginDialog");
+                simpleDialog.show(fm, "LoginDialog");
             }
         });
         navController = Navigation.findNavController(view);
@@ -124,27 +147,76 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 .into(imageView_background);
     }
 
+    private void startProgressDialog() {
+        progDailog = new ProgressDialog(getContext());
+        progDailog.setMessage(getResources().getString(R.string.loading));
+        //progDailog.setIndeterminate(false);
+        progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //progDailog.setCancelable(true);
+        progDailog.show();
+    }
+    private void stopProgressDialog(){
+        progDailog.dismiss();
+    }
+
     private void setUpTheRecyclerView(View view) {
         restaurants = new ArrayList<>();
+
+        //David
+        startProgressDialog();
+        //tv_post = view.findViewById(R.id.tv_restaurant);
         recyclerView = view.findViewById(R.id.recyclerview_restaurants);
-        //LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        //recyclerView.setLayoutManager(layoutManager);
-
-        fillOutTheRestaurants();
-        AdapterRestaurants adapterRestaurants= new AdapterRestaurants(restaurants);
-
-        adapterRestaurants.setListener(new AdapterRestaurants.RestaurantListener() {
+        Call<List<PostsRestaurants>> restaurant = RetrofitClient.getInstance().getApi().getPosts();
+        restaurant.enqueue(new Callback<List<PostsRestaurants>>() {
             @Override
-            public void restaurantSelected(int id) {
+            public void onResponse(Call<List<PostsRestaurants>> call, Response<List<PostsRestaurants>> response) {
+                Log.i("david", "ingresar al metodo response"+ response.code());
+                List<PostsRestaurants> ListRest = response.body();
+                for(PostsRestaurants rest: ListRest){
+                    //Log.i("david", "Name"+ rest.getName());
+                    restaurants.add(rest);
 
-                //ese id es el codigo del restaurante
-                Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
-               // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-                //como pasar datos de un destiono a otro.. usando el navcontroler
-                navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
+                }
+
+                listRestAdapter = new AdapterRestaurants(restaurants);
+                listRestAdapter.setListener(new AdapterRestaurants.RestaurantListener() {
+                    @Override
+                    public void restaurantSelected(int id) {
+                        ProductsFragment.ID_RESTAURANT=id;
+                        Log.i("Lino", "ID_RESTAURANT tiene asignado el id: "+ProductsFragment.ID_RESTAURANT);
+                        //ese id es el codigo del restaurante
+                        Fragment selectedFragment = ProductsFragment.newInstance(String.valueOf(id));
+                        // getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                        //como pasar datos de un destiono a otro.. usando el navcontroler
+                        navController.navigate(R.id.action_restaurantFragment_to_productsFragment);
+                    }
+                });
+                recyclerView.setAdapter(listRestAdapter);
+                recyclerView.setHasFixedSize(true);
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+                recyclerView.setLayoutManager(layoutManager);
+                stopProgressDialog();
+                SetUpTheScreen();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PostsRestaurants>> call, Throwable t) {
+                Log.i("david", "ingresar al metodo Failer"+t.getMessage());
+                Log.i("david", "ingresar al metodo Failer"+t.getCause());
             }
         });
+
+        //Fin David
+
+        //recyclerView = view.findViewById(R.id.recyclerview_restaurants);
+        //LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        //recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        //recyclerView.setLayoutManager(layoutManager);
+
+        //fillOutTheRestaurants();
+        AdapterRestaurants adapterRestaurants = new AdapterRestaurants(restaurants);
+
         recyclerView.setAdapter(adapterRestaurants);
 
         //Listener
@@ -154,33 +226,28 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     @Override
     public void onStart() {
         super.onStart();
+
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
         Log.e("Lino", "OnStart RestaurantFragment");
+        SetUpTheScreen();
+
     }
 
-    public void  fillOutTheRestaurants(){
-        //Servicio web
-
-        restaurants.add(new Restaurant(1,"Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
-        restaurants.add(new Restaurant(3,"Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
-        restaurants.add(new Restaurant(4,"Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));
-        restaurants.add(new Restaurant(5,"Pio Pio","https://img.pystatic.com/restaurants/domi_47712.jpg"));
-        restaurants.add(new Restaurant(6,"Pio Pio","https://i.pinimg.com/originals/ec/c3/2b/ecc32bd5a4a7cc2465dace39a54b0561.jpg"));
-        restaurants.add(new Restaurant(7,"Pio Pio","https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"));
-        restaurants.add(new Restaurant(8,"Pio Pio","https://unicentrodearmenia.com/wp-content/uploads/2018/06/juan-valdez.jpg"));
-        restaurants.add(new Restaurant(9,"Pio Pio","https://i.ytimg.com/vi/IG8hHUvYF1w/hqdefault.jpg"));
-        restaurants.add(new Restaurant(10,"Pio Pio","https://www.piopio.com.co/img/piopio/logofull.png"));
-        restaurants.add(new Restaurant(12,"Pio Pio","https://d25dk4h1q4vl9b.cloudfront.net/bundles/front/media/images/header/mcdonalds-logo.png"));
-        restaurants.add(new Restaurant(13,"Pio Pio","https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Burger_King_logo.svg/1200px-Burger_King_logo.svg.png"));
-        restaurants.add(new Restaurant(14,"Pio Pio","https://img.pystatic.com/restaurants/domi_47712.jpg"));
+    public void SetUpTheScreen(){
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
     }
 
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_menu:
                 Toast.makeText(getContext(), "Here we are :)", Toast.LENGTH_SHORT).show();
                 break;
@@ -196,9 +263,9 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         }
         return true;
     }
+
+
 }
-
-
 /*
 progDailog = new ProgressDialog(view.getContext());
         progDailog.setMessage("Cargando...");
@@ -207,4 +274,6 @@ progDailog = new ProgressDialog(view.getContext());
         progDailog.setCancelable(false);
         progDailog.show();
         progDailog.dismiss();
+
+
 */

@@ -113,5 +113,11 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
         Log.e("Lino", "OnStart ShoppingFragment");
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
     }
 }

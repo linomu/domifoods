@@ -1,23 +1,28 @@
-package com.unicauca.domifoods.modelsRestaurantLino;
+package com.unicauca.domifoods.modelsUser;
 
-public class RestaurantResponse {
-    private int id,nit,id_admin;
+import java.util.Date;
+
+public class PostsRestaurants {
+
+    private int id, nit,id_admin;
     private long phone_num;
-    private String name, address_location,web_page,hours,image,date_creation;
-    private boolean state_delete,state_disponibility;
+    private String name, address_location, web_page, image,date_creation,hours;
+    //private Date date_creation;
+    private boolean state_delete, state_disponibility;
 
-    public RestaurantResponse() {
+
+    public PostsRestaurants() {
     }
 
-    public RestaurantResponse(int id, int nit, long phone_num, int id_admin, String name, String address_location, String web_page, String hours, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
+    public PostsRestaurants(int id, int nit, int id_admin, long phone_num, String hours, String name, String address_location, String web_page, String image, String date_creation, boolean state_delete, boolean state_disponibility) {
         this.id = id;
         this.nit = nit;
-        this.phone_num = phone_num;
         this.id_admin = id_admin;
+        this.phone_num = phone_num;
+        this.hours = hours;
         this.name = name;
         this.address_location = address_location;
         this.web_page = web_page;
-        this.hours = hours;
         this.image = image;
         this.date_creation = date_creation;
         this.state_delete = state_delete;
@@ -40,6 +45,14 @@ public class RestaurantResponse {
         this.nit = nit;
     }
 
+    public int getId_admin() {
+        return id_admin;
+    }
+
+    public void setId_admin(int id_admin) {
+        this.id_admin = id_admin;
+    }
+
     public long getPhone_num() {
         return phone_num;
     }
@@ -48,12 +61,12 @@ public class RestaurantResponse {
         this.phone_num = phone_num;
     }
 
-    public int getId_admin() {
-        return id_admin;
+    public String getHours() {
+        return hours;
     }
 
-    public void setId_admin(int id_admin) {
-        this.id_admin = id_admin;
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 
     public String getName() {
@@ -78,14 +91,6 @@ public class RestaurantResponse {
 
     public void setWeb_page(String web_page) {
         this.web_page = web_page;
-    }
-
-    public String getHours() {
-        return hours;
-    }
-
-    public void setHours(String hours) {
-        this.hours = hours;
     }
 
     public String getImage() {
@@ -118,23 +123,5 @@ public class RestaurantResponse {
 
     public void setState_disponibility(boolean state_disponibility) {
         this.state_disponibility = state_disponibility;
-    }
-
-    @Override
-    public String toString() {
-        return "RestaurantResponse{" +
-                "id=" + id +
-                ", nit=" + nit +
-                ", phone_num=" + phone_num +
-                ", id_admin=" + id_admin +
-                ", name='" + name + '\'' +
-                ", address_location='" + address_location + '\'' +
-                ", web_page='" + web_page + '\'' +
-                ", hours='" + hours + '\'' +
-                ", image='" + image + '\'' +
-                ", date_creation='" + date_creation + '\'' +
-                ", state_delete=" + state_delete +
-                ", state_disponibility=" + state_disponibility +
-                '}';
     }
 }
