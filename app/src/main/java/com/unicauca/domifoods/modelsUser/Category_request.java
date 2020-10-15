@@ -21,6 +21,8 @@ public class Category_request {
         this.image = image;
     }
 
+
+    // methods for the getterof the  category 
     public String getName() {
         return name;
     }
