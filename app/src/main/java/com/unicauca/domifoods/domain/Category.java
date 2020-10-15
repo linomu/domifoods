@@ -1,9 +1,11 @@
 package com.unicauca.domifoods.domain;
 
 public class Category {
+    //attribute of the category
     private int id;
     private String name, description, image, date_creation, state_delete;
 
+    //builder
     public Category() {
     }
 
@@ -19,7 +21,7 @@ public class Category {
         this.name = name;
         this.image = image;
     }
-
+    //methods get
     public String getName() {
         return name;
     }

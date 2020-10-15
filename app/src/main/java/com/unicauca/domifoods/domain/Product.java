@@ -1,13 +1,14 @@
 package com.unicauca.domifoods.domain;
 
 public class Product {
+    //attribute of the Product
     private int id, id_category, id_restaurant;
     private String name, description, image;
     private Float price;
 
     public Product() {
     }
-
+    //builder
     public Product(int id, int id_category, int id_restaurant, String name, String description, String image, Float price) {
         this.id = id;
         this.id_category = id_category;
@@ -23,7 +24,7 @@ public class Product {
         this.image = image;
         this.price = price;
     }
-
+    //methods get
     public int getId() {
         return id;
     }

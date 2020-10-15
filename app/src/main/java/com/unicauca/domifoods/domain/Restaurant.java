@@ -1,10 +1,12 @@
 package com.unicauca.domifoods.domain;
 
 public class Restaurant {
+    //attribute of the Restaurant
     private int id;
     private String name, photo;
     //Agregar los demás campos que vengan desde la tabla
 
+    //builder
     public Restaurant() {
     }
 
@@ -19,7 +21,7 @@ public class Restaurant {
         this.photo = photo;
     }
 
-
+    ////methods get
     public int getId() {
         return id;
     }
