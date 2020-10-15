@@ -25,7 +25,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
     Picasso mPicasso;
 
 
-
+    //this is the initialize adapter products
     public AdapterProducts(ArrayList<Product> products) {
         this.products = products;
     }

@@ -22,7 +22,7 @@ public class Category_request {
     }
 
 
-    // methods for the getterof the  category 
+    // methods for the getterof the  category
     public String getName() {
         return name;
     }

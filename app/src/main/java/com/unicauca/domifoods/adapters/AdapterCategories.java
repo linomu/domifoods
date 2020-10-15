@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.holderCategories> {
-    /*Variables that we're gonna use*/
+    /*Variables that we're gonna use for categories */
     ArrayList<Category> categories;
     Picasso mPicasso;
 
@@ -40,6 +40,7 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     }
 
     @NonNull
+    //methods p
     @Override
     public AdapterCategories.holderCategories onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categories , parent, false);
@@ -68,6 +69,7 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     }
 
     @Override
+    //method get size for categories
     public int getItemCount() {
         return categories.size();
     }
