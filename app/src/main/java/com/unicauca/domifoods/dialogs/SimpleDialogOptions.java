@@ -16,11 +16,13 @@ import androidx.fragment.app.DialogFragment;
 import com.unicauca.domifoods.R;
 
 public class SimpleDialogOptions extends DialogFragment {
-
+    //this attributes of the simple dialog
     private String mensaje_from_server;
     private NoticeDialogListener listener;
 
     @NonNull
+    // initial method
+
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -18,7 +18,7 @@ import androidx.fragment.app.DialogFragment;
 import com.unicauca.domifoods.R;
 
 public class DialogIpHost extends DialogFragment {
-
+    // attributes
     private String ip_host;
     private NoticeDialogListener listener;
 
@@ -32,6 +32,7 @@ public class DialogIpHost extends DialogFragment {
 
     @NonNull
     @Override
+    //methodos of the dialog
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
