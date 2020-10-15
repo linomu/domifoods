@@ -53,6 +53,7 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     public void onBindViewHolder(@NonNull AdapterCategories.holderCategories holder, int position) {
         holder.tv_name.setText(categories.get(position).getName());
         mPicasso.load(categories.get(position).getImage())
+                .placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_category);
         holder.img_category.setOnClickListener(new View.OnClickListener() {

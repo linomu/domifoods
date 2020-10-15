@@ -46,6 +46,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
         holder.name_product.setText(products.get(position).getName());
         holder.price.setText("$ "+products.get(position).getPrice().toString());
         mPicasso.load(products.get(position).getImage())
+                .placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_product);
     }

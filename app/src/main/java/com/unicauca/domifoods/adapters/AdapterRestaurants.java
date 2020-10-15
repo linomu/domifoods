@@ -56,8 +56,10 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
     @Override
     public void onBindViewHolder(@NonNull AdapterRestaurants.holderRestaurants holder, final int position) {
 
+        holder.tv_nombre_restaurant.setText(restaurants.get(position).getName());
         mPicasso.load(restaurants.get(position).getImage())
                 .fit()
+                .placeholder(R.drawable.test)
                 .into(holder.imageView);
         //Trigger
         holder.cardView_restaurant.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +80,7 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
 
     public class holderRestaurants extends RecyclerView.ViewHolder {
         ImageView imageView;
-       // TextView textView;
+       TextView tv_nombre_restaurant;
         CardView cardView_restaurant;
 
         public holderRestaurants(@NonNull View itemView) {
@@ -86,6 +88,7 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
             //textView = itemView.findViewById(R.id.textAddrees);
             imageView = itemView.findViewById(R.id.imv_restaurant);
             cardView_restaurant = itemView.findViewById(R.id.cardview_restaurant);
+            tv_nombre_restaurant = itemView.findViewById(R.id.tv_nombre_restaruante);
 
         }
     }

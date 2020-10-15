@@ -143,7 +143,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     Log.i("Lino", "The response RestaurantInfo was successful. Code: "+response.code());
                     RestaurantResponse restaurantResponse = response.body();
                     Log.i("Lino", "Restaurant info:"+restaurantResponse.toString());
-                    Picasso.with(getContext()).load(restaurantResponse.getImage()).transform(new CircleTransform()).into(img_restaurant_icon);
+                    Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
                     tv_restaurant_name.setText(restaurantResponse.getName());
                     tv_info_restaurant.setText(restaurantResponse.getAddress_location()+"\n"+restaurantResponse.getPhone_num());
 
@@ -196,7 +196,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
             public void onResponse(Call<List<CategoriesResponse>> call, Response<List<CategoriesResponse>> response) {
                 Log.i("Lino", "I'm inside OnResponse");
                 if(response.isSuccessful()){
-                    Log.i("Lino", "The response was successful. Code: "+response.code());
+                    Log.i("test", "The response was successful. Code: "+response.code());
                     List<CategoriesResponse> categoriesByResponse = response.body();
                     int position = 0;
                     for(CategoriesResponse category : categoriesByResponse){
@@ -231,7 +231,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<List<CategoriesResponse>> call, Throwable t) {
-                Log.i("Lino", "OnFailure! "+t.getMessage());
+                Log.i("Lino", "OnFailure! > "+t.getMessage());
                 stopProgressDialogCategory();
             }
         });
