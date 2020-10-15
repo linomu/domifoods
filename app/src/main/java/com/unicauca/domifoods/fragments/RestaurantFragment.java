@@ -196,6 +196,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
                 recyclerView.setLayoutManager(layoutManager);
                 stopProgressDialog();
+                SetUpTheScreen();
+
             }
 
             @Override
@@ -224,10 +226,22 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     @Override
     public void onStart() {
         super.onStart();
+
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
         Log.e("Lino", "OnStart RestaurantFragment");
+        SetUpTheScreen();
+
+    }
+
+    public void SetUpTheScreen(){
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
     }
 
 

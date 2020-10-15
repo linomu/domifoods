@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
         sharedpreferencesLogin = getSharedPreferences(Register2Activity.SESSION_LOGIN, Context.MODE_PRIVATE);
         editorLogin = sharedpreferencesLogin.edit();
     }
-    private void setUpTheScreen() {
+    public void setUpTheScreen() {
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |

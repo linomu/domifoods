@@ -74,6 +74,14 @@ public class DelivermanFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_deliverman, container, false);
     }
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+    }
 }

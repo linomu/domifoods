@@ -227,6 +227,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 }
                 stopProgressDialogCategory();
 
+
             }
 
             @Override
@@ -304,6 +305,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         MenuItem item = menu.getItem(0);
         item.setChecked(true);
         Log.e("Lino", "OnStart ProdutcsFragment");
+        SetUpTheScreen();
     }
 
     private void startProgressDialogCategory() {
@@ -316,6 +318,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
     private void stopProgressDialogCategory(){
         progDailogCategory.dismiss();
+        SetUpTheScreen();
     }
 
     private void startProgressDialogProduct() {
@@ -328,7 +331,16 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     }
     private void stopProgressDialogProduct(){
         progDailogProducts.dismiss();
+        SetUpTheScreen();
     }
 
+    public void SetUpTheScreen(){
+        this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+    }
 }
 
