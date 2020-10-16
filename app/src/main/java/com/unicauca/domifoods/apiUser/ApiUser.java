@@ -60,11 +60,10 @@ public interface ApiUser {
 
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
-
+    // method for the list  of restaurnts this send  id and id resaurants
     @GET("restaurants/api/restaurants/{id}/")
     Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
-
-
+    // method for the   of restaurnts
     @GET("restaurants")
     Call<GetRestaurant> list();
 }
