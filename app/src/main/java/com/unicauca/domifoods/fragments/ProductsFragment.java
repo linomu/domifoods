@@ -51,7 +51,7 @@ import retrofit2.Response;
 
 public class ProductsFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-
+    //mattributes and characteristics of the product fragment
     ImageView img_restaurant_icon, img_restaurant_product_bg;
     Picasso mPicasso;
     RecyclerView recyclerView, recyclerView_products;
@@ -70,12 +70,12 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
     private String id_restaurant;
 
-
+    // Required empty public constructor
     public ProductsFragment() {
-        // Required empty public constructor
+
     }
 
-
+    //new instance of the product is created
     public static ProductsFragment newInstance(String id_restaurant) {
         ProductsFragment fragment = new ProductsFragment();
         Bundle args = new Bundle();
@@ -84,6 +84,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         return fragment;
     }
 
+    //the new view is created where the products will be displayed
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

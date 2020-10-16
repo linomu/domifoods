@@ -21,7 +21,7 @@ public class CategoriesResponse {
         this.state_delete = state_delete;
         this.restaurant = restaurant;
     }
-    //methods gets of categories 
+    //methods gets of categories
     public int getId() {
         return id;
     }
