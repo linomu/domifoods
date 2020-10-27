@@ -32,6 +32,7 @@ public interface ApiUser {
             @Field("email") String email,
             @Field("password") String password,
             @Field("password2") String password2
+            //hola
     );
 
     @POST("accounts/api/user_register/")
