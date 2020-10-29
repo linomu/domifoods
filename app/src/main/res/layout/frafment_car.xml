@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_width="449dp"
+        android:layout_height="149dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:fontFamily="@font/comickings"
         android:letterSpacing="0.1"
         android:padding="10dp"
-        android:text="Carrito de compraas"
+        android:text="Carrito de compras"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="30sp"
@@ -72,8 +72,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_restaurants"
-        android:layout_width="326dp"
-        android:layout_height="178dp"
+        android:layout_width="304dp"
+        android:layout_height="315dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -119,29 +119,29 @@
         android:id="@+id/textView11"
         android:layout_width="199dp"
         android:layout_height="34dp"
-        android:layout_marginTop="488dp"
         android:fontFamily="@font/nimbusbolta"
         android:text="Total a pagar $"
         android:textColor="#020202"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <TextView
         android:id="@+id/total_pagar"
         android:layout_width="132dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="140dp"
         android:fontFamily="@font/nimbusbol"
         android:text="30.000"
         android:textColor="#0B0A0A"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView11" />
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.779" />
 </androidx.constraintlayout.widget.ConstraintLayout>
