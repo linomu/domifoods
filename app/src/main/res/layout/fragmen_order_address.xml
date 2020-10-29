@@ -9,14 +9,15 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="324dp"
-        android:layout_height="35dp"
+        android:layout_width="313dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/nimbusbol"
         android:text="Ingrese direcion o selecione en el anterior mapa"
         android:textColor="@color/negro"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.367"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
@@ -24,64 +25,65 @@
         android:id="@+id/direcion_envio"
         android:layout_width="189dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/btn_style2"
         android:ems="10"
         android:fontFamily="@font/nimbusregita"
+        android:hint=" Direccion calle ** #**-**"
         android:inputType="textPersonName"
-        android:text=" Direccion calle ** #**-**"
-        android:textColor="#A19F9F"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
-        app:layout_constraintEnd_toStartOf="@+id/Buscar"
-        app:layout_constraintHorizontal_bias="0.426"
+        android:textColor="#000000"
+        android:textColorHighlight="#0B0909"
+        android:textColorHint="#8C8A8A"
+        android:textColorLink="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView20"
-        android:layout_width="318dp"
-        android:layout_height="50dp"
+        android:layout_width="312dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/nimbusbol"
         android:text="Ingrese alguna observacion para el domiciliario( este campo no es obligatorio)"
         android:textColor="@color/negro"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="418dp" />
+        app:layout_constraintTop_toBottomOf="@+id/direcion_envio" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="318dp"
-        android:layout_height="67dp"
+        android:layout_width="306dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/btn_style2"
         android:ems="10"
         android:fontFamily="@font/nimbusregita"
+        android:hint="  Descripcion para el domiciliario "
         android:inputType="textPersonName"
-        android:text="  Descripcion para el domiciliario "
-        android:textColor="#807979"
+        android:textColor="#090909"
+        android:textColorHint="#6C6A6A"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="371dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/btn_style1"
         android:text="Agregar direccón "
         android:textColor="@color/blanco"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_options_nav"
@@ -98,7 +100,7 @@
         android:id="@+id/mapView"
         android:layout_width="416dp"
         android:layout_height="298dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/mapa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -107,16 +109,18 @@
 
     <Button
         android:id="@+id/Buscar"
-        android:layout_width="106dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="68dp"
+        android:layout_width="110dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="72dp"
         android:background="@drawable/btn_style1"
         android:drawableLeft="@drawable/icono_lupa"
         android:fontFamily="@font/nimbusbol"
         android:text="Buscar"
         android:textColor="@color/blanco"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/direcion_envio"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
