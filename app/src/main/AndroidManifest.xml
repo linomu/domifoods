@@ -15,6 +15,11 @@
         android:theme="@style/AppTheme"
         >
 
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2135964395943899~8454433888"/>
+
         <activity android:name=".Register2Activity"></activity>
         <activity android:name=".Register1Activity" />
         <activity android:name=".LoginActivity">

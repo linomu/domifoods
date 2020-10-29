@@ -56,7 +56,7 @@
         android:layout_width="293dp"
         android:layout_height="73dp"
         android:background="@drawable/btn_style1"
-        android:drawableLeft="@drawable/icono_inero"
+        android:drawableLeft="@drawable/icono_dinero"
         android:text="pago conra entrega"
         android:textColor="#F8F3F3"
         app:layout_constraintBottom_toTopOf="@+id/button8"

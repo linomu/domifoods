@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_shoppingcarFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_shoppingcarFragment_to_orderAddressFragment"
+            app:destination="@id/orderAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
@@ -88,5 +91,14 @@
             android:name="Product"
             app:argType="com.unicauca.domifoods.domain.Product"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderAddressFragment"
+        android:name="com.unicauca.domifoods.OrderAddressFragment"
+        android:label="fragment_order_address"
+        tools:layout="@layout/fragment_order_address" >
+        <action
+            android:id="@+id/action_orderAddressFragment_to_shoppingcarFragment"
+            app:destination="@id/shoppingcarFragment" />
     </fragment>
 </navigation>

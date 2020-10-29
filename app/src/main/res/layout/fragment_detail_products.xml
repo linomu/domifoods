@@ -101,10 +101,9 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintHorizontal_bias="0.273"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_precio" />
 
     <TextView
         android:id="@+id/tv_precio"
@@ -125,12 +124,13 @@
         android:id="@+id/tv_description"
         android:layout_width="293dp"
         android:layout_height="78dp"
+        android:layout_marginTop="436dp"
         android:fontFamily="@font/nimbusregita"
         android:text="Carne de res, pechuga de pollo, costilla de cerdo, papa criolla, morcillas, chorizos, rodajas de plátano, croquetas de yuca y papas a la francesa."
         android:textColor="@color/negro"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         app:layout_constraintVertical_bias="0.493" />

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     NavController navController;
     public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
     TextView tv_prueba;
+    Button btn_goto_address;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,7 +88,13 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
-
+        btn_goto_address = view.findViewById(R.id.btn_goto_address);
+        btn_goto_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_shoppingcarFragment_to_orderAddressFragment);
+            }
+        });
         menu_options = view.findViewById(R.id.menu_options_nav);
         tv_prueba = view.findViewById(R.id.tv_prueba);
         menu_options.setOnNavigationItemSelectedListener(this);
