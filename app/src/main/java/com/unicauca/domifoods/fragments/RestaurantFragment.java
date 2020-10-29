@@ -166,7 +166,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         startProgressDialog();
         //tv_post = view.findViewById(R.id.tv_restaurant);
         recyclerView = view.findViewById(R.id.recyclerview_restaurants);
-        Call<List<PostsRestaurants>> restaurant = RetrofitClient.getInstance().getApi().getPosts();
+        Call<List<PostsRestaurants>> restaurant = RetrofitClient.getInstance(getContext()).getApi().getPosts();
         restaurant.enqueue(new Callback<List<PostsRestaurants>>() {
             @Override
             public void onResponse(Call<List<PostsRestaurants>> call, Response<List<PostsRestaurants>> response) {

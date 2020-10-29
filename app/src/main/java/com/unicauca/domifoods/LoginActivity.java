@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText et_user, et_password;
     private ProgressDialog progDailog;
     private TextView tv_ip_host;
-
     private SharedPreferences sharedpreferencesLogin;
     private SharedPreferences.Editor editorLogin;
     private static final String IP_HOST = "ip_host";
@@ -66,6 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /*El método initializationVariables() no recibe parámetros y su objetivo es inicializar todas las variables que se van
+    * a utilizar en esta actividad. Mediante este proceso, es posible conocer la parte java con la parte XML */
     private void initializationVariables() {
         tv_ip_host = findViewById(R.id.tv_iphost);
         img_logo = findViewById(R.id.img_logo);
@@ -77,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_user = findViewById(R.id.et_user_login);
         et_password = findViewById(R.id.et_user_password_login);
     }
+
+    /*Este método permite iniciar un diálogo que indica que una notificación está "Cargando..."*/
     private void startProgressDialog() {
         progDailog = new ProgressDialog(this);
         progDailog.setMessage(getResources().getString(R.string.loading));
@@ -85,9 +88,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //progDailog.setCancelable(true);
         progDailog.show();
     }
-    private void stopProgressDialog(){
+
+    /*Este método permite detener un diálogo que indica que una notificación está "Cargando..."*/
+    private void stopProgressDialog() {
         progDailog.dismiss();
     }
+
+    /*El método setUpSharedPreferences() tiene como finalidad almacenar de manera local el texto de cada uno de los
+    * campos del primer formulario. Los datos se almacenan en un archivo XML SharedPreferences*/
     private void setUpSharedPreferences() {
         sharedpreferencesLogin = getSharedPreferences(Register2Activity.SESSION_LOGIN, Context.MODE_PRIVATE);
         editorLogin = sharedpreferencesLogin.edit();
@@ -95,11 +103,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editorIpHost = sharedpreferencesIpHost.edit();
     }
 
+    /*El método sessionState() tiene como objetivo retornar a través de una variable booleana si existe o no
+     una sesion activa en el sistema, si al validar  ya existe una sesión activa,éste metodo redirecciona al usuario
+     al siguiente formulario, si por el contrario no existe una sesión activa el valor de retorno sería false.*/
     private boolean sessionState() {
         boolean sessionState = false;
-        String token = sharedpreferencesLogin.getString(Register2Activity.LOGIN_TOKEN,"");
-        if(!token.equals("")){
-            sessionState=true;
+        String token = sharedpreferencesLogin.getString(Register2Activity.LOGIN_TOKEN, "");
+        if (!token.equals("")) {
+            sessionState = true;
         }
         return sessionState;
     }
@@ -109,10 +120,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         setUpSharedPreferences();
         updateIpHostStaticVariable();
-        RetrofitClient.getInstance();
+        RetrofitClient.getInstance(getApplicationContext());
 
 
-        if(sessionState()){
+        if (sessionState()) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -124,69 +135,72 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         );
     }
 
+    /*El método  updateIpHostStaticVariable() tiene como finalidad obtener la dirección ip almacena en un archivo
+    * sharedPreference y mostrarla através de un TextView, esto con el fin de que el desarrollador pueda identificar
+    * gráficamente la dirección ip sobre la cual está realizando la conexión al servidor local*/
     private void updateIpHostStaticVariable() {
-        ip_host = sharedpreferencesIpHost.getString("ip_host","192.168.0.1");
+        ip_host = sharedpreferencesIpHost.getString("ip_host", "192.168.0.1");
         tv_ip_host.setText(ip_host);
     }
 
+    /*El método onClick(View view) tiene como finalidad capturar el evento OnClick que el usuario genera. Dependiendo de
+    * la vista seleccionada se ejecturá una respectiva acción.*/
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_logo:
                 DialogIpHost objDialogLogin = new DialogIpHost();
                 //Por medio de este set, le estoy pasando informacion al Dialog
                 FragmentManager fm = getSupportFragmentManager();
-                objDialogLogin.show(fm,"Dialog");
+                objDialogLogin.show(fm, "Dialog");
                 break;
             case R.id.buttonIngresar:
 
                 //Llamo a login para que solucione, retorne un nuevo id
                 String user = et_user.getText().toString().trim();
                 String pass = et_password.getText().toString().trim();
-                if(pass.isEmpty()){
+                if (pass.isEmpty()) {
                     et_password.setError(getString(R.string.msg_required_failed));
                     et_password.requestFocus();
                     return;
 
                 }
-                if(user.isEmpty()){
+                if (user.isEmpty()) {
                     et_user.setError(getString(R.string.msg_required_failed));
                     et_password.requestFocus();
                     return;
                 }
                 startProgressDialog();
-                Login_request login_request = new Login_request(user,pass);
+                Login_request login_request = new Login_request(user, pass);
                 ///GetRestaurant getRestaurant = new GetRestaurant();
 
-                Call<Login_response> login = RetrofitClient.getInstance().getApi().loginFull(login_request);
+                Call<Login_response> login = RetrofitClient.getInstance(getApplicationContext()).getApi().loginFull(login_request);
                 login.enqueue(new Callback<Login_response>() {
 
                     @Override
                     public void onResponse(Call<Login_response> call, Response<Login_response> response) {
                         String s = "";
-                        if(response.body()!=null){
+                        if (response.body() != null) {
                             Login_response login_response = response.body();
                             //crear el archivo shared
-                            editorLogin.putString(Register2Activity.LOGIN_TOKEN,login_response.getToken());
-                            editorLogin.putString(Register2Activity.LOGIN_DOCUMENT,login_response.getDocument());
+                            editorLogin.putString(Register2Activity.LOGIN_TOKEN, login_response.getToken());
+                            editorLogin.putString(Register2Activity.LOGIN_DOCUMENT, login_response.getDocument());
                             editorLogin.commit();
                             stopProgressDialog();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
 
 
-                        }
-                        else{
+                        } else {
                             try {
-                                s =response.errorBody().string();
-                                Log.i("Retrofit", "Uso del api de Login: "+s);
+                                s = response.errorBody().string();
+                                Log.i("Retrofit", "Uso del api de Login: " + s);
                                 stopProgressDialog();
                                 SimpleDialog simpleDialog = new SimpleDialog();
                                 //Por medio de este set, le estoy pasando informacion al Dialog
                                 simpleDialog.setMensaje_from_server(s);
                                 FragmentManager fm = getSupportFragmentManager();
-                                simpleDialog.show(fm,"LoginDialog");
-
+                                simpleDialog.show(fm, "LoginDialog");
 
 
                             } catch (IOException e) {
@@ -201,8 +215,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onFailure(Call<Login_response> call, Throwable t) {
                         stopProgressDialog();
 
-                        Log.i("msg", "Fallo: "+ t.getMessage());
-                        Toast.makeText(LoginActivity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯"+'\\'+"_(ツ)_/¯", Toast.LENGTH_LONG).show();
+                        Log.i("msg", "Fallo: " + t.getMessage());
+                        Toast.makeText(LoginActivity.this, "(⊙_⊙;)\nTenemos un fallo: No hay conexión a internet o el servidor no responde.\n ¯" + '\\' + "_(ツ)_/¯", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -218,6 +232,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    /*Los métodos  onDialogPositiveClick(DialogFragment dialog) y onDialogNegativeClick(DialogFragment dialog) se activan
+    * cuando el usuario ha decido cambiar la dirección IP */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         DialogIpHost objDialog = (DialogIpHost) dialog;
@@ -225,12 +241,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editorIpHost.putString("ip_host", objDialog.getIp_host());
         editorIpHost.commit();
         updateIpHostStaticVariable();
-        RetrofitClient.getInstance();
+        RetrofitClient.getInstance(getApplicationContext());
 
         Intent mStartActivity = new Intent(this, LoginActivity.class);
         int mPendingIntentId = 123456;
-        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
 

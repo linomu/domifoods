@@ -1,6 +1,8 @@
 package com.unicauca.domifoods.domain;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int id, id_category, id_restaurant;
     private String name, description, image;
     private Float price;
@@ -78,5 +80,18 @@ public class Product {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", id_category=" + id_category +
+                ", id_restaurant=" + id_restaurant +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

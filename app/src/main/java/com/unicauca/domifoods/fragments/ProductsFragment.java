@@ -66,7 +66,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
 
-    private String  id_restaurant;
+    private String id_restaurant;
 
 
     public ProductsFragment() {
@@ -123,7 +123,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 .into(img_restaurant_product_bg);*/
 
 
-
         setUpInfoRestaurant();
         setUpTheRecyclerView(view);
         setUpTheRecyclerViewProducts(view);
@@ -132,23 +131,24 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
 
     }
-    public void  setUpInfoRestaurant(){
+
+    public void setUpInfoRestaurant() {
         Log.i("Lino", "Estoy Dentro de setUpInfoRestaurant");
-        Call<RestaurantResponse> call = RetrofitClient.getInstance().getApi().getInfoRestaurantByID(ID_RESTAURANT);
+        Call<RestaurantResponse> call = RetrofitClient.getInstance(getContext()).getApi().getInfoRestaurantByID(ID_RESTAURANT);
         call.enqueue(new Callback<RestaurantResponse>() {
             @Override
             public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
                 Log.i("Lino", "I'm inside OnResponse RestaurantInfo");
-                if(response.isSuccessful()){
-                    Log.i("Lino", "The response RestaurantInfo was successful. Code: "+response.code());
+                if (response.isSuccessful()) {
+                    Log.i("Lino", "The response RestaurantInfo was successful. Code: " + response.code());
                     RestaurantResponse restaurantResponse = response.body();
-                    Log.i("Lino", "Restaurant info:"+restaurantResponse.toString());
+                    Log.i("Lino", "Restaurant info:" + restaurantResponse.toString());
                     Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
                     tv_restaurant_name.setText(restaurantResponse.getName());
-                    tv_info_restaurant.setText(restaurantResponse.getAddress_location()+"\n"+restaurantResponse.getPhone_num());
+                    tv_info_restaurant.setText(restaurantResponse.getAddress_location() + "\n" + restaurantResponse.getPhone_num());
 
-                }else{
-                    Log.i("Lino", "The response RestaurantInfo wasn't successful. Code: "+response.code());
+                } else {
+                    Log.i("Lino", "The response RestaurantInfo wasn't successful. Code: " + response.code());
 
 
                 }
@@ -156,25 +156,24 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<RestaurantResponse> call, Throwable t) {
-                Log.i("Lino", "OnFailure SetUpRestaurant Info: "+ t.getMessage());
+                Log.i("Lino", "OnFailure SetUpRestaurant Info: " + t.getMessage());
             }
         });
     }
 
 
-
-/*
-    @Override
-    public void onPause() {
-        super.onPause();
-        MainActivity.id_restaurant_selected = id_restaurant;
-        Log.i("Lino","OnPause method executed itself and MainActivity has "+ MainActivity.id_restaurant_selected);
-    }
-*/
+    /*
+        @Override
+        public void onPause() {
+            super.onPause();
+            MainActivity.id_restaurant_selected = id_restaurant;
+            Log.i("Lino","OnPause method executed itself and MainActivity has "+ MainActivity.id_restaurant_selected);
+        }
+    */
     private void setUpTheRecyclerView(View view) {
 
         recyclerView = view.findViewById(R.id.recycler_categories);
-        LinearLayoutManager layoutManager  = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
     }
 
@@ -186,42 +185,45 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         recyclerView_products.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
-    public void  fillOutTheCategories() {
+    public void fillOutTheCategories() {
         //Servicio web
         categories = new ArrayList<>();
         startProgressDialogCategory();
-        Call<List<CategoriesResponse>> call = RetrofitClient.getInstance().getApi().getCategoriesByRestaurant(ID_RESTAURANT);
+        Call<List<CategoriesResponse>> call = RetrofitClient.getInstance(getContext()).getApi().getCategoriesByRestaurant(ID_RESTAURANT);
         call.enqueue(new Callback<List<CategoriesResponse>>() {
             @Override
             public void onResponse(Call<List<CategoriesResponse>> call, Response<List<CategoriesResponse>> response) {
                 Log.i("Lino", "I'm inside OnResponse");
-                if(response.isSuccessful()){
-                    Log.i("test", "The response was successful. Code: "+response.code());
+                if (response.isSuccessful()) {
+                    Log.i("test", "The response was successful. Code: " + response.code());
                     List<CategoriesResponse> categoriesByResponse = response.body();
                     int position = 0;
-                    for(CategoriesResponse category : categoriesByResponse){
+                    for (CategoriesResponse category : categoriesByResponse) {
                         Log.i("Lino", category.toString());
-                        categories.add(new Category(category.getId(),category.getName(), category.getDescription(),category.getImage(),category.getDate_creation()));
-                        if(position==0){
+                        categories.add(new Category(category.getId(), category.getName(), category.getDescription(), category.getImage(), category.getDate_creation()));
+                        if (position == 0) {
                             ID_CATEGORY = category.getId();
+                            Log.i("Lino", "ID_CATEGORIA: " + ID_CATEGORY);
+                            fillOutTheProducts();
                         }
                         position++;
                     }
-                    AdapterCategories adapterCategories= new AdapterCategories(categories);
+                    AdapterCategories adapterCategories = new AdapterCategories(categories);
                     adapterCategories.setListener(new AdapterCategories.CategoryListener() {
                         @Override
                         public void categorySelected(int idCategory) {
-                            Toast.makeText(getContext(), "ID Category: "+idCategory, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
                             ID_CATEGORY = idCategory;
+
                             fillOutTheProducts();
                         }
                     });
                     recyclerView.setAdapter(adapterCategories);
-                    fillOutTheProducts();
+                    //fillOutTheProducts();
 
 
-                }else{
-                    Log.i("Lino", "The response wasn't successful. Code: "+response.code());
+                } else {
+                    Log.i("Lino", "The response wasn't successful. Code: " + response.code());
 
 
                 }
@@ -232,33 +234,37 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<List<CategoriesResponse>> call, Throwable t) {
-                Log.i("Lino", "OnFailure! > "+t.getMessage());
+                Log.i("Lino", "OnFailure! > " + t.getMessage());
                 stopProgressDialogCategory();
             }
         });
 
 
     }
-    public void  fillOutTheProducts(){
+
+    public void fillOutTheProducts() {
         products = new ArrayList<>();
         startProgressDialogProduct();
 
-        Call<List<ProductResponse>> call = RetrofitClient.getInstance().getApi().getProductsByCategoryAndRestaurant(ID_RESTAURANT, ID_CATEGORY);
+        Log.i("Lino", "ID_RESTAURANT: "+ID_RESTAURANT);
+        Call<List<ProductResponse>> call = RetrofitClient.getInstance(getContext()).getApi().getProductsByCategoryAndRestaurant(ID_RESTAURANT, ID_CATEGORY);
         call.enqueue(new Callback<List<ProductResponse>>() {
             @Override
             public void onResponse(Call<List<ProductResponse>> call, Response<List<ProductResponse>> response) {
                 Log.i("Lino", "I'm inside OnResponse FillOutTheProduct");
-                if(response.isSuccessful()){
-                    Log.i("Lino", "The response was successful. Code: "+response.code());
+                if (response.isSuccessful()) {
+                    Log.i("Lino", "The response was successful. Code: " + response.code());
                     List<ProductResponse> productsByCategoryResponse = response.body();
-                    for(ProductResponse product : productsByCategoryResponse){
-                        Log.i("Lino", product.toString());
-                        products.add(new Product(product.getName(),product.getImage(), (float) product.getPrice()));
+                    for (ProductResponse product : productsByCategoryResponse) {
+                        Log.i("productoinfo", product.toString());
+
+                        //products.add(new Product(product.getName(), product.getImage(), (float) product.getPrice()));
+                        products.add(new Product(product.getId(), product.getCategory(),ID_RESTAURANT, product.getName(), product.getDescription(), product.getImage(), (float) product.getPrice()));
                     }
                     AdapterProducts adapterProducts = new AdapterProducts(products);
                     recyclerView_products.setAdapter(adapterProducts);
-                }else{
-                    Log.i("Lino", "The response wasn't successful. Code: "+response.code());
+                } else {
+                    Log.i("Lino", "The response wasn't successful. Code: " + response.code());
                 }
 
                 stopProgressDialogProduct();
@@ -267,7 +273,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
             @Override
             public void onFailure(Call<List<ProductResponse>> call, Throwable t) {
-                Log.i("Lino", "The response wasn't successful. Problem: "+t.getMessage());
+                Log.i("Lino", "The response wasn't successful. Problem: " + t.getMessage());
                 stopProgressDialogProduct();
 
             }
@@ -281,7 +287,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_menu:
                 navController.navigate(R.id.action_productsFragment_to_restaurantFragment);
                 break;
@@ -316,7 +322,8 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         //progDailog.setCancelable(true);
         progDailogCategory.show();
     }
-    private void stopProgressDialogCategory(){
+
+    private void stopProgressDialogCategory() {
         progDailogCategory.dismiss();
         SetUpTheScreen();
     }
@@ -329,12 +336,13 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         //progDailog.setCancelable(true);
         progDailogProducts.show();
     }
-    private void stopProgressDialogProduct(){
+
+    private void stopProgressDialogProduct() {
         progDailogProducts.dismiss();
         SetUpTheScreen();
     }
 
-    public void SetUpTheScreen(){
+    public void SetUpTheScreen() {
         this.getActivity().getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE |

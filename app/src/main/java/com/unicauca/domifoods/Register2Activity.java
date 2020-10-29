@@ -294,7 +294,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private void user_restaurant_register(String id) {
         Log.i("Retrofit", "Entré al user_restaurant_register wer service con el siguiente id:" + id);
         User_restaurant_register user_restaurant_register = new User_restaurant_register(id, kind_of_id, user_id, user_name, user_last_name, user_gender, phone, user_birthday, user_email, user_address);
-        Call<User_restaurant_register> call = RetrofitClient.getInstance().getApi().user_restaurant_register(user_restaurant_register);
+        Call<User_restaurant_register> call = RetrofitClient.getInstance(getApplicationContext()).getApi().user_restaurant_register(user_restaurant_register);
         call.enqueue(new Callback<User_restaurant_register>() {
             @Override
             public void onResponse(Call<User_restaurant_register> call, Response<User_restaurant_register> response) {
@@ -324,7 +324,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
             private void user_client_register(String document) {
                 User_client_register user_client_register = new User_client_register(document);
-                Call<User_client_register> call = RetrofitClient.getInstance().getApi().user_client_register(user_client_register);
+                Call<User_client_register> call = RetrofitClient.getInstance(getApplicationContext()).getApi().user_client_register(user_client_register);
                 call.enqueue(new Callback<User_client_register>() {
                     @Override
                     public void onResponse(Call<User_client_register> call, Response<User_client_register> response) {
@@ -338,7 +338,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                                 //Se debe realizar el llamado al login
                                 //Llamo a login para que solucione, retorne un nuevo id
                                 Login_request login_request = new Login_request(user_app,password_one);
-                                Call<Login_response> login = RetrofitClient.getInstance().getApi().loginFull(login_request);
+                                Call<Login_response> login = RetrofitClient.getInstance(getApplicationContext()).getApi().loginFull(login_request);
                                 login.enqueue(new Callback<Login_response>() {
 
                                     @Override
@@ -352,6 +352,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                                             editorLogin.commit();
                                             stopProgressDialog();
                                             startActivity(new Intent(Register2Activity.this, MainActivity.class));
+                                            Toast.makeText(Register2Activity.this, "¡Genial! Ya estás registrado.✌ \nBienvenido a DomiFood! 😎", Toast.LENGTH_LONG).show();
                                             finish();
 
                                         }
@@ -427,7 +428,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     }
 
     private void goodMethod() {
-        Call<ResponseBody> call = RetrofitClient.getInstance().
+        Call<ResponseBody> call = RetrofitClient.getInstance(getApplicationContext()).
                 getApi().
                 singUpUserRegisterTwo(user_app, "", user_password, user_password);
         //Next, I am going to execute the call
@@ -466,7 +467,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     private void callWebServiceUserRegister() {
 
         Create_user_request create_user_request = new Create_user_request(user_app, "", user_password, user_password);
-        Call<Create_user_response> call = RetrofitClient.getInstance().getApi().singUpUserRegister(create_user_request);
+        Call<Create_user_response> call = RetrofitClient.getInstance(getApplicationContext()).getApi().singUpUserRegister(create_user_request);
         call.enqueue(new Callback<Create_user_response>() {
             @Override
             public void onResponse(Call<Create_user_response> call, Response<Create_user_response> response) {
@@ -514,7 +515,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(Register2Activity.this, "Aqui tengo su id: " + id, Toast.LENGTH_SHORT).show();
                 Log.i("Retrofit", "Aqui tengo su id: " + id);
                 User_restaurant_register user_restaurant_register = new User_restaurant_register(id, kind_of_id, user_id, user_name, user_last_name, user_gender, phone, user_birthday, user_email, user_address);
-                Call<User_restaurant_register> call = RetrofitClient.getInstance().getApi().user_restaurant_register(user_restaurant_register);
+                Call<User_restaurant_register> call = RetrofitClient.getInstance(getApplicationContext()).getApi().user_restaurant_register(user_restaurant_register);
                 call.enqueue(new Callback<User_restaurant_register>() {
                     @Override
                     public void onResponse(Call<User_restaurant_register> call, Response<User_restaurant_register> response) {
@@ -542,7 +543,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
 
                     private void user_client_register(String document) {
                         User_client_register user_client_register = new User_client_register(document);
-                        Call<User_client_register> call = RetrofitClient.getInstance().getApi().user_client_register(user_client_register);
+                        Call<User_client_register> call = RetrofitClient.getInstance(getApplicationContext()).getApi().user_client_register(user_client_register);
                         call.enqueue(new Callback<User_client_register>() {
                             @Override
                             public void onResponse(Call<User_client_register> call, Response<User_client_register> response) {
@@ -664,7 +665,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
         @Override
         protected Create_user_response doInBackground(Void... voids) {
             Create_user_request create_user_request = new Create_user_request(user_app, "", user_password, user_password);
-            Call<Create_user_response> call = RetrofitClient.getInstance().getApi().singUpUserRegister(create_user_request);
+            Call<Create_user_response> call = RetrofitClient.getInstance(getApplicationContext()).getApi().singUpUserRegister(create_user_request);
             try {
 
                 return call.execute().body();

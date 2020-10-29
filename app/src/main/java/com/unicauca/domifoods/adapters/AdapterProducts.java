@@ -1,6 +1,7 @@
 package com.unicauca.domifoods.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -49,6 +51,12 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
                 .placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_product);
+        holder.card_view_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("lino", "Me voy al detalle con la siguiente información :"+ products.get(position).toString());
+            }
+        });
     }
 
     @Override
@@ -59,11 +67,14 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
     public class holderProducts extends RecyclerView.ViewHolder {
         ImageView img_product;
         TextView name_product, price;
+        CardView card_view_product;
         public holderProducts(@NonNull View itemView) {
             super(itemView);
             img_product = itemView.findViewById(R.id.img_product);
             name_product = itemView.findViewById(R.id.tv_name_product);
             price = itemView.findViewById(R.id.tv_price_product);
+            card_view_product = itemView.findViewById(R.id.card_view_product);
+
         }
     }
 }
