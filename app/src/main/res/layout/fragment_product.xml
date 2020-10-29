@@ -11,22 +11,22 @@
 
     <ImageView
         android:id="@+id/img_restaurant_product_bg"
-        android:layout_width="399dp"
-        android:layout_height="140dp"
+        android:layout_width="428dp"
+        android:layout_height="127dp"
+        android:layout_marginTop="16dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/tv_restaurants"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.616"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.062"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/blackground_produc" />
 
     <TextView
         android:id="@+id/tv_restaurants"
         android:layout_width="361dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="8dp"
         android:background="#FF0F03"
         android:fontFamily="@font/comickings"
         android:letterSpacing="0.1"
@@ -37,18 +37,16 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/img_restaurant_icon"
         android:layout_width="126dp"
         android:layout_height="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_restaurant_product_bg"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/img_restaurant_product_bg"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toStartOf="@+id/img_restaurant_product_bg"
         app:layout_constraintTop_toTopOf="@+id/img_restaurant_product_bg"
         app:srcCompat="@drawable/ic_deliveryman" />
@@ -157,11 +155,11 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="353dp"
-        android:layout_height="140dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="358dp"
+        android:layout_height="164dp"
         android:background="@drawable/plato_parrillada"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
