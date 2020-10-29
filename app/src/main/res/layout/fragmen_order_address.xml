@@ -30,7 +30,7 @@
         android:background="@drawable/btn_style2"
         android:ems="10"
         android:fontFamily="@font/nimbusregita"
-        android:hint=" Direccion calle ** #**-**"
+        android:hint=" calle **  #**-**  Barrio,conjunto "
         android:inputType="textPersonName"
         android:textColor="#000000"
         android:textColorHighlight="#0B0909"
