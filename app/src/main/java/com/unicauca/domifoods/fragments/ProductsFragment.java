@@ -130,6 +130,8 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         //fillOutTheProducts();
 
 
+
+
     }
 
     public void setUpInfoRestaurant() {
@@ -261,7 +263,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                         //products.add(new Product(product.getName(), product.getImage(), (float) product.getPrice()));
                         products.add(new Product(product.getId(), product.getCategory(),ID_RESTAURANT, product.getName(), product.getDescription(), product.getImage(), (float) product.getPrice()));
                     }
-                    AdapterProducts adapterProducts = new AdapterProducts(products);
+                    AdapterProducts adapterProducts = new AdapterProducts(products,getActivity());
                     recyclerView_products.setAdapter(adapterProducts);
                 } else {
                     Log.i("Lino", "The response wasn't successful. Code: " + response.code());

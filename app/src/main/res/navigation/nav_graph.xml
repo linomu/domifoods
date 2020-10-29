@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_productsFragment_to_delivermanFragment"
             app:destination="@id/delivermanFragment" />
+        <action
+            android:id="@+id/action_productsFragment_to_detailProductsFragment"
+            app:destination="@id/detailProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/shoppingcarFragment"
@@ -75,5 +78,15 @@
         <action
             android:id="@+id/action_ordersFragment_to_delivermanFragment"
             app:destination="@id/delivermanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductsFragment"
+        android:name="com.unicauca.domifoods.fragments.DetailProductsFragment"
+        android:label="fragment_detail_products"
+        tools:layout="@layout/fragment_detail_products" >
+        <argument
+            android:name="Product"
+            app:argType="com.unicauca.domifoods.domain.Product"
+            app:nullable="true" />
     </fragment>
 </navigation>
