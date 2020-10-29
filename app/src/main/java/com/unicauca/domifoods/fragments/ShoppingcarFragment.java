@@ -14,17 +14,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.domain.Product;
+import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
+
+import java.util.ArrayList;
 
 
 public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView menu_options;
     NavController navController;
+    public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
+    TextView tv_prueba;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,6 +71,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -80,10 +88,17 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         navController = Navigation.findNavController(view);
 
         menu_options = view.findViewById(R.id.menu_options_nav);
+        tv_prueba = view.findViewById(R.id.tv_prueba);
         menu_options.setOnNavigationItemSelectedListener(this);
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 
@@ -119,5 +134,12 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
+
+        Log.i("lino", "Productos que están en el carrito");
+        for(ProductShoppingCart productShoppingCart : products){
+            Log.i("lino", productShoppingCart.toString());
+            tv_prueba.setText(tv_prueba.getText()+productShoppingCart.toString()+"\n");
+
+        }
     }
 }

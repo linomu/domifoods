@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.domain.Product;
+import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +29,10 @@ public class DetailProductsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private TextView tv_precio,tv_description;
+    private Button btn_add,btn_minus,btn_add_shopping_cart;
+    Product product;
+    private int cant;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -64,18 +71,50 @@ public class DetailProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_products, container, false);
+        View view= inflater.inflate(R.layout.fragment_detail_products, container, false);
+        tv_precio = view.findViewById(R.id.tv_precio);
+        tv_description = view.findViewById(R.id.tv_description);
+        btn_add = view.findViewById(R.id.btn_add);
+        btn_add_shopping_cart = view.findViewById(R.id.btn_add_shopping_cart);
+        btn_minus = view.findViewById(R.id.btn_minus);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        cant=0;
         if(getArguments()!=null){
             DetailProductsFragmentArgs args = DetailProductsFragmentArgs.fromBundle(getArguments());
-            Product product = args.getProduct();
+            product = args.getProduct();
             Log.i("lino", "Desde DetailProductosFragment "+product.toString());
         }
+
+        tv_precio.setText(String.valueOf(product.getPrice()));
+        tv_description.setText(product.getDescription());
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cant++;
+                tv_precio.setText(String.valueOf(product.getPrice()*cant));
+            }
+        });
+        btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cant--;
+                tv_precio.setText(String.valueOf(product.getPrice()*cant));
+            }
+        });
+        btn_add_shopping_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProductShoppingCart productShoppingCart = new ProductShoppingCart(product.getId(), cant, product.getImage(), product.getName(), product.getPrice(), product.getPrice()*cant);
+                ShoppingcarFragment.products.add(productShoppingCart);
+                Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }
