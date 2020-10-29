@@ -1,7 +1,5 @@
 package com.unicauca.domifoods.modelsUser;
 
-import retrofit2.http.Field;
-
 public class Create_user_response {
    private String answer, id, token;
 

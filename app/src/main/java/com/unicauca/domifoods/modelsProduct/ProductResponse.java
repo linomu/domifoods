@@ -1,11 +1,13 @@
 package com.unicauca.domifoods.modelsProduct;
 
 public class ProductResponse {
+    //attributes of  response  preoduc  in the service web
     private int id;
     private String name,description,image,date_creation;
     private int price, category;
     private boolean state_delete,state_disponibility;
 
+    //builder
     public ProductResponse() {
     }
 
@@ -20,7 +22,7 @@ public class ProductResponse {
         this.state_delete = state_delete;
         this.state_disponibility = state_disponibility;
     }
-
+    //methods getts of preoducts
     public int getId() {
         return id;
     }

@@ -22,7 +22,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-
+ //api for web service
 public interface ApiUser {
 
     @FormUrlEncoded
@@ -32,6 +32,7 @@ public interface ApiUser {
             @Field("email") String email,
             @Field("password") String password,
             @Field("password2") String password2
+            //hola
     );
 
     @POST("accounts/api/user_register/")
@@ -43,7 +44,7 @@ public interface ApiUser {
     @POST("accounts/api/user_client_register/")
     Call<User_client_register>user_client_register(@Body User_client_register user_restaurant_register);
 
-
+    //method for api service login
     @FormUrlEncoded
     @POST("accounts/api/login/")
     Call<ResponseBody>login( @Field("username") String username, @Field("password") String password);
@@ -55,16 +56,18 @@ public interface ApiUser {
     @GET("restaurants/api/restaurants/")
     Call<List<PostsRestaurants>> getPosts();
 
+    //methods for the second sprint javier cuasapud
+
+    // method for the list of categories for restaurnts this send  id
     @GET("restaurants/api/restaurants/{id}/categories/")
     Call<List<CategoriesResponse>>getCategoriesByRestaurant(@Path("id") int idRestaurant);
-
+    // method for the list of categories for restaurnts this send  id and id resaurants
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
-
+    // method for the list  of restaurnts this send  id and id resaurants
     @GET("restaurants/api/restaurants/{id}/")
     Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
-
-
+    // method for the   of restaurnts
     @GET("restaurants")
     Call<GetRestaurant> list();
 }

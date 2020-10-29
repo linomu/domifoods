@@ -1,27 +1,28 @@
-package com.unicauca.domifoods.domain;
+package com.unicauca.domifoods.modelsUser;
 
-public class Category {
-    //attribute of the category
+public class Category_request {
     private int id;
     private String name, description, image, date_creation, state_delete;
 
-    //builder
-    public Category() {
+    public Category_request() {
     }
 
-    public Category(int id, String name, String description, String image, String date_creation) {
+    public Category_request(int id, String name, String description, String image, String date_creation, String state_delete) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.date_creation = date_creation;
+        this.state_delete = state_delete;
     }
 
-    public Category(String name, String image) {
+    public Category_request(String name, String image) {
         this.name = name;
         this.image = image;
     }
-    //methods get
+
+
+    // methods for the getterof the  category
     public String getName() {
         return name;
     }

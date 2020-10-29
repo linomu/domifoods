@@ -3,11 +3,12 @@ package com.unicauca.domifoods.modelsCategory;
 import java.util.List;
 
 public class CategoriesResponse {
+    //attributes of categories  the restaurant
     private int id;
     private String name,description,image,date_creation;
     private boolean state_delete;
     private int restaurant;
-
+    //builder
     public CategoriesResponse() {
     }
 
@@ -20,7 +21,7 @@ public class CategoriesResponse {
         this.state_delete = state_delete;
         this.restaurant = restaurant;
     }
-
+    //methods gets of categories
     public int getId() {
         return id;
     }

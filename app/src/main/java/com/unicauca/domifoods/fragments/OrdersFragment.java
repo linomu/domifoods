@@ -31,7 +31,7 @@ public class OrdersFragment extends Fragment implements BottomNavigationView.OnN
     BottomNavigationView menu_options;
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameter of orderss, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -62,6 +62,7 @@ public class OrdersFragment extends Fragment implements BottomNavigationView.OnN
     }
 
     @Override
+    //initial orders
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
