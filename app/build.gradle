@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: "androidx.navigation.safeargs"
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -53,6 +53,7 @@ dependencies {
     // The next two implementations are used to the navigation component
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
 
 
     //RetrofitLino
