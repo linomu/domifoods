@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderAddressFragment"
-        android:name="com.unicauca.domifoods.OrderAddressFragment"
+        android:name="com.unicauca.domifoods.fragments.OrderAddressFragment"
         android:label="fragment_order_address"
         tools:layout="@layout/fragment_order_address" >
         <action

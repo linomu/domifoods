@@ -1,4 +1,4 @@
-package com.unicauca.domifoods;
+package com.unicauca.domifoods.fragments;
 
 import android.os.Bundle;
 
@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.unicauca.domifoods.MapsFragment;
+import com.unicauca.domifoods.R;
 
 /**
  * A simple {@link Fragment} subclass.
