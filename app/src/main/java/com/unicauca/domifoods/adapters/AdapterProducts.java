@@ -70,9 +70,13 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
         holder.card_view_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("lino", "Me voy al detalle con la siguiente información :"+ products.get(position).toString());
+                /*Log.i("lino", "Me voy al detalle con la siguiente información :"+ products.get(position).toString());
                 ProductsFragmentDirections.ActionProductsFragmentToDetailProductsFragment action =  ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position));
-                navController.navigate(action);
+                navController.navigate(action);*/
+                products.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, products.size());
+
 
             }
         });
