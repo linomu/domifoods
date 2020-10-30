@@ -75,7 +75,7 @@
     <TextView
         android:id="@+id/textView14"
         android:layout_width="396dp"
-        android:layout_height="32dp"
+        android:layout_height="26dp"
         android:fontFamily="@font/nimbusbol"
         android:text="Parrillada de tres carne  "
         android:textColor="@color/negro"
@@ -88,11 +88,13 @@
         android:id="@+id/textView15"
         android:layout_width="383dp"
         android:layout_height="26dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/nimbusbol"
         android:text="$ 20.000"
         android:textColor="@color/negro"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -110,38 +112,36 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="19dp"
-        android:layout_height="26dp"
+        android:layout_width="24dp"
+        android:layout_height="25dp"
         android:background="@drawable/icon_minus"
         app:layout_constraintBottom_toBottomOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="@+id/textView15"
-        app:layout_constraintHorizontal_bias="0.994"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/quantity_of_products"
-        android:layout_width="37dp"
-        android:layout_height="34dp"
+        android:layout_width="46dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="4dp"
         android:text="1"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/negro"
         android:textSize="28sp"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        tools:layout_editor_absoluteX="320dp" />
 
     <Button
         android:id="@+id/button9"
         android:layout_width="28dp"
         android:layout_height="24dp"
+        android:layout_marginStart="304dp"
         android:background="@drawable/icon_plus"
         app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintEnd_toStartOf="@+id/quantity_of_products"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         app:layout_constraintVertical_bias="1.0" />
