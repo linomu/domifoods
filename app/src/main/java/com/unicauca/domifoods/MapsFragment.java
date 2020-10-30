@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -95,11 +96,17 @@ public class MapsFragment extends Fragment {
                     Log.i("map_lino", "Estamos haciendo click en : "+latLng);
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
-                    markerOptions.title(latLng.latitude +" "+ latLng.longitude);
+                    //markerOptions.title(latLng.latitude +" "+ latLng.longitude);
+                    markerOptions.title("¿Quieres recibir aquí tu pedido? 😁");
                     googleMap.clear();
                     googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                     googleMap.addMarker(markerOptions);
-                    listener.enviarCoordenadas(latLng);
+                    try {
+                        listener.enviarCoordenadas(latLng);
+                    }catch (Exception e){
+                        Toast.makeText(getContext(), "😰 ¿Dónde quieres recibir tu pedido?", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 }
             });

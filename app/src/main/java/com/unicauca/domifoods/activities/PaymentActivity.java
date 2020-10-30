@@ -14,7 +14,16 @@ import java.util.Locale;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    public static final String LATITUD = "latitud";
+    public static final String LONGITUD = "longitud";
+    public static final String OBSERVACIONES = "observaciones";
+    public static final String DIRECCION = "direccion";
+
+    private double latitud, longitud;
+    private String direccion, obsevaciones;
+
     TextView textView25;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +31,15 @@ public class PaymentActivity extends AppCompatActivity {
 
         textView25 = findViewById(R.id.textView25);
 
+        latitud = getIntent().getDoubleExtra(LATITUD,0);
+        longitud = getIntent().getDoubleExtra(LONGITUD,0);
+        direccion = getIntent().getStringExtra(DIRECCION);
+        obsevaciones = getIntent().getStringExtra(OBSERVACIONES);
+
+        textView25.setText("Latitud: "+latitud+"\n"+"Longitud: "+longitud+"\n"+"Dirección: "+direccion+"\n"+"Observaciones: "+obsevaciones);
+
+
+        /*
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
 
@@ -42,6 +60,6 @@ public class PaymentActivity extends AppCompatActivity {
         // textView is the TextView view that should display it
         textView25.setText(currentDateTimeString);
         textView25.setText(textView25.getText()+ "\n"+fecha+"\n"+hora+"\n"+objSDF.format(objDate));
-
+        */
     }
 }

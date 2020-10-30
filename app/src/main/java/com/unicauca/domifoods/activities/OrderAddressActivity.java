@@ -34,80 +34,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderAddressActivity extends AppCompatActivity implements MapsFragment.NotificarCoordenadas{
+public class OrderAddressActivity extends AppCompatActivity implements MapsFragment.NotificarCoordenadas, View.OnClickListener {
+
 
     //Location
     private LocationManager locationManager;
     private Location location;
     private LocationListener locationListener;
-    private double longitude;
-    private double latitude;
-    //final int[] onLocationChanged = {0};
-    FloatingActionButton fab_position;
-    FrameLayout conatiner_act;
-    Button btn_continuar_direccion;
-    NavController navController;
+    private double longitude=0;
+    private double latitude=0;
+    private double final_longitude=0;
+    private double final_latitude=0;
 
-    EditText et_direccion_envio;
+    int onLocationChanged=0;
+
+    private FloatingActionButton fab_position;
+    private FrameLayout conatiner_act;
+    private Button btn_continuar_direccion;
+    private EditText et_direccion_envio,et_observaciones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_address);
-        et_direccion_envio = findViewById(R.id.et_direccion_envio);
-        conatiner_act = findViewById(R.id.conatiner_act);
-        fab_position = findViewById(R.id.fab_position);
-        btn_continuar_direccion = findViewById(R.id.btn_continuar_direccion);
-
-
-        conatiner_act.setVisibility(View.INVISIBLE);
-        fab_position.setVisibility(View.INVISIBLE);
-
-
-        btn_continuar_direccion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
-            }
-        });
-
-        fab_position.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MapsFragment fr = new MapsFragment();
-                Bundle bn = new Bundle();
-                //tv_coordenadas.setText(location.getLatitude()+" , "+location.getLongitude());
-                //obtenerDireccion(location.getLatitude(), location.getLongitude());
-                bn.putDouble(MapsFragment.LATITUD, latitude);
-                bn.putDouble(MapsFragment.LONGITUD, longitude);
-                bn.putString(MapsFragment.TITULO, "🏠");
-                bn.putString(MapsFragment.SNIPPET, "Aquí te encuentras!");
-
-                fr.setArguments(bn);
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.conatiner_act, fr)
-                        .commit();
-                et_direccion_envio.setText("");
-                et_direccion_envio.setText(obtenerDireccion(latitude, longitude));
-            }
-        });
+        InicializarVariables();
         locationListener = new LocationListener() {
-            int onLocationChanged=0;
+
             @Override
             public void onLocationChanged(Location location) {
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
-
                 conatiner_act.setVisibility(View.VISIBLE);
                 fab_position.setVisibility(View.VISIBLE);
                 if (onLocationChanged == 0) {
+                    final_latitude = latitude;
+                    final_longitude = longitude;
                     et_direccion_envio.setText("");
                     et_direccion_envio.setText(obtenerDireccion(latitude, longitude));
                     try {
                         MapsFragment fr = new MapsFragment();
                         Bundle bn = new Bundle();
-                        //tv_coordenadas.setText(location.getLatitude()+" , "+location.getLongitude());
-                        //obtenerDireccion(location.getLatitude(), location.getLongitude());
                         bn.putDouble(MapsFragment.LATITUD, latitude);
                         bn.putDouble(MapsFragment.LONGITUD, longitude);
                         bn.putString(MapsFragment.TITULO, "🏠");
@@ -121,9 +87,6 @@ public class OrderAddressActivity extends AppCompatActivity implements MapsFragm
                     }
                 }
                 onLocationChanged++;
-
-
-                Log.i("linomapa", "Longitude " + longitude + " Latitude " + latitude);
             }
 
             @Override
@@ -133,13 +96,14 @@ public class OrderAddressActivity extends AppCompatActivity implements MapsFragm
 
             @Override
             public void onProviderEnabled(String provider) {
-                Toast.makeText(getApplicationContext(), "What that hell is going on?", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderAddressActivity.this, "El GPS está activo 😁", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-                Log.e("linomapa", "VOY A " +
-                        " QUE ENCIENDAN EL GPS");
+                Toast.makeText(OrderAddressActivity.this, "Tienes el GPS descativado 😥", Toast.LENGTH_LONG).show();
+                conatiner_act.setVisibility(View.INVISIBLE);
+                fab_position.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
@@ -162,9 +126,22 @@ public class OrderAddressActivity extends AppCompatActivity implements MapsFragm
 
     }
 
+    private void InicializarVariables() {
+        et_direccion_envio = findViewById(R.id.et_direccion_envio);
+        conatiner_act = findViewById(R.id.conatiner_act);
+        fab_position = findViewById(R.id.fab_position);
+        et_observaciones = findViewById(R.id.et_observaciones);
+        btn_continuar_direccion = findViewById(R.id.btn_continuar_direccion);
+        conatiner_act.setVisibility(View.INVISIBLE);
+        fab_position.setVisibility(View.INVISIBLE);
+        btn_continuar_direccion.setOnClickListener(this);
+        fab_position.setOnClickListener(this);
+    }
+
     @Override
     public void enviarCoordenadas(LatLng latLng) {
-        //Toast.makeText(this, "Coordenadas: "+latLng, Toast.LENGTH_SHORT).show();
+        final_latitude = latLng.latitude;
+        final_longitude = latLng.longitude;
         et_direccion_envio.setText("");
         et_direccion_envio.setText(obtenerDireccion(latLng.latitude, latLng.longitude));
 
@@ -197,5 +174,43 @@ public class OrderAddressActivity extends AppCompatActivity implements MapsFragm
         return  direccion;
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_continuar_direccion:
+                String direccionSeleccionada = et_direccion_envio.getText().toString();
+                if(direccionSeleccionada.equals("")){
+                    et_direccion_envio.setError(getResources().getString(R.string.msg_required_failed));
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                    if(final_latitude!=0 && final_longitude!=0){
+                        intent.putExtra(PaymentActivity.LATITUD,final_latitude);
+                        intent.putExtra(PaymentActivity.LONGITUD,final_longitude);
+                    }
+                    intent.putExtra(PaymentActivity.OBSERVACIONES,et_observaciones.getText().toString());
+                    intent.putExtra(PaymentActivity.DIRECCION,et_direccion_envio.getText().toString());
+                    startActivity(intent);
+                }
+                break;
+            case R.id.fab_position:
+                final_latitude = latitude;
+                final_longitude = longitude;
+                MapsFragment fr = new MapsFragment();
+                Bundle bn = new Bundle();
+                bn.putDouble(MapsFragment.LATITUD, latitude);
+                bn.putDouble(MapsFragment.LONGITUD, longitude);
+                bn.putString(MapsFragment.TITULO, "🏠");
+                bn.putString(MapsFragment.SNIPPET, "Aquí te encuentras!");
+                fr.setArguments(bn);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.conatiner_act, fr)
+                        .commit();
+                et_direccion_envio.setText("");
+                et_direccion_envio.setText(obtenerDireccion(latitude, longitude));
+                break;
+
+        }
     }
 }

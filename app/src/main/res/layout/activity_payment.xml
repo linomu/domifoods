@@ -1,128 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="342dp"
-        android:layout_height="173dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045"
-        app:srcCompat="@drawable/ic_log" />
-
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="282dp"
+        android:layout_height="43dp"
         android:fontFamily="@font/nimbusbol"
         android:text="¿como desea pagar?"
         android:textAlignment="center"
         android:textColor="@color/negro"
         android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="@+id/menu_options_nav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.391" />
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="392dp"
-        android:layout_height="70dp"
+        android:layout_width="373dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:background="#8BC34A"
         android:backgroundTint="#7CC625"
-        android:fontFamily="@font/nimbusregita"
-        android:text="total a pagar $ 13.000"
+        android:fontFamily="@font/nimbusreg"
+        android:text="Total a pagar $ 13.000"
         android:textAlignment="center"
         android:textColor="#F3F3F3"
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.563"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
     <Button
         android:id="@+id/button7"
         android:layout_width="293dp"
         android:layout_height="73dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/btn_style1"
         android:drawableLeft="@drawable/icono_dinero"
         android:text="pago conra entrega"
         android:textColor="#F8F3F3"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="299dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_style1"
         android:drawableLeft="@drawable/icono_tarjeta"
         android:text="Pago electronico"
         android:textColor="@color/blanco"
-        app:layout_constraintBottom_toTopOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
 
     <TextView
         android:id="@+id/textView25"
-        android:layout_width="319dp"
-        android:layout_height="76dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
         android:text="domifoots empresa  SAS, intituida en las normas nacioanles y con el cumplimento de los protocolos de bioseguridad sera la responsable por la entrega de caada uno de los prodectos con tiempo a sus clientes "
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_options_nav"
+
+    <View
+        android:id="@+id/imageView8"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_height="74dp"
+        android:background="@drawable/ic_wave"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation">
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="412dp"
-        android:layout_height="82dp"
-        app:layout_constraintBottom_toBottomOf="@+id/menu_options_nav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22"
-        app:layout_constraintVertical_bias="0.837"
-        app:srcCompat="@drawable/ic_wave" />
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="534dp"
-        android:layout_height="217dp"
+        android:layout_width="403dp"
+        android:layout_height="147dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
