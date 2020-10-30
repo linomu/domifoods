@@ -180,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onResponse(Call<Login_response> call, Response<Login_response> response) {
                         String s = "";
+
                         if (response.body() != null) {
                             Login_response login_response = response.body();
                             //crear el archivo shared
