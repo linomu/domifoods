@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,6 +63,7 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
     RecyclerView recyclerView;
     ArrayList<PostsRestaurants> restaurants;
     private ProgressDialog progDailog;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     NavController navController;
     BottomNavigationView menu_options;
@@ -121,7 +123,15 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
         super.onViewCreated(view, savedInstanceState);
 
 
-
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //Toast.makeText(getContext(), "Hola 😀", Toast.LENGTH_SHORT).show();
+                setUpTheRecyclerView(view);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         img_salir = view.findViewById(R.id.img_salir);
         img_salir.setOnClickListener(new View.OnClickListener() {
             @Override

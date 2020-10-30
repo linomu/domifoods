@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,7 +63,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     private TextView tv_restaurant_name, tv_info_restaurant;
     public static int ID_RESTAURANT = 0;
     private static int ID_CATEGORY = 0;
-
+    private SwipeRefreshLayout swipeProducts;
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
 
@@ -113,6 +114,17 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
         tv_restaurant_name = view.findViewById(R.id.tv_restaurant_name);
         tv_info_restaurant = view.findViewById(R.id.tv_info_restaurant);
+        swipeProducts = view.findViewById(R.id.swipeProducts);
+        swipeProducts.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setUpInfoRestaurant();
+                setUpTheRecyclerView(view);
+                setUpTheRecyclerViewProducts(view);
+                fillOutTheCategories();
+                swipeProducts.setRefreshing(false);
+            }
+        });
 
         /*Picasso Initialization*/
         mPicasso = new Picasso.Builder(getContext()).indicatorsEnabled(false).build();
