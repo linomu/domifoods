@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +15,55 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment {
+
+    public static final String LATITUD = "myLatitud";
+    public static final String LONGITUD = "myLongitud";
+    public static final String TITULO = "myTitulo";
+    public static final String SNIPPET= "mySnippet";
+    private double myLatitud;
+    private double myLongitud;
+    private String myTitulo, mySnippet;
+
+    public String getMyTitulo() {
+        return myTitulo;
+    }
+
+    public void setMyTitulo(String myTitulo) {
+        this.myTitulo = myTitulo;
+    }
+
+    public String getMySnippet() {
+        return mySnippet;
+    }
+
+    public void setMySnippet(String mySnippet) {
+        this.mySnippet = mySnippet;
+    }
+
+    public double getMyLatitud() {
+        return myLatitud;
+    }
+
+    public void setMyLatitud(double myLatitud) {
+        this.myLatitud = myLatitud;
+    }
+
+    public double getMyLongitud() {
+        return myLongitud;
+    }
+
+    public void setMyLongitud(double myLongitud) {
+        this.myLongitud = myLongitud;
+    }
+    private NotificarCoordenadas listener;
+    public interface NotificarCoordenadas{
+        void enviarCoordenadas(LatLng latLng);
+    }
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -32,10 +78,31 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-            Log.i("lino", "on MapReady");
+            int zoom = 18;
+            LatLng casa = new LatLng(getMyLatitud(), getMyLongitud());
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(casa, zoom));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(casa)
+                    .title(getMyTitulo())
+                    .snippet(getMySnippet())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(casa));
+
+            //Obtener las coordenadas
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    Log.i("map_lino", "Estamos haciendo click en : "+latLng);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+                    markerOptions.title(latLng.latitude +" "+ latLng.longitude);
+                    googleMap.clear();
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    googleMap.addMarker(markerOptions);
+                    listener.enviarCoordenadas(latLng);
+
+                }
+            });
         }
     };
 
@@ -55,5 +122,19 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+        myLatitud = args.getDouble(LATITUD);
+        myLongitud = args.getDouble(LONGITUD);
+        myTitulo = args.getString(TITULO);
+        mySnippet = args.getString(SNIPPET);
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.listener = (NotificarCoordenadas) context;
     }
 }

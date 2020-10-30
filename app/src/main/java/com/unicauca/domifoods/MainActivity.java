@@ -9,13 +9,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.unicauca.domifoods.dialogs.NoticeDialogListener;
+import com.unicauca.domifoods.fragments.OrderAddressFragment;
 
 
-public class MainActivity extends AppCompatActivity implements NoticeDialogListener {
+public class MainActivity extends AppCompatActivity implements NoticeDialogListener ,  MapsFragment.NotificarCoordenadas{
 
     private SharedPreferences sharedpreferencesLogin;
     private SharedPreferences.Editor editorLogin;
@@ -63,5 +66,13 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
     public void onDialogNegativeClick(DialogFragment dialog) {
         Toast.makeText(this, "Presiono no", Toast.LENGTH_SHORT).show();
         setUpTheScreen();
+    }
+
+    @Override
+    public void enviarCoordenadas(LatLng latLng) {
+        Toast.makeText(this, "Coordenadas: "+latLng, Toast.LENGTH_SHORT).show();
+        OrderAddressFragment.otherlatitude=latLng.latitude;
+        OrderAddressFragment.otherLongitude=latLng.longitude;
+        OrderAddressFragment.obtenerCalle(latLng.latitude, latLng.longitude, this);
     }
 }

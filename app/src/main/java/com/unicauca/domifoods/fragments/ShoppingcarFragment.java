@@ -1,5 +1,6 @@
 package com.unicauca.domifoods.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.room.FtsOptions;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.activities.OrderAddressActivity;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
@@ -92,7 +95,8 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         btn_goto_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_shoppingcarFragment_to_orderAddressFragment);
+                //navController.navigate(R.id.action_shoppingcarFragment_to_orderAddressFragment);
+                startActivity(new Intent(getActivity(), OrderAddressActivity.class));
             }
         });
         menu_options = view.findViewById(R.id.menu_options_nav);
