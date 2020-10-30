@@ -15,13 +15,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.unicauca.domifoods.dialogs.NoticeDialogListener;
-import com.unicauca.domifoods.fragments.OrderAddressFragment;
 
 
-public class MainActivity extends AppCompatActivity implements NoticeDialogListener ,  MapsFragment.NotificarCoordenadas{
+public class MainActivity extends AppCompatActivity implements NoticeDialogListener {
 
     private SharedPreferences sharedpreferencesLogin;
     private SharedPreferences.Editor editorLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
         sharedpreferencesLogin = getSharedPreferences(Register2Activity.SESSION_LOGIN, Context.MODE_PRIVATE);
         editorLogin = sharedpreferencesLogin.edit();
     }
+
     public void setUpTheScreen() {
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -68,11 +69,5 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
         setUpTheScreen();
     }
 
-    @Override
-    public void enviarCoordenadas(LatLng latLng) {
-        Toast.makeText(this, "Coordenadas: "+latLng, Toast.LENGTH_SHORT).show();
-        OrderAddressFragment.otherlatitude=latLng.latitude;
-        OrderAddressFragment.otherLongitude=latLng.longitude;
-        OrderAddressFragment.obtenerCalle(latLng.latitude, latLng.longitude, this);
-    }
+
 }
