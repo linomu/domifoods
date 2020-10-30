@@ -15,18 +15,17 @@
         android:layout_height="127dp"
         android:layout_marginTop="16dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/tv_restaurants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/blackground_produc" />
 
     <TextView
         android:id="@+id/tv_restaurants"
         android:layout_width="361dp"
         android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
         android:background="#FF0F03"
         android:fontFamily="@font/comickings"
         android:letterSpacing="0.1"
@@ -37,8 +36,9 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_restaurant_product_bg" />
 
     <ImageView
         android:id="@+id/img_restaurant_icon"
