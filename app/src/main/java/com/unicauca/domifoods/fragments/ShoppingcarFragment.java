@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.adapters.AdapterShoppingListt;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
@@ -31,6 +32,8 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     BottomNavigationView menu_options;
     NavController navController;
     public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
+    private AdapterShoppingListt adapterShoppingListt;
+
     TextView tv_prueba;
 
     // TODO: Rename parameter arguments, choose names that match
