@@ -83,7 +83,7 @@ public class DetailProductsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cant=0;
+        cant=1;
         if(getArguments()!=null){
             DetailProductsFragmentArgs args = DetailProductsFragmentArgs.fromBundle(getArguments());
             product = args.getProduct();

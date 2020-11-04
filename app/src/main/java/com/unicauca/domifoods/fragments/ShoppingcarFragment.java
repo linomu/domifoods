@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,17 +16,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
-import com.unicauca.domifoods.adapters.AdapterShoppingListt;
-import com.unicauca.domifoods.domain.Product;
+import com.unicauca.domifoods.adapters.AdapterListProducts;
+import com.unicauca.domifoods.adapters.AdapterRestaurants;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -32,9 +36,11 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     BottomNavigationView menu_options;
     NavController navController;
     public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
-    private AdapterShoppingListt adapterShoppingListt;
+    private AdapterListProducts adapterListProducts;
+    RecyclerView recyclerView, recyclerView_products;
+    TextView sum;
+    double sumTotal = 0;
 
-    TextView tv_prueba;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,13 +95,20 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
-
+        //sum = view.findViewById(R.id.total_compra);
         menu_options = view.findViewById(R.id.menu_options_nav);
-        tv_prueba = view.findViewById(R.id.tv_prueba);
         menu_options.setOnNavigationItemSelectedListener(this);
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
+        sum= view.findViewById(R.id.total_compra);
+        recyclerView = view.findViewById(R.id.RecyclerCar);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        adapterListProducts = new AdapterListProducts(products, this.getContext());
+        recyclerView.setAdapter(adapterListProducts);
+        //calcularTotal();
+        //sum.setText("Total: $"+adapterListProducts.calcularTotal());
 
     }
 
@@ -124,6 +137,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         return true;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -139,10 +153,13 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         );
 
         Log.i("lino", "Productos que están en el carrito");
+        //List<ProductShoppingCart> listProducts = new ArrayList<>();
         for(ProductShoppingCart productShoppingCart : products){
             Log.i("lino", productShoppingCart.toString());
-            tv_prueba.setText(tv_prueba.getText()+productShoppingCart.toString()+"\n");
-
+            sumTotal = sumTotal + productShoppingCart.getSubtotal();
         }
+        sum.setText("Total: $"+sumTotal);
     }
+
+
 }

@@ -64,4 +64,6 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
         Toast.makeText(this, "Presiono no", Toast.LENGTH_SHORT).show();
         setUpTheScreen();
     }
+
+
 }
