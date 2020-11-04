@@ -1,5 +1,7 @@
 package com.unicauca.domifoods.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,8 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +45,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     RecyclerView recyclerView, recyclerView_products;
     TextView sum;
     double sumTotal = 0;
+    private ListView list;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -87,6 +93,14 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //Llamado al metodo para eliminar un producto
+        /*list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> listProducts, View view, int position, long id) {
+                maybeRemoveProduct(position);
+                return true;
+            }
+        });*/
         return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
     }
 
@@ -109,7 +123,6 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         recyclerView.setAdapter(adapterListProducts);
         //calcularTotal();
         //sum.setText("Total: $"+adapterListProducts.calcularTotal());
-
     }
 
     @Override
@@ -159,7 +172,32 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
             sumTotal = sumTotal + productShoppingCart.getSubtotal();
         }
         sum.setText("Total: $"+sumTotal);
-    }
 
+        /*list.setAdapter((ListAdapter) adapterListProducts);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+                Log.i("pauek", "onItemClick");
+                products.get(pos).toggleChecked();
+                adapterListProducts.notifyDataSetChanged();
+    }*/
+
+
+}
+
+    private void maybeRemoveProduct(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle(R.string.confirm);
+        builder.setMessage(String.format("En realidad desea eliminar el pruducto '%s'?",products.get(pos)));
+        builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                products.remove(pos);
+                adapterListProducts.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.create().show();
+    }
 
 }
