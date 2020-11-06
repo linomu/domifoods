@@ -18,6 +18,8 @@ import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetailProductsFragment#newInstance} factory method to
@@ -33,6 +35,9 @@ public class DetailProductsFragment extends Fragment {
     private Button btn_add,btn_minus,btn_add_shopping_cart;
     Product product;
     private int cant;
+    String restaurant_1 = "",restaurant_2 = "";
+    ArrayList<ProductShoppingCart> productsShopping = new ArrayList<>();
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -111,11 +116,23 @@ public class DetailProductsFragment extends Fragment {
             public void onClick(View view) {
                 ProductShoppingCart productShoppingCart
                         = new ProductShoppingCart(product.getId(), cant, product.getImage(), product.getName(), product.getPrice(), product.getPrice()*cant);
+               /* if(ShoppingcarFragment.products.size()==1){
+                    restaurant_1="restaurante inicial";
+                }else
+                    if(ShoppingcarFragment.products.size() >1){
+                        restaurant_2 = "restaurante siguiente";
+                        if(!restaurant_1.equals(restaurant_2)){
+                            Toast.makeText(getContext(), "No se puede adicionar productos de un restaurante diefernte! :(", Toast.LENGTH_SHORT).show();
+                        }else{
+                        ShoppingcarFragment.products.add(productShoppingCart);
+                        Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
+                        }
+                    }*/
                 ShoppingcarFragment.products.add(productShoppingCart);
                 Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
             }
         });
 
-
     }
+
 }
