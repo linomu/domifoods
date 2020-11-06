@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -24,9 +25,11 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     private LayoutInflater pInflater;
     private Context context;
     Picasso mPicasso;
-    TextView sum;
-    private double sumaSubTotales = 0;
+    //TextView sum;
+    TextView sum2;
     private double sumTotal = 0;
+    ShoppingcarFragment obj;
+
 
     public AdapterListProducts(List<ProductShoppingCart> ProductsList, Context context){
         this.pInflater = LayoutInflater.from(context);
@@ -37,13 +40,14 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
 
     @NonNull
     @Override
-    public AdapterListProducts.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view = pInflater.inflate(R.layout.list_products, null);
+    //public AdapterListProducts.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_products, parent, false);
         mPicasso = new Picasso.Builder(view.getContext())
                 .indicatorsEnabled(false)
                 .build();
-        return new AdapterListProducts.ViewHolder(view);
+        //return new AdapterListProducts.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                 .placeholder(R.drawable.test)
                 .into(holder.urlImagen);
         holder.binData(products.get(position));
-        //sum.setText("hola");
+
     }
 
 
@@ -65,6 +69,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
         ImageView urlImagen,deleteImage;
         TextView name, price, cant, subtotal;
         Button btn_add,btn_minus,btn_add_shopping_cart;
+        CardView card_view_product;
 
         ViewHolder(View itemView){
             super(itemView);
@@ -75,29 +80,29 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
             price = itemView.findViewById(R.id.precio);
             cant = itemView.findViewById(R.id.cantidad);
             subtotal = itemView.findViewById(R.id.sub_total);
+            //sum = itemView.findViewById(R.id.pruebaTW);
 
-            sum = itemView.findViewById(R.id.total_compra);
-            //sum.setText("hola");
-            //deleteImage = itemView.findViewById(R.id.image_delete);
+            card_view_product = itemView.findViewById(R.id.shopping_cv);
 
         }
 
-        public double calcularTotal() {
-            //sumTotal = 0;
+        public void calcularTotal() {
+            sumTotal = 0;
             for (ProductShoppingCart productShoppingCart : products) {
                 sumTotal = sumTotal + productShoppingCart.getSubtotal();
             }
-            sum.setText("Total: $"+sumTotal);
-            return sumTotal;
+            //sum.setText("Total: $"+sumTotal);
+            obj.etiquetado(sumTotal);
 
         }
         void binData(final ProductShoppingCart item){
-
 
             name.setText(item.getName());
             price.setText("$"+item.getPrice());
             cant.setText(""+item.getCant());
             subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
+
+            calcularTotal();
 
             btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,9 +110,9 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
 
                     item.setCant(item.getCant()+1);
                     cant.setText(""+item.getCant());
-                    subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                    //ShoppingcarFragment.sumTotal= item.getCant()*item.getPrice();
-                    sumaSubTotales = sumaSubTotales+ item.getCant()*item.getPrice();
+                    item.setSubtotal(item.getCant()*item.getPrice());
+                    subtotal.setText("Sub Total: "+item.getSubtotal());
+                    calcularTotal();
 
                 }
             });
@@ -119,15 +124,16 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                     if(item.getCant() > 1){
                         item.setCant(item.getCant()-1);
                         cant.setText(""+item.getCant());
-                        subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                        //ShoppingcarFragment.sumTotal= item.getCant()*item.getPrice();
-                        sumaSubTotales = sumaSubTotales+ item.getCant()*item.getPrice();
+                        item.setSubtotal(item.getCant()*item.getPrice());
+                        subtotal.setText("Sub Total: "+item.getSubtotal());
+                        calcularTotal();
+
                     }
 
                 }
 
             });
-            ShoppingcarFragment.sumTotal = sumaSubTotales;
+
         }
     }
     @Override
@@ -136,5 +142,8 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     }
 
 
+    public void prueba(ShoppingcarFragment aux){
+        obj = aux;
+    }
 
 }

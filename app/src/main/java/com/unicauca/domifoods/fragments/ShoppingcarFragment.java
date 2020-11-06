@@ -43,7 +43,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
     private AdapterListProducts adapterListProducts;
     RecyclerView recyclerView, recyclerView_products;
-    TextView sum;
+    TextView sum, title;
 
     public static double sumTotal;
 
@@ -112,9 +112,10 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         adapterListProducts = new AdapterListProducts(products, this.getContext());
+        adapterListProducts.prueba(this);
         adapterListProducts.setProducts(products);
         recyclerView.setAdapter(adapterListProducts);
-
+        title = view.findViewById(R.id.tv_title);
     }
 
     @Override
@@ -169,39 +170,11 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
 
 }
 
-    /*
+public void etiquetado(double text){
+        if(text > 0) {
+            title.setText("");
+            sum.setText("Total: $" + text);
+        }
+}
 
-    void binData(final ProductShoppingCart item){
-
-        name.setText(item.getName());
-        price.setText("$"+item.getPrice());
-        cant.setText(""+item.getCant());
-
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //sum = view.findViewById(R.id.total_compra);
-                item.setCant(item.getCant()+1);
-                cant.setText(""+item.getCant());
-                subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                //sum.setText("+");
-            }
-        });
-
-        btn_minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //sum = view.findViewById(R.id.total_compra);
-                if(item.getCant() > 1){
-                    item.setCant(item.getCant()-1);
-                    cant.setText(""+item.getCant());
-                    subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                    //sum.setText("-");
-                }
-
-            }
-
-        });
-        //sum.setText("Total: $"+subtotal);
-    }*/
 }

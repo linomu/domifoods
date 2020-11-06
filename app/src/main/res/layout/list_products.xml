@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv"
+    android:id="@+id/shopping_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -13,128 +13,141 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp"
-            >
-
-            <ImageView
-                android:id="@+id/img_producto"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                app:srcCompat="@drawable/ic_add_shopping_cart_24px" />
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linerLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="50dp"
-                android:layout_toEndOf="@+id/img_producto"
-                android:layout_toRightOf="@+id/img_producto"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="coelia"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/precio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="$"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/sub_total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="Sub Total:"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linerLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="270dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
-                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp">
 
-                <Button
-                    android:id="@+id/btn_minus"
-                    android:layout_width="19dp"
-                    android:layout_height="26dp"
-                    android:background="@drawable/ic_remove_24px"
-                    android:gravity="clip_vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.655"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.58" />
+                    <ImageView
+                        android:id="@+id/img_producto"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        app:srcCompat="@drawable/ic_add_shopping_cart_24px" />
 
-                <TextView
-                    android:id="@+id/cantidad"
-                    android:layout_width="32dp"
-                    android:layout_height="40dp"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="28sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.728"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.583" />
+                    <LinearLayout
+                        android:id="@+id/linerLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_toEndOf="@+id/img_producto"
+                        android:layout_toRightOf="@+id/img_producto"
+                        android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_add"
-                    android:layout_width="21dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/ic_add_24px"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.797"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="coelia"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
-                    app:layout_constraintVertical_bias="0.578" />
-                >
+                        <TextView
+                            android:id="@+id/precio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="$"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/sub_total"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="2dp"
+                            android:text="Sub Total:"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linerLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="270dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <Button
+                            android:id="@+id/btn_minus"
+                            android:layout_width="19dp"
+                            android:layout_height="26dp"
+                            android:background="@drawable/ic_remove_24px"
+                            android:gravity="clip_vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.655"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.58" />
+
+                        <TextView
+                            android:id="@+id/cantidad"
+                            android:layout_width="32dp"
+                            android:layout_height="40dp"
+                            android:text="1"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="28sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.728"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.583" />
+
+                        <Button
+                            android:id="@+id/btn_add"
+                            android:layout_width="21dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/ic_add_24px"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.797"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+
+                            app:layout_constraintVertical_bias="0.578" />
+                        >
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </RelativeLayout>
+
     </LinearLayout>
 
 
