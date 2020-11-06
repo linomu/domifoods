@@ -109,7 +109,8 @@ public class DetailProductsFragment extends Fragment {
         btn_add_shopping_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProductShoppingCart productShoppingCart = new ProductShoppingCart(product.getId(), cant, product.getImage(), product.getName(), product.getPrice(), product.getPrice()*cant);
+                ProductShoppingCart productShoppingCart
+                        = new ProductShoppingCart(product.getId(), cant, product.getImage(), product.getName(), product.getPrice(), product.getPrice()*cant);
                 ShoppingcarFragment.products.add(productShoppingCart);
                 Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
             }

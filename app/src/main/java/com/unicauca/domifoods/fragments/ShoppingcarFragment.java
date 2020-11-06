@@ -44,8 +44,9 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     private AdapterListProducts adapterListProducts;
     RecyclerView recyclerView, recyclerView_products;
     TextView sum;
-    double sumTotal = 0;
-    private ListView list;
+
+    public static double sumTotal;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,15 +93,6 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //Llamado al metodo para eliminar un producto
-        /*list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> listProducts, View view, int position, long id) {
-                maybeRemoveProduct(position);
-                return true;
-            }
-        });*/
         return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
     }
 
@@ -120,9 +112,9 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         adapterListProducts = new AdapterListProducts(products, this.getContext());
+        adapterListProducts.setProducts(products);
         recyclerView.setAdapter(adapterListProducts);
-        //calcularTotal();
-        //sum.setText("Total: $"+adapterListProducts.calcularTotal());
+
     }
 
     @Override
@@ -154,6 +146,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     @Override
     public void onStart() {
         super.onStart();
+        sumTotal = 0;
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
@@ -171,33 +164,44 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
             Log.i("lino", productShoppingCart.toString());
             sumTotal = sumTotal + productShoppingCart.getSubtotal();
         }
+
         sum.setText("Total: $"+sumTotal);
-
-        /*list.setAdapter((ListAdapter) adapterListProducts);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-                Log.i("pauek", "onItemClick");
-                products.get(pos).toggleChecked();
-                adapterListProducts.notifyDataSetChanged();
-    }*/
-
 
 }
 
-    private void maybeRemoveProduct(final int pos) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
-        builder.setTitle(R.string.confirm);
-        builder.setMessage(String.format("En realidad desea eliminar el pruducto '%s'?",products.get(pos)));
-        builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+    /*
+
+    void binData(final ProductShoppingCart item){
+
+        name.setText(item.getName());
+        price.setText("$"+item.getPrice());
+        cant.setText(""+item.getCant());
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                products.remove(pos);
-                adapterListProducts.notifyDataSetChanged();
+            public void onClick(View view) {
+                //sum = view.findViewById(R.id.total_compra);
+                item.setCant(item.getCant()+1);
+                cant.setText(""+item.getCant());
+                subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
+                //sum.setText("+");
             }
         });
-        builder.setNegativeButton(android.R.string.cancel, null);
-        builder.create().show();
-    }
 
+        btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //sum = view.findViewById(R.id.total_compra);
+                if(item.getCant() > 1){
+                    item.setCant(item.getCant()-1);
+                    cant.setText(""+item.getCant());
+                    subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
+                    //sum.setText("-");
+                }
+
+            }
+
+        });
+        //sum.setText("Total: $"+subtotal);
+    }*/
 }

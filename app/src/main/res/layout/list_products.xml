@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="6dp">
+            android:padding="6dp"
+            >
 
             <ImageView
                 android:id="@+id/img_producto"
@@ -43,6 +44,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="50dp"
                 android:layout_toEndOf="@+id/img_producto"
                 android:layout_toRightOf="@+id/img_producto"
                 android:orientation="vertical">
@@ -81,9 +83,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="255dp"
+                android:layout_marginStart="270dp"
                 android:layout_marginLeft="4dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
 
                 >

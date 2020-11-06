@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     private Context context;
     Picasso mPicasso;
     TextView sum;
-    double sumTotal = 0;
+    private double sumaSubTotales = 0;
+    private double sumTotal = 0;
 
     public AdapterListProducts(List<ProductShoppingCart> ProductsList, Context context){
         this.pInflater = LayoutInflater.from(context);
@@ -51,6 +53,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                 .placeholder(R.drawable.test)
                 .into(holder.urlImagen);
         holder.binData(products.get(position));
+        //sum.setText("hola");
     }
 
 
@@ -59,7 +62,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView urlImagen;
+        ImageView urlImagen,deleteImage;
         TextView name, price, cant, subtotal;
         Button btn_add,btn_minus,btn_add_shopping_cart;
 
@@ -72,31 +75,39 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
             price = itemView.findViewById(R.id.precio);
             cant = itemView.findViewById(R.id.cantidad);
             subtotal = itemView.findViewById(R.id.sub_total);
+
             sum = itemView.findViewById(R.id.total_compra);
+            //sum.setText("hola");
+            //deleteImage = itemView.findViewById(R.id.image_delete);
 
         }
 
-        public void calcularTotal() {
-            sumTotal = 0;
+        public double calcularTotal() {
+            //sumTotal = 0;
             for (ProductShoppingCart productShoppingCart : products) {
                 sumTotal = sumTotal + productShoppingCart.getSubtotal();
             }
+            sum.setText("Total: $"+sumTotal);
+            return sumTotal;
+
         }
         void binData(final ProductShoppingCart item){
+
 
             name.setText(item.getName());
             price.setText("$"+item.getPrice());
             cant.setText(""+item.getCant());
+            subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
 
             btn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //sum = view.findViewById(R.id.total_compra);
+
                     item.setCant(item.getCant()+1);
                     cant.setText(""+item.getCant());
                     subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                    //calcularTotal();
-                    //sum.setText("+");
+                    //ShoppingcarFragment.sumTotal= item.getCant()*item.getPrice();
+                    sumaSubTotales = sumaSubTotales+ item.getCant()*item.getPrice();
 
                 }
             });
@@ -105,18 +116,18 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                 @Override
                 public void onClick(View view) {
                     //sum = view.findViewById(R.id.total_compra);
-                    if(item.getCant() > 0){
+                    if(item.getCant() > 1){
                         item.setCant(item.getCant()-1);
                         cant.setText(""+item.getCant());
                         subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
-                        //calcularTotal();
-                        //sum.setText("-");
+                        //ShoppingcarFragment.sumTotal= item.getCant()*item.getPrice();
+                        sumaSubTotales = sumaSubTotales+ item.getCant()*item.getPrice();
                     }
 
                 }
 
             });
-            //sum.setText("Total: $"+subtotal);
+            ShoppingcarFragment.sumTotal = sumaSubTotales;
         }
     }
     @Override
