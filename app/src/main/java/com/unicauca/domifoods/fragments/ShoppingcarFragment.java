@@ -2,13 +2,16 @@ package com.unicauca.domifoods.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,10 +26,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallback;
+import com.unicauca.domifoods.interfaces.CallBackItemTouch;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterListProducts;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
@@ -36,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView menu_options;
     NavController navController;
@@ -44,6 +51,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     private AdapterListProducts adapterListProducts;
     RecyclerView recyclerView, recyclerView_products;
     TextView sum, title;
+    RelativeLayout layout;
 
     public static double sumTotal;
 
@@ -110,10 +118,17 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         sum= view.findViewById(R.id.total_compra);
         recyclerView = view.findViewById(R.id.RecyclerCar);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         adapterListProducts = new AdapterListProducts(products, this.getContext());
-        adapterListProducts.prueba(this);
         adapterListProducts.setProducts(products);
+        adapterListProducts.prueba(this);
+
+        //borrar item David
+        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(this);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+        //---
         recyclerView.setAdapter(adapterListProducts);
         title = view.findViewById(R.id.tv_title);
     }
@@ -123,6 +138,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         super.onResume();
 
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -175,6 +191,31 @@ public void etiquetado(double text){
             title.setText("");
             sum.setText("Total: $" + text);
         }
-}
+    }
 
+
+    /*
+    @Override
+    public void itemTouchOnMode(int oldPosition, int newPosition) {
+        products.add(newPosition,products.remove(oldPosition));
+        adapterListProducts.notifyItemMoved(oldPosition,newPosition);
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int position) {
+        String nombre = products.get(viewHolder.getAdapterPosition()).getName();
+        final ProductShoppingCart deleteItem = products.get(viewHolder.getAdapterPosition());
+        final int deletedIndex = viewHolder.getAdapterPosition();
+        adapterListProducts.removeItem(viewHolder.getAdapterPosition());
+        Snackbar snackbar = Snackbar.make(layout, nombre +"=>Eliminado", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("CANCELAR", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterListProducts.restoreItem(deleteItem,deletedIndex);
+            }
+        });
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+    }
+   */
 }

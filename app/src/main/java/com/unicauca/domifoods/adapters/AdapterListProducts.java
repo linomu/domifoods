@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 import java.util.List;
 
+//David Calle
 public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProducts.ViewHolder> {
 
     private List<ProductShoppingCart> products;
@@ -70,6 +72,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
         TextView name, price, cant, subtotal;
         Button btn_add,btn_minus,btn_add_shopping_cart;
         CardView card_view_product;
+        public RelativeLayout ViewF, ViewB;
 
         ViewHolder(View itemView){
             super(itemView);
@@ -80,7 +83,8 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
             price = itemView.findViewById(R.id.precio);
             cant = itemView.findViewById(R.id.cantidad);
             subtotal = itemView.findViewById(R.id.sub_total);
-            //sum = itemView.findViewById(R.id.pruebaTW);
+            ViewF = itemView.findViewById(R.id.rl);
+            ViewB = itemView.findViewById(R.id.view_backgraund);
 
             card_view_product = itemView.findViewById(R.id.shopping_cv);
 
@@ -138,7 +142,12 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     }
     @Override
     public int getItemCount() {
-        return products.size();
+
+        if(products == null){
+            return 0;
+        }else{
+            return products.size();
+        }
     }
 
 
@@ -146,4 +155,15 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
         obj = aux;
     }
 
+    //---------------Eliminar producto------------------//
+
+    public void removeItem(int position){
+        products.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(ProductShoppingCart item, int position){
+        products.add(position,item);
+        notifyItemInserted(position);
+    }
 }
