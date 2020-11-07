@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
+import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 import java.util.ArrayList;
 
@@ -128,7 +129,7 @@ public class DetailProductsFragment extends Fragment {
                         Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
                         }
                     }*/
-                ShoppingcarFragment.products.add(productShoppingCart);
+                ShoppingCartActivity.products.add(productShoppingCart);
                 Toast.makeText(getContext(), "Producto Agregado! 😁", Toast.LENGTH_SHORT).show();
             }
         });

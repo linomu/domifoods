@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
+import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     //TextView sum;
     TextView sum2;
     private double sumTotal = 0;
-    ShoppingcarFragment obj;
+    ShoppingCartActivity obj;
 
 
     public AdapterListProducts(List<ProductShoppingCart> ProductsList, Context context){
@@ -98,6 +99,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
             //sum.setText("Total: $"+sumTotal);
             obj.etiquetado(sumTotal);
 
+
         }
         void binData(final ProductShoppingCart item){
 
@@ -151,7 +153,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     }
 
 
-    public void prueba(ShoppingcarFragment aux){
+    public void prueba(ShoppingCartActivity aux){
         obj = aux;
     }
 

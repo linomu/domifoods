@@ -122,7 +122,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         adapterListProducts = new AdapterListProducts(products, this.getContext());
         adapterListProducts.setProducts(products);
-        adapterListProducts.prueba(this);
+        //adapterListProducts.prueba(this);
 
         //borrar item David
         ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(this);
