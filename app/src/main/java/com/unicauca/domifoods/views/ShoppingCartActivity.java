@@ -1,5 +1,6 @@
 package com.unicauca.domifoods.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallback;
+import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.adapters.AdapterListProducts;
 import com.unicauca.domifoods.interfaces.CallBackItemTouch;
@@ -26,7 +29,7 @@ import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 import java.util.ArrayList;
 
-public class ShoppingCartActivity extends AppCompatActivity implements CallBackItemTouch {
+public class ShoppingCartActivity extends AppCompatActivity implements CallBackItemTouch, BottomNavigationView.OnNavigationItemSelectedListener {
 
     BottomNavigationView menu_options;
     NavController navController;
@@ -49,10 +52,10 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
     private void ObtenerVariables() {
 
         layout = findViewById(R.id.layout_main_activity);
-        //navController = Navigation.findNavController(view);
+        //navController = Navigation.findNavController(R.id.nav_host_fragment_container);
         //sum = view.findViewById(R.id.total_compra);
         menu_options = findViewById(R.id.menu_options_nav);
-        //menu_options.setOnNavigationItemSelectedListener(this);
+        menu_options.setOnNavigationItemSelectedListener(this);
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
@@ -132,4 +135,24 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
         snackbar.show();
     }
 
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_menu:
+                //navController.navigate(R.id.action_productsFragment_to_restaurantFragment);
+                break;
+            case R.id.nav_shopping_car:
+                //navController.navigate(R.id.action_productsFragment_to_shoppingcarFragment);
+
+                break;
+            case R.id.nav_order:
+                //navController.navigate(R.id.action_productsFragment_to_ordersFragment);
+                break;
+            case R.id.nav_deliveryman:
+                //navController.navigate(R.id.action_productsFragment_to_delivermanFragment);
+                break;
+        }
+        return true;
+    }
 }

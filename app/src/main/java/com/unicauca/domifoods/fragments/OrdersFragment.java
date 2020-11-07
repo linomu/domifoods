@@ -1,5 +1,6 @@
 package com.unicauca.domifoods.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,7 +95,9 @@ public class OrdersFragment extends Fragment implements BottomNavigationView.OnN
                 navController.navigate(R.id.action_ordersFragment_to_restaurantFragment);
                 break;
             case R.id.nav_shopping_car:
-                navController.navigate(R.id.action_ordersFragment_to_shoppingcarFragment);
+                //navController.navigate(R.id.action_ordersFragment_to_shoppingcarFragment);
+                Intent intent = new Intent(getContext(), ShoppingCartActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_order:
                 Toast.makeText(getContext(), "Here we are :)", Toast.LENGTH_SHORT).show();

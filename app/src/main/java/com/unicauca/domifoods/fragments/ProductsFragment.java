@@ -1,6 +1,7 @@
  package com.unicauca.domifoods.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
 import com.unicauca.domifoods.modelsProduct.ProductResponse;
 import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
 import com.unicauca.domifoods.settings.CircleTransform;
+import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -294,7 +296,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 navController.navigate(R.id.action_productsFragment_to_restaurantFragment);
                 break;
             case R.id.nav_shopping_car:
-                navController.navigate(R.id.action_productsFragment_to_shoppingcarFragment);
+                //navController.navigate(R.id.action_productsFragment_to_shoppingcarFragment);
+                Intent intent = new Intent(getContext(), ShoppingCartActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_order:
                 navController.navigate(R.id.action_productsFragment_to_ordersFragment);
