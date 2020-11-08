@@ -74,9 +74,11 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
                 ProductsFragmentDirections.ActionProductsFragmentToDetailProductsFragment action =  ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position));
                 navController.navigate(action);
                 /*
+                Datos de Lino
                 products.remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, products.size());*/
+                notifyItemRangeChanged(position, products.size());
+                */
 
 
             }
