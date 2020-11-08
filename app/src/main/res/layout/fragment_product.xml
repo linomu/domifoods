@@ -74,8 +74,8 @@
 
     <TextView
         android:id="@+id/textView14"
-        android:layout_width="396dp"
-        android:layout_height="26dp"
+        android:layout_width="358dp"
+        android:layout_height="23dp"
         android:fontFamily="@font/nimbusbol"
         android:text="Parrillada de tres carne  "
         android:textColor="@color/negro"
@@ -86,22 +86,21 @@
 
     <TextView
         android:id="@+id/tv_precio"
-        android:layout_width="383dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="353dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/nimbusbol"
         android:text="$ 20.000"
         android:textColor="@color/negro"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
         android:id="@+id/textView16"
-        android:layout_width="385dp"
-        android:layout_height="121dp"
+        android:layout_width="355dp"
+        android:layout_height="112dp"
         android:fontFamily="@font/nimbusregita"
         android:text="Carne de res, pechuga de pollo, costilla de cerdo, papa criolla, morcillas, chorizos, rodajas de plátano, croquetas de yuca y papas a la francesa."
         android:textColor="@color/negro"
@@ -114,35 +113,31 @@
         android:id="@+id/btn_minus"
         android:layout_width="24dp"
         android:layout_height="25dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/icon_minus"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
-        app:layout_constraintStart_toEndOf="@+id/quantity_of_products"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/tv_precio"
+        app:layout_constraintTop_toTopOf="@+id/tv_precio" />
 
     <TextView
         android:id="@+id/quantity_of_products"
-        android:layout_width="46dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="40dp"
+        android:layout_height="34dp"
         android:text="1"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/negro"
         android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@+id/btn_add"
+        app:layout_constraintStart_toEndOf="@+id/btn_minus"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="28dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="248dp"
+        android:layout_width="24dp"
+        android:layout_height="26dp"
         android:background="@drawable/icon_plus"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
-        app:layout_constraintStart_toStartOf="@+id/tv_precio"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/quantity_of_products"
+        app:layout_constraintTop_toTopOf="@+id/btn_minus" />
 
     <ImageView
         android:id="@+id/imageView4"
