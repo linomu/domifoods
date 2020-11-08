@@ -50,7 +50,7 @@
         app:srcCompat="@drawable/ic_deliveryman" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_add_shopping_cart"
         android:layout_width="961dp"
         android:layout_height="67dp"
         android:background="@drawable/btn_style1"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tv_precio"
         android:layout_width="383dp"
         android:layout_height="26dp"
         android:layout_marginTop="12dp"
@@ -108,14 +108,14 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_precio" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btn_minus"
         android:layout_width="24dp"
         android:layout_height="25dp"
         android:background="@drawable/icon_minus"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
         app:layout_constraintStart_toEndOf="@+id/quantity_of_products"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         app:layout_constraintVertical_bias="1.0" />
@@ -130,17 +130,17 @@
         android:textAllCaps="true"
         android:textColor="@color/negro"
         android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@+id/button9"
+        app:layout_constraintStart_toEndOf="@+id/btn_add"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/btn_add"
         android:layout_width="28dp"
         android:layout_height="24dp"
         android:layout_marginStart="248dp"
         android:background="@drawable/icon_plus"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
+        app:layout_constraintStart_toStartOf="@+id/tv_precio"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         app:layout_constraintVertical_bias="1.0" />
 
