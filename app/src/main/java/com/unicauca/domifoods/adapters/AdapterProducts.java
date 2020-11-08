@@ -68,7 +68,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
             public void onClick(View view) {
                 Log.i("lino", "Me voy al detalle con la siguiente información :"+ products.get(position).toString());
                 ProductsFragmentDirections.ActionProductsFragmentToDetailProductsFragment action =
-                        ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position));
+                        ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position)); //.get()
                 navController.navigate(action);
 
             }
