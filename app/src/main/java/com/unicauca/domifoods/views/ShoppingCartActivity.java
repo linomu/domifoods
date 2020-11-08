@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallback;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.activities.OrderAddressActivity;
 import com.unicauca.domifoods.adapters.AdapterListProducts;
 import com.unicauca.domifoods.interfaces.CallBackItemTouch;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
@@ -38,6 +40,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
     RecyclerView recyclerView, recyclerView_products;
     TextView sum, title;
     RelativeLayout layout;
+    Button btn_next_address;
 
     public static double sumTotal;
 
@@ -52,6 +55,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
     private void ObtenerVariables() {
 
         layout = findViewById(R.id.layout_main_activity);
+        btn_next_address = findViewById(R.id.btn_next_address);
+        btn_next_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShoppingCartActivity.this, OrderAddressActivity.class));
+            }
+        });
         //navController = Navigation.findNavController(R.id.nav_host_fragment_container);
         //sum = view.findViewById(R.id.total_compra);
         menu_options = findViewById(R.id.menu_options_nav);

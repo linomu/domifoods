@@ -43,13 +43,13 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/btn_next_back"
+            android:id="@+id/btn_next_address"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="56dp"
             android:layout_weight="3"
             android:background="@drawable/btn_style1"
-            android:text="Descripción"
+            android:text="Siguiente"
             android:textColor="@drawable/txt_btn_style2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/btn_next_back"
+            app:layout_constraintBottom_toTopOf="@+id/btn_next_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/RecyclerCar"
