@@ -90,6 +90,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         navController = Navigation.findNavController(view);
         btn_goto_address = view.findViewById(R.id.btn_goto_address);
         btn_goto_address.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +133,10 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         }
         return true;
     }
+
+
+
+
 
     @Override
     public void onStart() {
