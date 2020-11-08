@@ -34,7 +34,7 @@
             android:layout_marginRight="10dp"
             android:layout_toStartOf="@+id/delete_icon"
             android:layout_toLeftOf="@+id/delete_icon"
-            android:text="ELIMINAR"
+            android:text="  ELIMINAR"
             android:textColor="#fff"
             android:textSize="13dp" />
 
@@ -118,7 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="270dp"
+                        android:layout_marginStart="250dp"
                         android:layout_marginLeft="4dp"
                         android:layout_marginTop="20dp"
                         android:orientation="horizontal"
