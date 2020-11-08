@@ -34,10 +34,6 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
     NavController navController;
     Context context;
 
-
-
-
-
     public AdapterProducts(ArrayList<Product> products, Context context) {
         this.products = products;
         this.context = context;
@@ -71,7 +67,8 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
             @Override
             public void onClick(View view) {
                 Log.i("lino", "Me voy al detalle con la siguiente información :"+ products.get(position).toString());
-                ProductsFragmentDirections.ActionProductsFragmentToDetailProductsFragment action =  ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position));
+                ProductsFragmentDirections.ActionProductsFragmentToDetailProductsFragment action =
+                        ProductsFragmentDirections.actionProductsFragmentToDetailProductsFragment(products.get(position)); //.get()
                 navController.navigate(action);
                 /*
                 Datos de Lino
@@ -98,6 +95,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
             super(itemView);
 
             img_product = itemView.findViewById(R.id.img_product);
+            //img_product.setImageResource(R.drawable.quieta_margarita);
             name_product = itemView.findViewById(R.id.tv_name_product);
             price = itemView.findViewById(R.id.tv_price_product);
             card_view_product = itemView.findViewById(R.id.card_view_product);

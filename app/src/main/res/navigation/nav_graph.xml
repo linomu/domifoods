@@ -53,7 +53,7 @@
         android:id="@+id/shoppingcarFragment"
         android:name="com.unicauca.domifoods.fragments.ShoppingcarFragment"
         android:label="fragment_shoppingcar"
-        tools:layout="@layout/fragment_shoppingcar" >
+        tools:layout="@layout/fragment_shoppingcar3" >
         <action
             android:id="@+id/action_shoppingcarFragment_to_restaurantFragment"
             app:destination="@id/restaurantFragment" />

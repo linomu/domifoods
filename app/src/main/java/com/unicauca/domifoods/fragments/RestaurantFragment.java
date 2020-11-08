@@ -1,6 +1,7 @@
 package com.unicauca.domifoods.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ import com.unicauca.domifoods.domain.Restaurant;
 import com.unicauca.domifoods.modelsUser.GetRestaurant;
 import com.unicauca.domifoods.modelsUser.Login_response;
 import com.unicauca.domifoods.modelsUser.PostsRestaurants;
+import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -262,7 +264,8 @@ public class RestaurantFragment extends Fragment implements BottomNavigationView
                 Toast.makeText(getContext(), "Here we are :)", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_shopping_car:
-                navController.navigate(R.id.action_restaurantFragment_to_shoppingcarFragment);
+                //navController.navigate(R.id.action_restaurantFragment_to_shoppingcarFragment);
+                startActivity(new Intent(getContext(), ShoppingCartActivity.class));
                 break;
             case R.id.nav_order:
                 navController.navigate(R.id.action_restaurantFragment_to_ordersFragment);

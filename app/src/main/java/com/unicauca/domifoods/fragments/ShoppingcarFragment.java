@@ -1,14 +1,19 @@
 package com.unicauca.domifoods.fragments;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.room.FtsOptions;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,27 +21,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.unicauca.domifoods.MainActivity;
+import com.google.android.material.snackbar.Snackbar;
+import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallback;
+import com.unicauca.domifoods.interfaces.CallBackItemTouch;
 import com.unicauca.domifoods.R;
-import com.unicauca.domifoods.activities.OrderAddressActivity;
-import com.unicauca.domifoods.domain.Product;
+import com.unicauca.domifoods.adapters.AdapterListProducts;
+import com.unicauca.domifoods.adapters.AdapterRestaurants;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ShoppingcarFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView menu_options;
     NavController navController;
     public static ArrayList<ProductShoppingCart> products = new ArrayList<>();
-    TextView tv_prueba;
-    Button btn_goto_address;
+    private AdapterListProducts adapterListProducts;
+    RecyclerView recyclerView, recyclerView_products;
+    TextView sum, title;
+    RelativeLayout layout;
+
+    public static double sumTotal;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +101,6 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
     }
 
@@ -90,23 +108,29 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         navController = Navigation.findNavController(view);
-        btn_goto_address = view.findViewById(R.id.btn_goto_address);
-        btn_goto_address.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //navController.navigate(R.id.action_shoppingcarFragment_to_orderAddressFragment);
-                startActivity(new Intent(getActivity(), OrderAddressActivity.class));
-            }
-        });
+        //sum = view.findViewById(R.id.total_compra);
         menu_options = view.findViewById(R.id.menu_options_nav);
-        tv_prueba = view.findViewById(R.id.tv_prueba);
         menu_options.setOnNavigationItemSelectedListener(this);
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
+        sum= view.findViewById(R.id.total_compra);
+        recyclerView = view.findViewById(R.id.RecyclerCar);
+        recyclerView.setHasFixedSize(true);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        adapterListProducts = new AdapterListProducts(products, this.getContext());
+        adapterListProducts.setProducts(products);
+        //adapterListProducts.prueba(this);
+
+        //borrar item David
+        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(this);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
+        //---
+        recyclerView.setAdapter(adapterListProducts);
+        title = view.findViewById(R.id.tv_title);
     }
 
     @Override
@@ -114,6 +138,7 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         super.onResume();
 
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -135,12 +160,10 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
     }
 
 
-
-
-
     @Override
     public void onStart() {
         super.onStart();
+        sumTotal = 0;
         Menu menu = menu_options.getMenu();
         MenuItem item = menu.getItem(1);
         item.setChecked(true);
@@ -153,10 +176,46 @@ public class ShoppingcarFragment extends Fragment implements BottomNavigationVie
         );
 
         Log.i("lino", "Productos que están en el carrito");
+        //List<ProductShoppingCart> listProducts = new ArrayList<>();
         for(ProductShoppingCart productShoppingCart : products){
             Log.i("lino", productShoppingCart.toString());
-            tv_prueba.setText(tv_prueba.getText()+productShoppingCart.toString()+"\n");
+            sumTotal = sumTotal + productShoppingCart.getSubtotal();
+        }
 
+        sum.setText("Total: $"+sumTotal);
+
+}
+
+public void etiquetado(double text){
+        if(text > 0) {
+            title.setText("");
+            sum.setText("Total: $" + text);
         }
     }
+
+
+    /*
+    @Override
+    public void itemTouchOnMode(int oldPosition, int newPosition) {
+        products.add(newPosition,products.remove(oldPosition));
+        adapterListProducts.notifyItemMoved(oldPosition,newPosition);
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int position) {
+        String nombre = products.get(viewHolder.getAdapterPosition()).getName();
+        final ProductShoppingCart deleteItem = products.get(viewHolder.getAdapterPosition());
+        final int deletedIndex = viewHolder.getAdapterPosition();
+        adapterListProducts.removeItem(viewHolder.getAdapterPosition());
+        Snackbar snackbar = Snackbar.make(layout, nombre +"=>Eliminado", Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("CANCELAR", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterListProducts.restoreItem(deleteItem,deletedIndex);
+            }
+        });
+        snackbar.setActionTextColor(Color.GREEN);
+        snackbar.show();
+    }
+   */
 }

@@ -15,6 +15,7 @@ public class ProductShoppingCart {
         this.name = name;
         this.price = price;
         this.subtotal = subtotal;
+        //this.cant = 1;
     }
 
     public String getName() {

@@ -38,5 +38,7 @@
     <string name="si">Si</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Guardar</string>
+    <string name="confirm">Confirmation</string>
+    <string name="remove">remove</string>
 
 </resources>
