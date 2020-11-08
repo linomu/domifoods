@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holderProducts> {
 
 
-    /*Variables that we're gonna use*/
+    /*Variables that we're gonna use    */
     ArrayList<Product> products;
     Picasso mPicasso;
     NavHostFragment navHostFragment;
