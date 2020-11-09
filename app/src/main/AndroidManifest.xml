@@ -19,8 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.PaymentActivity"></activity>
-        <activity android:name=".activities.OrderAddressActivity"></activity>
+        <activity android:name=".views.OrderSent">
+
+        </activity>
+        <activity android:name=".activities.PaymentActivity" />
+        <activity android:name=".activities.OrderAddressActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,7 +41,7 @@
 
         <activity android:name=".Register2Activity" />
         <activity android:name=".Register1Activity" />
-        <activity android:name=".views.ShoppingCartActivity"/>
+        <activity android:name=".views.ShoppingCartActivity" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".Splash"
@@ -48,6 +51,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".MainActivity" />
     </application>

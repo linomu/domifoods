@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.unicauca.domifoods.modelsOrder.ProductOrderRequest;
 import com.unicauca.domifoods.modelsOrder.ProductOrderResponse;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
 import com.unicauca.domifoods.modelsUser.Client_detail_response;
+import com.unicauca.domifoods.views.OrderSent;
 import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 
@@ -60,6 +62,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
         configurarSharedPreferences();
         total_productos = ShoppingCartActivity.products.size();
         tv_total_pagar = findViewById(R.id.tv_total_pagar);
@@ -188,6 +191,8 @@ public class PaymentActivity extends AppCompatActivity {
                             ShoppingCartActivity.products = new ArrayList<>();
                             ShoppingCartActivity.sumTotal=0;
                             stopProgressDialog();
+
+                            startActivity(new Intent(PaymentActivity.this, OrderSent.class));
                         }
                         total_productos--;
                     } else {
@@ -220,6 +225,7 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
     }
     private void stopProgressDialog(){
