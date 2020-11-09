@@ -191,7 +191,7 @@ public class PaymentActivity extends AppCompatActivity {
                             ShoppingCartActivity.products = new ArrayList<>();
                             ShoppingCartActivity.sumTotal=0;
                             stopProgressDialog();
-
+                            Toast.makeText(getApplicationContext(), "Su orden se ha registrado exitosamente! 😁", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(PaymentActivity.this, OrderSent.class));
                         }
                         total_productos--;
