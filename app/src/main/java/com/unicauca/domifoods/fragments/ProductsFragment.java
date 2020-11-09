@@ -161,6 +161,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     RestaurantResponse restaurantResponse = response.body();
                     Log.i("Lino", "Restaurant info:" + restaurantResponse.toString());
                     Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
+                    Log.i("foto","url restaurante: "+restaurantResponse.getImage());
                     tv_restaurant_name.setText(restaurantResponse.getName());
                     tv_info_restaurant.setText(restaurantResponse.getAddress_location() + "\n" + restaurantResponse.getPhone_num());
 

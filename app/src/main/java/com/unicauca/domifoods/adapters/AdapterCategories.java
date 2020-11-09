@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.domain.Category;
 import com.unicauca.domifoods.settings.CircleTransform;
 
@@ -53,7 +54,8 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     @Override
     public void onBindViewHolder(@NonNull AdapterCategories.holderCategories holder, int position) {
         holder.tv_name.setText(categories.get(position).getName());
-        mPicasso.load(categories.get(position).getImage())
+        Log.i("foto","url categoria: "+categories.get(position).getImage());
+        mPicasso.load(RetrofitClient.url+categories.get(position).getImage())
                 .placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_category);

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.fragments.ProductsFragmentDirections;
 import com.unicauca.domifoods.settings.CircleTransform;
@@ -59,7 +60,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
 
         holder.name_product.setText(products.get(position).getName());
         holder.price.setText("$ "+products.get(position).getPrice().toString());
-        mPicasso.load(products.get(position).getImage())
+        mPicasso.load(RetrofitClient.url+products.get(position).getImage())
                 .placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_product);

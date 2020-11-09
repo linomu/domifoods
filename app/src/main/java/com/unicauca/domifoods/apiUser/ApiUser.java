@@ -1,8 +1,13 @@
 package com.unicauca.domifoods.apiUser;
 
 import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
+import com.unicauca.domifoods.modelsOrder.OrderRequest;
+import com.unicauca.domifoods.modelsOrder.OrderResponse;
+import com.unicauca.domifoods.modelsOrder.ProductOrderRequest;
+import com.unicauca.domifoods.modelsOrder.ProductOrderResponse;
 import com.unicauca.domifoods.modelsProduct.ProductResponse;
 import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
+import com.unicauca.domifoods.modelsUser.Client_detail_response;
 import com.unicauca.domifoods.modelsUser.Create_user_request;
 import com.unicauca.domifoods.modelsUser.Create_user_response;
 import com.unicauca.domifoods.modelsUser.GetRestaurant;
@@ -65,8 +70,21 @@ public interface ApiUser {
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
     // method for the list  of restaurnts this send  id and id resaurants
-    @GET("restaurants/api/restaurants/{id}/")
+
+     @GET("restaurants/api/restaurants/{id}/")
     Call<RestaurantResponse>getInfoRestaurantByID(@Path("id") int idRestaurant);
+
+
+     @GET("accounts/api/user_client_detail/{id}")
+     Call<Client_detail_response>getClientDetailByDocument(@Path("id") int document);
+
+
+     @POST("shopping_cars/api/order_register/")
+     Call<OrderResponse>createOrder(@Body OrderRequest orderRequest);
+
+
+     @POST("shopping_cars/api/order_product/")
+     Call<ProductOrderResponse>createProductOrder(@Body ProductOrderRequest productOrderRequest);
     // method for the   of restaurnts
     @GET("restaurants")
     Call<GetRestaurant> list();

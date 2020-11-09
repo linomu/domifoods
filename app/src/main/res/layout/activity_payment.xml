@@ -18,10 +18,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_pagar" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/tv_total_pagar"
         android:layout_width="373dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_payment"
         android:layout_width="293dp"
         android:layout_height="73dp"
         android:layout_marginTop="28dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_payment" />
 
     <TextView
         android:id="@+id/textView25"

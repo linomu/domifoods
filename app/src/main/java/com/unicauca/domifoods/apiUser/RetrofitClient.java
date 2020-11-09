@@ -24,10 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private String ip_host;
+    private final String ip_host;
     private String BASE_URL = "http://192.168.1.55:8000/";
     private static RetrofitClient mInstance;
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
+    public static String url = "";
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
     public static final String HEADER_PRAGMA = "Pragma";
     private static Context mContext;
@@ -36,6 +37,7 @@ public class RetrofitClient {
 
         ip_host= LoginActivity.ip_host;
         BASE_URL = "http://"+ip_host+":8000/";
+        url = "http://"+ip_host+":8000";
         Log.i("msg_lino", "BASE: "+BASE_URL);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
