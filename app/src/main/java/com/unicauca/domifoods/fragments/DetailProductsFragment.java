@@ -10,13 +10,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.apiUser.RetrofitClient;
 import com.unicauca.domifoods.domain.Product;
 import com.unicauca.domifoods.modelsProduct.ProductShoppingCart;
+import com.unicauca.domifoods.settings.CircleTransform;
 import com.unicauca.domifoods.views.ShoppingCartActivity;
 
 import java.util.ArrayList;
@@ -32,10 +38,12 @@ public class DetailProductsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private TextView tv_precio,tv_description;
+    private TextView tv_precio,tv_description,tv_product_name, quantity_of_products;
     private Button btn_add,btn_minus,btn_add_shopping_cart;
     Product product;
     private int cant;
+    private Animation animation_textView;
+    ImageView img_product;
     String restaurant_1 = "",restaurant_2 = "";
     ArrayList<ProductShoppingCart> productsShopping = new ArrayList<>();
 
@@ -78,6 +86,10 @@ public class DetailProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_detail_products, container, false);
+
+        quantity_of_products = view.findViewById(R.id.quantity_of_products);
+        tv_product_name = view.findViewById(R.id.tv_product_name);
+        img_product = view.findViewById(R.id.img_product);
         tv_precio = view.findViewById(R.id.tv_precio);
         tv_description = view.findViewById(R.id.tv_description);
         btn_add = view.findViewById(R.id.btn_add);
@@ -96,20 +108,38 @@ public class DetailProductsFragment extends Fragment {
             Log.i("lino", "Desde DetailProductosFragment "+product.toString());
         }
 
-        tv_precio.setText(String.valueOf(product.getPrice()));
+
+        animation_textView = AnimationUtils.loadAnimation(getContext(), R.anim.animation_cardviews);
+        img_product.setAnimation(animation_textView);
+        Picasso.with(getContext()).load(RetrofitClient.url+product.getImage())
+                //.placeholder(R.drawable.test)
+                .transform(new CircleTransform()).into(img_product);
+        tv_precio.setText("$ " + product.getPrice());
         tv_description.setText(product.getDescription());
+        tv_product_name.setText(product.getName());
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cant++;
-                tv_precio.setText(String.valueOf(product.getPrice()*cant));
+                tv_precio.setText("$ " + product.getPrice() * cant);
+                int quantity = Integer.parseInt(quantity_of_products.getText().toString())+1;
+                quantity_of_products.setText(String.valueOf(quantity));
             }
         });
         btn_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cant--;
-                tv_precio.setText(String.valueOf(product.getPrice()*cant));
+                if(cant>1){
+                    cant--;
+                    tv_precio.setText("$ " + product.getPrice() * cant);
+                    int quantity = Integer.parseInt(quantity_of_products.getText().toString())-1;
+                    quantity_of_products.setText(String.valueOf(quantity));
+                }
+                else{
+                    Toast.makeText(getContext(), "No puedes restarle más 😥", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         btn_add_shopping_cart.setOnClickListener(new View.OnClickListener() {

@@ -64,11 +64,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
         });
         //navController = Navigation.findNavController(R.id.nav_host_fragment_container);
         //sum = view.findViewById(R.id.total_compra);
-        menu_options = findViewById(R.id.menu_options_nav);
-        menu_options.setOnNavigationItemSelectedListener(this);
-        Menu menu = menu_options.getMenu();
-        MenuItem item = menu.getItem(1);
-        item.setChecked(true);
+        //menu_options = findViewById(R.id.menu_options_nav);
+        //menu_options.setOnNavigationItemSelectedListener(this);
+        //Menu menu = menu_options.getMenu();
+        //MenuItem item = menu.getItem(1);
+        //item.setChecked(true);
         sum= findViewById(R.id.total_compra);
         recyclerView = findViewById(R.id.RecyclerCar);
         recyclerView.setHasFixedSize(true);
@@ -91,9 +91,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
     public void onStart() {
         super.onStart();
         sumTotal = 0;
-        Menu menu = menu_options.getMenu();
-        MenuItem item = menu.getItem(1);
-        item.setChecked(true);
+        //Menu menu = menu_options.getMenu();
+        //MenuItem item = menu.getItem(1);
+        //item.setChecked(true);
         Log.e("Lino", "OnStart ShoppingFragment");
         this.getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |

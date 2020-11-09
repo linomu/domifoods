@@ -5,26 +5,23 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
-
+    >
 
     <ImageView
         android:id="@+id/img_restaurant_product_bg"
-        android:layout_width="428dp"
-        android:layout_height="127dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/blackground_produc" />
+        app:srcCompat="@drawable/background_hamburguesa_blurred" />
 
     <TextView
         android:id="@+id/tv_restaurants"
-        android:layout_width="420dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="#FF0F03"
         android:fontFamily="@font/comickings"
         android:letterSpacing="0.1"
@@ -32,7 +29,7 @@
         android:text="producto"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,27 +37,16 @@
 
     <ImageView
         android:id="@+id/img_restaurant_icon"
-        android:layout_width="126dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/img_restaurant_product_bg"
-        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/img_restaurant_product_bg"
         app:layout_constraintTop_toTopOf="@+id/img_restaurant_product_bg"
         app:srcCompat="@drawable/ic_deliveryman" />
 
-    <Button
-        android:id="@+id/btn_add_shopping_cart"
-        android:layout_width="961dp"
-        android:layout_height="67dp"
-        android:background="@drawable/btn_style1"
-        android:text="Agregar al carrito de compras"
-        android:textColor="@color/blanco"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
-
+    <!--
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/menu_options_nav"
         android:layout_width="0dp"
@@ -71,37 +57,60 @@
         app:menu="@menu/bottom_navigation">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+-->
+    <Button
+        android:id="@+id/btn_add_shopping_cart"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_style1"
+        android:text="Agregar al carrito de compras"
+        android:textColor="@color/blanco"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
     <TextView
-        android:id="@+id/textView14"
-        android:layout_width="396dp"
+        android:id="@+id/tv_product_name"
+        android:layout_width="0dp"
         android:layout_height="26dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/nimbusbol"
         android:text="Parrillada de tres carne  "
         android:textColor="@color/negro"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/img_product" />
 
     <TextView
         android:id="@+id/tv_precio"
-        android:layout_width="383dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/nimbusbol"
         android:text="$ 20.000"
         android:textColor="@color/negro"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
     <TextView
         android:id="@+id/tv_description"
-        android:layout_width="385dp"
+        android:layout_width="0dp"
         android:layout_height="121dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/nimbusregita"
         android:text="Carne de res, pechuga de pollo, costilla de cerdo, papa criolla, morcillas, chorizos, rodajas de plátano, croquetas de yuca y papas a la francesa."
         android:textColor="@color/negro"
@@ -112,44 +121,45 @@
 
     <Button
         android:id="@+id/btn_minus"
-        android:layout_width="24dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/icon_minus"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
-        app:layout_constraintStart_toEndOf="@+id/quantity_of_products"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
     <TextView
         android:id="@+id/quantity_of_products"
-        android:layout_width="46dp"
-        android:layout_height="33dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="5dp"
         android:text="1"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/negro"
-        android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@+id/btn_add"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_minus"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="28dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="248dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/icon_plus"
         app:layout_constraintBottom_toBottomOf="@+id/tv_precio"
-        app:layout_constraintStart_toStartOf="@+id/tv_precio"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/quantity_of_products"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="358dp"
-        android:layout_height="164dp"
+        android:id="@+id/img_product"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/plato_parrillada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
