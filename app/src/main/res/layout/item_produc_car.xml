@@ -11,8 +11,6 @@
         android:layout_width="113dp"
         android:layout_height="94dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/blackground_produc" />
@@ -22,73 +20,59 @@
         android:layout_width="160dp"
         android:layout_height="31dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
         android:fontFamily="@font/nimbusbolta"
         android:text="Pechuga a la francesa en salsa de piña"
         android:textColor="#040303"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="36dp" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="70dp"
         android:layout_height="20dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/nimbusbolta"
         android:text="Precio $ :"
         android:textColor="#090909"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/name_prodfuct" />
 
     <Button
         android:id="@+id/minius_product"
-        android:layout_width="18dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="19dp"
+        android:layout_height="22dp"
         android:background="@drawable/icon_minus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
 
     <Button
         android:id="@+id/button10"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:layout_marginTop="36dp"
         android:background="@drawable/icon_plus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/name_prodfuct"
+        app:layout_constraintTop_toTopOf="@+id/name_prodfuct" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="22dp"
         android:layout_height="21dp"
-        android:layout_marginTop="36dp"
-        android:text="1"
+        android:text="43"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.856"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#0B0B0B"
+        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintTop_toTopOf="@+id/button10" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="59dp"
         android:layout_height="19dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/nimbusbolta"
         android:text="30.000"
         android:textColor="#090808"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/name_prodfuct"
+        tools:layout_editor_absoluteX="215dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
