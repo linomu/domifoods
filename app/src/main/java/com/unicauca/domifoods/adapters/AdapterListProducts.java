@@ -34,7 +34,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     ShoppingCartActivity obj;
 
 
-    public AdapterListProducts(List<ProductShoppingCart> ProductsList, Context context){
+    public AdapterListProducts(List<ProductShoppingCart> ProductsList, Context context) {
         this.pInflater = LayoutInflater.from(context);
         this.context = context;
         this.products = ProductsList;
@@ -64,18 +64,18 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
     }
 
 
-    public void setProducts(List<ProductShoppingCart> listproducs){
+    public void setProducts(List<ProductShoppingCart> listproducs) {
         products = listproducs;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView urlImagen,deleteImage;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView urlImagen, deleteImage;
         TextView name, price, cant, subtotal;
-        Button btn_add,btn_minus,btn_add_shopping_cart;
+        Button btn_add, btn_minus, btn_add_shopping_cart;
         CardView card_view_product;
         public RelativeLayout ViewF, ViewB;
 
-        ViewHolder(View itemView){
+        ViewHolder(View itemView) {
             super(itemView);
             btn_add = itemView.findViewById(R.id.btn_add);
             btn_minus = itemView.findViewById(R.id.btn_minus);
@@ -91,6 +91,7 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
 
         }
 
+        /*
         public void calcularTotal() {
             sumTotal = 0;
             for (ProductShoppingCart productShoppingCart : products) {
@@ -100,13 +101,14 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
             obj.etiquetado(sumTotal);
 
 
-        }
-        void binData(final ProductShoppingCart item){
+        }*/
+
+        void binData(final ProductShoppingCart item) {
 
             name.setText(item.getName());
-            price.setText("$"+item.getPrice());
-            cant.setText(""+item.getCant());
-            subtotal.setText("Sub Total: "+item.getCant()*item.getPrice());
+            price.setText("$" + item.getPrice());
+            cant.setText("" + item.getCant());
+            subtotal.setText("Sub Total: " + item.getCant() * item.getPrice());
 
             calcularTotal();
 
@@ -114,10 +116,10 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                 @Override
                 public void onClick(View view) {
 
-                    item.setCant(item.getCant()+1);
-                    cant.setText(""+item.getCant());
-                    item.setSubtotal(item.getCant()*item.getPrice());
-                    subtotal.setText("Sub Total: "+item.getSubtotal());
+                    item.setCant(item.getCant() + 1);
+                    cant.setText("" + item.getCant());
+                    item.setSubtotal(item.getCant() * item.getPrice());
+                    subtotal.setText("Sub Total: " + item.getSubtotal());
                     calcularTotal();
 
                 }
@@ -127,11 +129,11 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
                 @Override
                 public void onClick(View view) {
                     //sum = view.findViewById(R.id.total_compra);
-                    if(item.getCant() > 1){
-                        item.setCant(item.getCant()-1);
-                        cant.setText(""+item.getCant());
-                        item.setSubtotal(item.getCant()*item.getPrice());
-                        subtotal.setText("Sub Total: "+item.getSubtotal());
+                    if (item.getCant() > 1) {
+                        item.setCant(item.getCant() - 1);
+                        cant.setText("" + item.getCant());
+                        item.setSubtotal(item.getCant() * item.getPrice());
+                        subtotal.setText("Sub Total: " + item.getSubtotal());
                         calcularTotal();
 
                     }
@@ -142,30 +144,45 @@ public class AdapterListProducts extends RecyclerView.Adapter<AdapterListProduct
 
         }
     }
+
     @Override
     public int getItemCount() {
 
-        if(products == null){
+        if (products == null) {
             return 0;
-        }else{
+        } else {
             return products.size();
         }
     }
 
 
-    public void prueba(ShoppingCartActivity aux){
+    public void prueba(ShoppingCartActivity aux) {
         obj = aux;
     }
 
     //---------------Eliminar producto------------------//
 
-    public void removeItem(int position){
+    public void removeItem(int position) {
         products.remove(position);
+        calcularTotal();
         notifyItemRemoved(position);
+
+
     }
 
-    public void restoreItem(ProductShoppingCart item, int position){
-        products.add(position,item);
+    public void restoreItem(ProductShoppingCart item, int position) {
+        products.add(position, item);
+        calcularTotal();
         notifyItemInserted(position);
+
+    }
+
+    public void calcularTotal() {
+        sumTotal = 0;
+        for (ProductShoppingCart productShoppingCart : products) {
+            sumTotal = sumTotal + productShoppingCart.getSubtotal();
+        }
+        //sum.setText("Total: $"+sumTotal);
+        obj.etiquetado(sumTotal);
     }
 }
