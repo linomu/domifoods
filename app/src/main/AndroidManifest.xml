@@ -19,9 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.OrderSent">
-
-        </activity>
+        <activity android:name=".activities.Executive_Category"></activity>
+        <activity android:name=".views.OrderSent"></activity>
         <activity android:name=".activities.PaymentActivity" />
         <activity android:name=".activities.OrderAddressActivity" />
         <!--
@@ -51,7 +50,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".MainActivity" />
     </application>

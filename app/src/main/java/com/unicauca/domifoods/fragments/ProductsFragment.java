@@ -31,6 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
+import com.unicauca.domifoods.activities.Executive_Category;
 import com.unicauca.domifoods.adapters.AdapterCategories;
 import com.unicauca.domifoods.adapters.AdapterProducts;
 import com.unicauca.domifoods.adapters.AdapterRestaurants;
@@ -59,7 +60,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     ImageView img_restaurant_icon, img_restaurant_product_bg;
     Picasso mPicasso;
     RecyclerView recyclerView, recyclerView_products;
-    ArrayList<Category> categories;
+    ArrayList<CategoriesResponse> categories;
     ArrayList<Product> products;
     NavController navController;
     BottomNavigationView menu_options;
@@ -228,12 +229,11 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                             if (thereIsExecutiveCategory == 1) {
                                 //category_executive.setVisibility(View.VISIBLE);
 
-                                categories.add(new Category(-300, "Ejecutivo", "", category.getImage(), category.getDate_creation()));
+                                categories.add(new CategoriesResponse(-300, "Ejecutivo", "", category.getImage(), category.getDate_creation(),"disponible",true,category.getRestaurant()));
 
                             }
                         } else {
-
-                            categories.add(new Category(category.getId(), category.getName(), category.getDescription(), category.getImage(), category.getDate_creation()));
+                            categories.add(new CategoriesResponse(category.getId(), category.getName(), category.getDescription(), category.getImage(), category.getDate_creation(), category.getState(), category.isType_executive(), category.getRestaurant()));
                             if (position == 0) {
                                 ID_CATEGORY = category.getId();
                                 Log.i("Lino", "ID_CATEGORIA: " + ID_CATEGORY);
@@ -244,13 +244,13 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     }
 
 
-                    AdapterCategories adapterCategories = new AdapterCategories(categories);
+                    AdapterCategories adapterCategories = new AdapterCategories(categories, getContext());
                     adapterCategories.setListener(new AdapterCategories.CategoryListener() {
                         @Override
                         public void categorySelected(int idCategory) {
                             Toast.makeText(getContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
                             if(idCategory==-300){
-                                Toast.makeText(getContext(), "Se llama a la actividad", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getContext(), Executive_Category.class));
                             }else{
                                 ID_CATEGORY = idCategory;
                                 fillOutTheProducts();

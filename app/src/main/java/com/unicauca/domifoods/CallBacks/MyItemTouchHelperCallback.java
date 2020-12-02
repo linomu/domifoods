@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unicauca.domifoods.R;
-import com.unicauca.domifoods.adapters.AdapterListProducts;
+
+import com.unicauca.domifoods.adapters.AdapterSelectedProducts;
 import com.unicauca.domifoods.fragments.ShoppingcarFragment;
 import com.unicauca.domifoods.interfaces.CallBackItemTouch;
 
@@ -61,7 +62,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if(actionState==ItemTouchHelper.ACTION_STATE_DRAG){
             super.onChildDraw(c,recyclerView,viewHolder,dX,dY,actionState,isCurrentlyActive);
         }else{
-            final View foregroundView = ((AdapterListProducts.ViewHolder)viewHolder).ViewB;
+            final View foregroundView = ((AdapterSelectedProducts.myHolder)viewHolder).ViewB;
             getDefaultUIUtil().onDrawOver(c,recyclerView,foregroundView,dX,dY,actionState,isCurrentlyActive);
         }
     }
@@ -69,15 +70,15 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if(actionState!=ItemTouchHelper.ACTION_STATE_DRAG){
-            final View foregroundView = ((AdapterListProducts.ViewHolder)viewHolder).ViewF;
+            final View foregroundView = ((AdapterSelectedProducts.myHolder)viewHolder).ViewF;
             getDefaultUIUtil().onDraw(c,recyclerView,foregroundView,dX,dY,actionState,isCurrentlyActive);
         }
     }
 
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        final View foregroundView = ((AdapterListProducts.ViewHolder)viewHolder).ViewF;
-        foregroundView.setBackgroundColor(ContextCompat.getColor(((AdapterListProducts.ViewHolder)viewHolder).ViewF.getContext(), R.color.blanco));
+        final View foregroundView = ((AdapterSelectedProducts.myHolder)viewHolder).ViewF;
+        foregroundView.setBackgroundColor(ContextCompat.getColor(((AdapterSelectedProducts.myHolder)viewHolder).ViewF.getContext(), R.color.blanco));
         getDefaultUIUtil().clearView(foregroundView);
     }
 
@@ -85,7 +86,7 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
         if(viewHolder!=null){
-            final View foregroundView=((AdapterListProducts.ViewHolder)viewHolder).ViewF;
+            final View foregroundView=((AdapterSelectedProducts.myHolder)viewHolder).ViewF;
             if(actionState==ItemTouchHelper.ACTION_STATE_DRAG){
                 foregroundView.setBackgroundColor(Color.LTGRAY);
             }

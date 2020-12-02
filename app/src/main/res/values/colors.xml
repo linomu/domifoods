@@ -7,5 +7,6 @@
     <color name="blanco">#FFF</color>
     <color name="negro">#000</color>
     <color name="rojo">#D50000</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="rojoClaro">#EF5250</color>
 </resources>
