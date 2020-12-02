@@ -56,7 +56,7 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
         holder.tv_name.setText(categories.get(position).getName());
         Log.i("foto","url categoria: "+categories.get(position).getImage());
         mPicasso.load(RetrofitClient.url+categories.get(position).getImage())
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_category);
         holder.img_category.setOnClickListener(new View.OnClickListener() {

@@ -1,4 +1,4 @@
- package com.unicauca.domifoods.fragments;
+package com.unicauca.domifoods.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,7 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +71,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
     private SwipeRefreshLayout swipeProducts;
     private static final String ID_RESTAURANT_PRODUCTS = "id_restaurant_products";
 
-
+    private LinearLayout category_executive;
     private String id_restaurant;
 
     // Required empty public constructor
@@ -112,6 +115,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
 
         /*Variable Initialization */
+
         img_restaurant_icon = view.findViewById(R.id.img_restaurant_icon);
         img_restaurant_product_bg = view.findViewById(R.id.img_restaurant_product_bg);
         tv_restaurant_name = view.findViewById(R.id.tv_restaurant_name);
@@ -145,8 +149,6 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         //fillOutTheProducts();
 
 
-
-
     }
 
     public void setUpInfoRestaurant() {
@@ -161,7 +163,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     RestaurantResponse restaurantResponse = response.body();
                     Log.i("Lino", "Restaurant info:" + restaurantResponse.toString());
                     Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
-                    Log.i("foto","url restaurante: "+restaurantResponse.getImage());
+                    Log.i("foto", "url restaurante: " + restaurantResponse.getImage());
                     tv_restaurant_name.setText(restaurantResponse.getName());
                     tv_info_restaurant.setText(restaurantResponse.getAddress_location() + "\n" + restaurantResponse.getPhone_num());
 
@@ -215,25 +217,45 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                 if (response.isSuccessful()) {
                     Log.i("test", "The response was successful. Code: " + response.code());
                     List<CategoriesResponse> categoriesByResponse = response.body();
+
+
                     int position = 0;
+                    int thereIsExecutiveCategory = 0;
                     for (CategoriesResponse category : categoriesByResponse) {
                         Log.i("Lino", category.toString());
-                        categories.add(new Category(category.getId(), category.getName(), category.getDescription(), category.getImage(), category.getDate_creation()));
-                        if (position == 0) {
-                            ID_CATEGORY = category.getId();
-                            Log.i("Lino", "ID_CATEGORIA: " + ID_CATEGORY);
-                            fillOutTheProducts();
+                        if (category.isType_executive()) {
+                            thereIsExecutiveCategory++;
+                            if (thereIsExecutiveCategory == 1) {
+                                //category_executive.setVisibility(View.VISIBLE);
+
+                                categories.add(new Category(-300, "Ejecutivo", "", category.getImage(), category.getDate_creation()));
+
+                            }
+                        } else {
+
+                            categories.add(new Category(category.getId(), category.getName(), category.getDescription(), category.getImage(), category.getDate_creation()));
+                            if (position == 0) {
+                                ID_CATEGORY = category.getId();
+                                Log.i("Lino", "ID_CATEGORIA: " + ID_CATEGORY);
+                                fillOutTheProducts();
+                            }
+                            position++;
                         }
-                        position++;
                     }
+
+
                     AdapterCategories adapterCategories = new AdapterCategories(categories);
                     adapterCategories.setListener(new AdapterCategories.CategoryListener() {
                         @Override
                         public void categorySelected(int idCategory) {
                             Toast.makeText(getContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
-                            ID_CATEGORY = idCategory;
-
-                            fillOutTheProducts();
+                            if(idCategory==-300){
+                                Toast.makeText(getContext(), "Se llama a la actividad", Toast.LENGTH_SHORT).show();
+                            }else{
+                                ID_CATEGORY = idCategory;
+                                fillOutTheProducts();
+                            }
+                            
                         }
                     });
                     recyclerView.setAdapter(adapterCategories);
@@ -264,7 +286,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         products = new ArrayList<>();
         startProgressDialogProduct();
 
-        Log.i("Lino", "ID_RESTAURANT: "+ID_RESTAURANT);
+        Log.i("Lino", "ID_RESTAURANT: " + ID_RESTAURANT);
         Call<List<ProductResponse>> call = RetrofitClient.getInstance(getContext()).getApi().getProductsByCategoryAndRestaurant(ID_RESTAURANT, ID_CATEGORY);
         call.enqueue(new Callback<List<ProductResponse>>() {
             @Override
@@ -277,9 +299,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                         Log.i("productoinfo", product.toString());
 
                         //products.add(new Product(product.getName(), product.getImage(), (float) product.getPrice()));
-                        products.add(new Product(product.getId(), product.getCategory(),ID_RESTAURANT, product.getName(), product.getDescription(), product.getImage(), (float) product.getPrice()));
+                        products.add(new Product(product.getId(), product.getCategory(), ID_RESTAURANT, product.getName(), product.getDescription(), product.getImage(), (float) product.getPrice()));
                     }
-                    AdapterProducts adapterProducts = new AdapterProducts(products,getActivity());
+                    AdapterProducts adapterProducts = new AdapterProducts(products, getActivity());
                     recyclerView_products.setAdapter(adapterProducts);
                 } else {
                     Log.i("Lino", "The response wasn't successful. Code: " + response.code());

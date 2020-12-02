@@ -121,6 +121,7 @@ public class PaymentActivity extends AppCompatActivity {
                     
                 } else {
                     Log.i("payment", "The response getClientDetail wasn't successful. Code: " + response.code());
+                    Toast.makeText(PaymentActivity.this, "The response getClientDetail wasn't successful. Code: " + response.code(), Toast.LENGTH_LONG).show();
                     stopProgressDialog();
                 }
             }
@@ -128,6 +129,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Client_detail_response> call, Throwable t) {
                 Log.i("Lino", "OnFailure SetUpRestaurant Info: " + t.getMessage());
+                Toast.makeText(PaymentActivity.this, "OnFailure SetUpRestaurant Info: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 stopProgressDialog();
             }
         });
@@ -153,6 +155,7 @@ public class PaymentActivity extends AppCompatActivity {
                 } else {
                     try {
                         s = response.errorBody().string();
+                        Toast.makeText(PaymentActivity.this, "Uso del api de createOrder: " + s, Toast.LENGTH_LONG).show();
                         Log.i("payment", "Uso del api de createOrder: " + s);
                         stopProgressDialog();
                     } catch (IOException e) {
@@ -166,6 +169,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<OrderResponse> call, Throwable t) {
                 Log.i("payment", "Fallo: " + t.getMessage());
+                Toast.makeText(PaymentActivity.this, "Fallo: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 stopProgressDialog();
             }
         });
@@ -198,6 +202,7 @@ public class PaymentActivity extends AppCompatActivity {
                     } else {
                         try {
                             s = response.errorBody().string();
+                            Toast.makeText(PaymentActivity.this, "Uso del api de ProductOrder: " + s, Toast.LENGTH_LONG).show();
                             Log.i("payment", "Uso del api de ProductOrder: " + s);
                             stopProgressDialog();
                         } catch (IOException e) {
@@ -211,6 +216,7 @@ public class PaymentActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ProductOrderResponse> call, Throwable t) {
                     Log.i("payment", "Fallo en ProductOrder: " + t.getMessage());
+                    Toast.makeText(PaymentActivity.this, "Fallo en ProductOrder: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 
