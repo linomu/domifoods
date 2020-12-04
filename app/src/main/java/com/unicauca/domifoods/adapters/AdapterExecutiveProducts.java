@@ -16,39 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.apiUser.RetrofitClient;
-import com.unicauca.domifoods.domain.Category;
 import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
+import com.unicauca.domifoods.modelsProduct.ProductResponse;
 import com.unicauca.domifoods.settings.CircleTransform;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.holderCategories> {
-    /*Variables that we're gonna use for categories */
-    ArrayList<CategoriesResponse> categories;
+public class AdapterExecutiveProducts extends RecyclerView.Adapter<AdapterExecutiveProducts.holderCategories> {
+    /*Variables that we're gonna use for executive products */
+    ArrayList<ProductResponse> products;
     Picasso mPicasso;
-
-    CategoryListener listener;
     Context context;
-    //Interface
-    public interface CategoryListener{
-        void categorySelected(int idCategory);
-    }
-    //Bind
-    public void setListener(CategoryListener listener) {
-        this.listener = listener;
-    }
 
-    public AdapterCategories(ArrayList<CategoriesResponse> categories, Context context) {
-        this.categories = categories;
+    public AdapterExecutiveProducts(ArrayList<ProductResponse> products, Context context) {
+        this.products = products;
         this.context = context;
     }
 
     @NonNull
     //methods p
     @Override
-    public AdapterCategories.holderCategories onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterExecutiveProducts.holderCategories onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categories , parent, false);
         mPicasso = new Picasso.Builder(view.getContext())
                 .indicatorsEnabled(false)
@@ -57,26 +45,14 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterCategories.holderCategories holder, int position) {
-        holder.tv_name.setText(categories.get(position).getName());
-        Log.i("foto","url categoria: "+categories.get(position).getImage());
-        mPicasso.load(RetrofitClient.url+categories.get(position).getImage())
-        //mPicasso.load(categories.get(position).getImage())
+    public void onBindViewHolder(@NonNull AdapterExecutiveProducts.holderCategories holder, int position) {
+        holder.tv_name.setText(products.get(position).getName());
+        Log.i("foto","url categoria: "+products.get(position).getImage());
+        mPicasso.load(RetrofitClient.url+products.get(position).getImage())
+        //mPicasso.load(products.get(position).getImage())
                 //.placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_category);
-        holder.img_category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(listener!=null) {
-                    Log.i("Lino", "Método on click. Listener != null. ID:"+categories.get(position).getId());
-                    listener.categorySelected(categories.get(position).getId());
-                }else{
-                    Log.i("Lino", "Listener es null");
-                }
-            }
-        });
-
 
 
     }
@@ -84,7 +60,7 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
     @Override
     //method get size for categories
     public int getItemCount() {
-        return categories.size();
+        return products.size();
     }
 
     public class holderCategories extends RecyclerView.ViewHolder {
@@ -95,28 +71,21 @@ public class AdapterCategories extends RecyclerView.Adapter<AdapterCategories.ho
             super(itemView);
             img_category = itemView.findViewById(R.id.img_category);
             tv_name= itemView.findViewById(R.id.tv_name_category);
-            /*
             linear_element = itemView.findViewById(R.id.linear_element);
             linear_element.setOnLongClickListener(longClickListener);
-            img_category.setOnLongClickListener(longClickListener);
-            */
-
         }
 
-        /*
         View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
 
                 //ClipData data = ClipData.newPlainText("",String.valueOf(categories.get(getLayoutPosition()).getName()));
-                ClipData data = ClipData.newPlainText("",String.valueOf(categories.get(getLayoutPosition()).getId()));
+                ClipData data = ClipData.newPlainText("",String.valueOf(products.get(getLayoutPosition()).getId()));
                 View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(view);
                 view.startDrag(data,myShadowBuilder,view,0);
                 return true;
             }
         };
-        */
-
     }
 }

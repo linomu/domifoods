@@ -10,11 +10,9 @@
     android:foreground="?android:attr/selectableItemBackground">
     <ImageView
         android:id="@+id/img_category"
-        android:clickable="true"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/burgerking"
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_gravity="center"
         android:layout_margin="10dp"/>
     <TextView

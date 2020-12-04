@@ -66,6 +66,7 @@ public interface ApiUser {
     // method for the list of categories for restaurnts this send  id
     @GET("restaurants/api/restaurants/{id}/categories/")
     Call<List<CategoriesResponse>>getCategoriesByRestaurant(@Path("id") int idRestaurant);
+
     // method for the list of categories for restaurnts this send  id and id resaurants
     @GET("/restaurants/api/restaurants/{id}/category/{idCat}/products/")
     Call<List<ProductResponse>>getProductsByCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
@@ -88,4 +89,16 @@ public interface ApiUser {
     // method for the   of restaurnts
     @GET("restaurants")
     Call<GetRestaurant> list();
-}
+
+
+
+    //Obtener los productos de una categoria ejecutiva X y un restaurante Y
+     @GET("/restaurants/api/restaurants/{id}/category-executive/{idCat}/products/")
+     Call<List<ProductResponse>>getProductsByExecutiveCategoryAndRestaurant(@Path("id") int idRestaurant, @Path("idCat") int idCategoria);
+
+
+     //Obtener todas las categorias ejecutivas para un restaurnte con id x
+     @GET("/restaurants/api/restaurants/{id}/category-executive/")
+     Call<List<CategoriesResponse>>getExecutiveCategoriesByRestaurantId(@Path("id") int idRestaurant);
+
+ }
