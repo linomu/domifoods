@@ -238,8 +238,13 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
 
     @Override
     public void itemTouchOnMode(int oldPosition, int newPosition) {
-        list_selected_products.add(newPosition,list_selected_products.remove(oldPosition));
-        adapter.notifyItemMoved(oldPosition,newPosition);
+
+       list_selected_products.add(newPosition,list_selected_products.remove(oldPosition));
+       adapter.notifyItemMoved(oldPosition,newPosition);
+        Log.i("list","........................");
+       for (SelectProduct selectProduct : list_selected_products){
+           Log.i("list",selectProduct.getName());
+       }
     }
 
     @Override
