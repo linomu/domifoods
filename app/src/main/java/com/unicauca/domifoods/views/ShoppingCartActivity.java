@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallback;
+import com.unicauca.domifoods.CallBacks.MyItemTouchHelperCallbackCar;
 import com.unicauca.domifoods.MainActivity;
 import com.unicauca.domifoods.R;
 import com.unicauca.domifoods.activities.OrderAddressActivity;
@@ -79,7 +79,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
         adapterListProducts.prueba(this);
 
         //borrar item David
-        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(this);
+        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallbackCar(this);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerView);
         //---
