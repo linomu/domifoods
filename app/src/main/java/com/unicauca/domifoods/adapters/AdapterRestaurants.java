@@ -59,7 +59,7 @@ public class AdapterRestaurants extends RecyclerView.Adapter<AdapterRestaurants.
         holder.tv_nombre_restaurant.setText(restaurants.get(position).getName());
         mPicasso.load(restaurants.get(position).getImage())
                 .fit()
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .into(holder.imageView);
         //Trigger
         holder.cardView_restaurant.setOnClickListener(new View.OnClickListener() {

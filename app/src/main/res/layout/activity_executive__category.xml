@@ -23,7 +23,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background_hamburguesa_blurred" />
+            app:srcCompat="@drawable/restaurant_blur" />
 
 
         <ImageView
@@ -35,7 +35,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/burgerking" />
+            />
 
         <TextView
             android:id="@+id/tv_date"
@@ -74,7 +74,7 @@
             android:fontFamily="@font/nimbusbol"
             android:text="Menú del día!"
             android:textColor="#F10B00"
-            android:textSize="20sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_executive_categories" />
@@ -102,11 +102,39 @@
             android:fontFamily="@font/nimbusbol"
             android:text="Mi almuerzo"
             android:textColor="#F10B00"
-            android:textSize="20sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycler_executive_products" />
+
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/nimbusbol"
+            android:text="Arrastra aquí tu comida!"
+            android:textAlignment="center"
+            android:textColor="#F10B00"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
+            app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+            app:layout_constraintTop_toTopOf="@+id/recycler_products" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_products"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_products"
+            app:layout_constraintStart_toStartOf="@+id/recycler_products"
+            app:layout_constraintTop_toTopOf="@+id/recycler_products"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="poocooking.json"
+            app:lottie_loop="true" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_products"

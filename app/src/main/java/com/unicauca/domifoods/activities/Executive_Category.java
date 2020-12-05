@@ -76,7 +76,7 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
         tv_date = findViewById(R.id.tv_date);
         /*Recycler Selected Products*/
         recyclerViewSelectedProducts = findViewById(R.id.recycler_products);
-        layout = findViewById(R.id.layout_main_activity);//prueba
+        layout = findViewById(R.id.layout_executive_category);//prueba
         list_selected_products = new ArrayList<>();///en este arreglo estan los productos a eliminar
 
 
@@ -257,7 +257,7 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
                     adapterExecutiveCategories.setListener(new AdapterExecutiveCategories.CategoryListener() {
                         @Override
                         public void categorySelected(int idCategory) {
-                            Toast.makeText(getApplicationContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
                             ID_CATEGORY = idCategory;
                             //por medi de este metodo, le notifico al recycler view que hubo uncmabio, or lo tanto se vuelve a ejecutar el on bind view holder
                             adapterExecutiveCategories.notifyDataSetChanged();

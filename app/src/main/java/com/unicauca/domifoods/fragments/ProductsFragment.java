@@ -163,7 +163,9 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
                     Log.i("Lino", "The response RestaurantInfo was successful. Code: " + response.code());
                     RestaurantResponse restaurantResponse = response.body();
                     Log.i("Lino", "Restaurant info:" + restaurantResponse.toString());
-                    Picasso.with(getContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
+                    Picasso.with(getContext()).load(restaurantResponse.getImage())
+                            //.placeholder(R.drawable.test)
+                            .transform(new CircleTransform()).into(img_restaurant_icon);
                     Log.i("foto", "url restaurante: " + restaurantResponse.getImage());
                     tv_restaurant_name.setText(restaurantResponse.getName());
                     tv_info_restaurant.setText(restaurantResponse.getAddress_location() + "\n" + restaurantResponse.getPhone_num());
@@ -245,10 +247,15 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
 
 
                     AdapterCategories adapterCategories = new AdapterCategories(categories, getContext());
+
+                    /**
+                     * In this method, we join our adapter with the listener's behavior. Then, when the user selects
+                     * a category, we obtain that ID here.
+                     */
                     adapterCategories.setListener(new AdapterCategories.CategoryListener() {
                         @Override
                         public void categorySelected(int idCategory) {
-                            Toast.makeText(getContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), "ID Category: " + idCategory, Toast.LENGTH_SHORT).show();
                             if(idCategory==-300){
                                 startActivity(new Intent(getContext(), Executive_Category.class));
                             }else{
@@ -383,6 +390,7 @@ public class ProductsFragment extends Fragment implements BottomNavigationView.O
         progDailogProducts.dismiss();
         SetUpTheScreen();
     }
+
 
     public void SetUpTheScreen() {
         this.getActivity().getWindow().getDecorView().setSystemUiVisibility(

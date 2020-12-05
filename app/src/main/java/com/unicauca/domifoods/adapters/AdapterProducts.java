@@ -61,7 +61,7 @@ public class AdapterProducts extends RecyclerView.Adapter<AdapterProducts.holder
         holder.name_product.setText(products.get(position).getName());
         holder.price.setText("$ "+products.get(position).getPrice().toString());
         mPicasso.load(RetrofitClient.url+products.get(position).getImage())
-                .placeholder(R.drawable.test)
+                //.placeholder(R.drawable.test)
                 .transform(new CircleTransform())
                 .into(holder.img_product);
         holder.card_view_product.setOnClickListener(new View.OnClickListener() {
