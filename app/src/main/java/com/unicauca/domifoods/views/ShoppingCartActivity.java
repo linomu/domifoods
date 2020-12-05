@@ -134,7 +134,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements CallBackI
         final ProductShoppingCart deleteItem = products.get(viewHolder.getAdapterPosition());
         final int deletedIndex = viewHolder.getAdapterPosition();
         adapterListProducts.removeItem(viewHolder.getAdapterPosition());
-        Snackbar snackbar = Snackbar.make(layout, "Acabas de eliminar el producto "+nombre +" de la lista", Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(layout, "Acabas de eliminar el producto "+nombre +" de la lista", 4000);
+        //Snackbar snackbar = Snackbar.make(layout, "Acabas de eliminar el producto "+nombre +" de la lista", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("CANCELAR", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

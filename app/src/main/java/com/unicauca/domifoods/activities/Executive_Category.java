@@ -34,8 +34,14 @@ import com.unicauca.domifoods.domain.SelectProduct;
 import com.unicauca.domifoods.interfaces.CallBackItemTouch;
 import com.unicauca.domifoods.modelsCategory.CategoriesResponse;
 import com.unicauca.domifoods.modelsProduct.ProductResponse;
+import com.unicauca.domifoods.modelsRestaurantLino.RestaurantResponse;
+import com.unicauca.domifoods.settings.CircleTransform;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,11 +64,16 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
     ImageView img_restaurant_icon;
     AdapterSelectedProducts adapter;
     private ProgressDialog progDailogProducts;
+    TextView tv_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_executive__category);
+
+
+
+        tv_date = findViewById(R.id.tv_date);
         /*Recycler Selected Products*/
         recyclerViewSelectedProducts = findViewById(R.id.recycler_products);
         layout = findViewById(R.id.layout_main_activity);//prueba
@@ -94,12 +105,21 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
         //tv_drop = findViewById(R.id.tv_drop);
         //tv_drop.setOnDragListener(onDragListener);
 
-        img_restaurant_icon = findViewById(R.id.img_restaurant_icon);
+        img_restaurant_icon = findViewById(R.id.img_restaurant_executy_category);
         mPicasso = new Picasso.Builder(Executive_Category.this).indicatorsEnabled(false).build();
         products = new ArrayList<>();
         recyclerViewProducts = findViewById(R.id.recycler_executive_products);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Executive_Category.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewProducts.setLayoutManager(layoutManager);
+
+
+        /**
+         * This method makes a retrofit Request to get the restaurant's info. Inside in it, we
+         * update the imageView with the restaurant's image.
+         */
+        setUpInfoRestaurant();
+
+        setUpDate();
 
         fillOutTheCategories();
 
@@ -121,6 +141,89 @@ public class Executive_Category extends AppCompatActivity implements CallBackIte
         recyclerViewProducts.setAdapter(adapterExecutiveProducts);
          */
 
+    }
+
+    private void setUpDate() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        String[] parts = formatter.format(date).split("-");
+        String year = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        switch (Integer.parseInt(month)){
+            case 1:
+                parts[1] = "Enero";
+                break;
+            case 2:
+                parts[1] = "Febrero";
+                break;
+            case 3:
+                parts[1] = "Marzo";
+                break;
+            case 4:
+                parts[1] = "Abril";
+                break;
+            case 5:
+                parts[1] = "Mayo";
+                break;
+            case 6:
+                parts[1] = "Junio";
+                break;
+            case 7:
+                parts[1] = "Julio";
+                break;
+            case 8:
+                parts[1] = "Agosto";
+                break;
+            case 9:
+                parts[1] = "Septiembre";
+                break;
+            case 10:
+                parts[1] = "Octubre";
+                break;
+            case 11:
+                parts[1] = "Noviembre";
+                break;
+            case 12:
+                parts[1] = "Diciembre";
+                break;
+        }
+        Log.i("dateToShow", parts[2] + " de " + parts[1] + " del "+ parts[0]);
+        tv_date.setText(parts[2] + " de " + parts[1] + " del "+ parts[0]);
+        long millis=System.currentTimeMillis();
+        java.util.Date daate=new java.util.Date(millis);
+        Log.i("dateToShow",String.valueOf(daate));
+
+    }
+
+    public void setUpInfoRestaurant() {
+        Log.i("Lino", "Estoy Dentro de setUpInfoRestaurant");
+        Call<RestaurantResponse> call = RetrofitClient.getInstance(getApplicationContext()).getApi().getInfoRestaurantByID(ID_RESTAURANT);
+        call.enqueue(new Callback<RestaurantResponse>() {
+            @Override
+            public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
+                Log.i("Lino", "I'm inside OnResponse RestaurantInfo");
+                if (response.isSuccessful()) {
+                    Log.i("Lino", "The response RestaurantInfo was successful. Code: " + response.code());
+                    RestaurantResponse restaurantResponse = response.body();
+                    Log.i("Lino", "Restaurant info:" + restaurantResponse.toString());
+                    Picasso.with(getApplicationContext()).load(restaurantResponse.getImage()).placeholder(R.drawable.test).transform(new CircleTransform()).into(img_restaurant_icon);
+                    Log.i("foto", "url restaurante: " + restaurantResponse.getImage());
+                    /*tv_restaurant_name.setText(restaurantResponse.getName());
+                    tv_info_restaurant.setText(restaurantResponse.getAddress_location() + "\n" + restaurantResponse.getPhone_num());*/
+
+                } else {
+                    Log.i("Lino", "The response RestaurantInfo wasn't successful. Code: " + response.code());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RestaurantResponse> call, Throwable t) {
+                Log.i("Lino", "OnFailure SetUpRestaurant Info: " + t.getMessage());
+            }
+        });
     }
 
     public void fillOutTheCategories() {
