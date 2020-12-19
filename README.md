@@ -6,4 +6,5 @@ El aplicativo móvil Domi Foods es una aplicación que presenta servicios tales 
 -	La mejora fue atendida con éxito.
 
 Entrega:
-Se atendió la mejora en el cuarto Sprint con una dinámica diferente a las que se realizaron en los Sprint uno, dos y tres. Las actualizaciones y commits relacionadas a mencionada mejora fueron realizadas por el administrador del repositorio.   
+Se atendió la mejora en el cuarto Sprint con una dinámica diferente a las que se realizaron en los Sprint uno, dos y tres. Las actualizaciones y commits relacionadas a la mejora fueron realizadas por el administrador del repositorio.  
+
